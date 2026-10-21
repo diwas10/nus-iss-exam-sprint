@@ -61,7 +61,8 @@ class LearningApp {
     this.initTheme();
 
     // 3. Render Course Switcher in Sidebar
-    this.renderCourseSelector();
+    // Single 10-Day Sprint Curriculum
+    
 
     // 4. Render Days Section (Directly below course selector)
     this.renderDaysSelector();
@@ -192,14 +193,10 @@ class LearningApp {
   }
 
   getCurrentCourse() {
-    if (this.courses && this.courses.length > 0) {
-      const found = this.courses.find(c => c.id === this.currentCourseId);
-      if (found) return found;
-    }
     return {
-      id: 'intelligent-sensing-systems',
-      title: 'Intelligent Sensing Systems',
-      modules: window.ISSM_CURRICULUM ? window.ISSM_CURRICULUM.days : []
+      id: 'ten-day-sprint',
+      title: '🏆 NUS ISS 10-Day A+ Exam Sprint (PRS & IRS)',
+      modules: window.SPRINT_CURRICULUM ? window.SPRINT_CURRICULUM.days : []
     };
   }
 
@@ -261,6 +258,8 @@ class LearningApp {
 
     // 3. Update topbar breadcrumbs
     const topbarDay = document.getElementById('topbar-active-day');
+    const breadcrumbRoot = document.querySelector('#topbar-breadcrumbs span:first-child');
+    if (breadcrumbRoot) breadcrumbRoot.textContent = '10-Day A+ Exam Sprint (PRS & IRS)';
     if (topbarDay && mod) {
       topbarDay.textContent = mod.title || `Day ${mod.day || mod.dayNumber}`;
     }
@@ -328,6 +327,7 @@ class LearningApp {
         { id: 'level-3', icon: 'activity', title: '3. Evaluation & Lift Studio', subtitle: 'Confusion Matrix, ROC & Cumulative Lift' },
         { id: 'level-4', icon: 'code', title: '4. NUS ISS Workshop Lab', subtitle: 'N-Queens, Russian Cities A* & Diabetes' },
         { id: 'level-5', icon: 'shield-check', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & 5 Examiner Traps' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-2-signals-rules') {
@@ -338,6 +338,7 @@ class LearningApp {
         { id: 'level-3', icon: 'git-merge', title: '3. Dynamic Time Warping', subtitle: 'Elastic Alignment Matrix, ECG & Singapore GDP' },
         { id: 'level-4', icon: 'shield-check', title: '4. Hospital Triage Rule Engine', subtitle: 'Forward Chaining, Conflict Resolution & Guardrails' },
         { id: 'level-5', icon: 'award', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & Examiner Trap Decoders' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-3-transforms-bayes') {
@@ -348,6 +349,7 @@ class LearningApp {
         { id: 'level-3', icon: 'eye', title: '3. Audio & Vision Cognition', subtitle: "Marr's 3 Levels & Mel-Scale Filterbanks" },
         { id: 'level-4', icon: 'git-branch', title: '4. Bayesian Belief Networks', subtitle: 'Burglary CPT, D-Separation & EM Toy' },
         { id: 'level-5', icon: 'shield-check', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & 5 Examiner Traps' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-4-geometry-dim') {
@@ -358,6 +360,7 @@ class LearningApp {
         { id: 'level-3', icon: 'rotate-3d', title: '3. PCA vs LDA Studio', subtitle: 'Variance Maximization vs Fisher Criterion' },
         { id: 'level-4', icon: 'archive', title: '4. Case-Based Reasoning (CBR)', subtitle: '4R Cycle & Scikit-Learn Python Labs' },
         { id: 'level-5', icon: 'shield-alert', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & 5 Examiner Traps' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-5-clusters-recommenders') {
@@ -368,6 +371,7 @@ class LearningApp {
         { id: 'level-3', icon: 'film', title: '3. Collaborative Filtering', subtitle: 'Mean-Centered CF & SVD Matrix' },
         { id: 'level-4', icon: 'sliders', title: '4. Deep Recommenders', subtitle: 'Implicit Feedback & Neural CF (NCF)' },
         { id: 'level-5', icon: 'shield-alert', title: '5. The A+ Exam Crucible', subtitle: 'Exam Traps & Mid-Course Synthesis' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-6-neural-foundations') {
@@ -378,6 +382,7 @@ class LearningApp {
         { id: 'level-3', icon: 'layers', title: '3. 2D CNN Architecture', subtitle: 'Dimensions, Strides & Parameter Counting' },
         { id: 'level-4', icon: 'bar-chart-2', title: '4. Explainable AI & Labs', subtitle: 'SHAP Waterfall, LIME & PyTorch CNN' },
         { id: 'level-5', icon: 'shield-alert', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & 5 Examiner Traps' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-7-sequences-time') {
@@ -388,6 +393,7 @@ class LearningApp {
         { id: 'level-3', icon: 'compass', title: '3. NLP Vector Semantics', subtitle: 'Word2Vec CBOW & Vector Arithmetic' },
         { id: 'level-4', icon: 'code', title: '4. NUS ISS Workshop Lab', subtitle: 'PyTorch Autoencoder & Keras LSTM' },
         { id: 'level-5', icon: 'shield-alert', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & 5 Examiner Traps' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-8-transformers-graphs') {
@@ -398,6 +404,7 @@ class LearningApp {
         { id: 'level-3', icon: 'compass', title: '3. TransE Link Prediction', subtitle: 'KGE Translation Space & MRR Metrics' },
         { id: 'level-4', icon: 'git-merge', title: '4. GraphRAG vs Vector RAG', subtitle: 'Neo4j Cypher & Multi-Hop Traversal' },
         { id: 'level-5', icon: 'shield-alert', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & 5 Examiner Traps' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-9-optimization-agents') {
@@ -408,6 +415,7 @@ class LearningApp {
         { id: 'level-3', icon: 'brain', title: '3. Cognitive Memory', subtitle: 'ACT-R & ReAct Agent Loop' },
         { id: 'level-4', icon: 'code', title: '4. NUS ISS Workshop Lab', subtitle: 'Python GA & ReAct Agent' },
         { id: 'level-5', icon: 'shield-alert', title: '5. The A+ Exam Crucible', subtitle: 'Formula Cheat Sheet & 5 Traps' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Slide Mastery Quizzes', subtitle: '10 high-yield exam questions' }
       ];
     } else if (this.currentDayId === 'day-10-ensembles-crucible') {
@@ -419,6 +427,7 @@ class LearningApp {
         { id: 'level-4', icon: 'shield-check', title: '4. Paper 2 (IRS) Bible', subtitle: 'MR, CS & RS Cheatsheet' },
         { id: 'level-5', icon: 'code', title: '5. NUS ISS Workshop Lab', subtitle: 'AdaBoost & Stacking Classifier' },
         { id: 'level-6', icon: 'file-check', title: '6. Nov 2026 Sample Papers', subtitle: 'Official IRS (50m) & PRS (40m) Solutions' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
         { id: 'quizzes', icon: 'award', title: 'Grand Mock Exam (20Q)', subtitle: 'Comprehensive A+ Exam Crucible' }
       ];
     } else if (this.currentDayId === 'day-4-multimodal') {
@@ -634,6 +643,10 @@ class LearningApp {
     if (levelId === 'quizzes') {
       contentArea.innerHTML = `<div id="quiz-mount-point"></div>`;
       window.QuizEngine.render('quiz-mount-point', quizData);
+    } else if (levelId === 'daily-revision') {
+      this.renderDailyRevision(contentArea);
+      contentArea.innerHTML = `<div id="quiz-mount-point"></div>`;
+      window.QuizEngine.render('quiz-mount-point', quizData);
     } else if (levelId === 'research') {
       contentArea.innerHTML = `<div id="research-mount-point"></div>`;
       window.ResearchHub.render('research-mount-point', researchData);
@@ -762,7 +775,7 @@ class LearningApp {
     const dayId = this.currentDayId;
     let order = [];
     if (dayId === 'day-10-ensembles-crucible') {
-      order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'quizzes'];
+      order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'daily-revision', 'quizzes'];
     } else if ([
       'day-1-foundations',
       'day-2-signals-rules',
@@ -774,7 +787,7 @@ class LearningApp {
       'day-8-transformers-graphs',
       'day-9-optimization-agents'
     ].includes(dayId)) {
-      order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'quizzes'];
+      order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'daily-revision', 'quizzes'];
     } else if (dayId === 'day-4-multimodal') {
       order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'level-7', 'quizzes', 'research', 'slide-viewer', 'day4-audit'];
     } else if (dayId === 'day-3-ml') {
@@ -989,6 +1002,77 @@ class LearningApp {
         if (targetContent) targetContent.classList.add('active');
       });
     });
+  }
+
+
+  renderDailyRevision(contentArea) {
+    const dayId = this.currentDayId;
+    const rev = window.DAILY_REVISIONS && window.DAILY_REVISIONS[dayId] ? window.DAILY_REVISIONS[dayId] : {
+      title: "Daily Revision & Active Recall",
+      subtitle: "15-minute quick revision of core formulas, flashcards, and exam traps",
+      summary: "Review these fundamental definitions and step-by-step algorithms to lock in full marks for your exam.",
+      keyFormulas: [],
+      flashcards: [],
+      examTraps: []
+    };
+
+    let formulasHtml = (rev.keyFormulas || []).map(f => {
+      return '<div style="background:var(--bg-secondary); border-radius:8px; padding:14px; border-left:3px solid var(--accent-primary);">' +
+             '<div style="font-weight:700; color:var(--accent-primary); margin-bottom:6px; font-size:0.88rem;">' + f.name + '</div>' +
+             '<div style="font-size:1.05rem; margin:8px 0; text-align:center;">$' + f.formula + '$</div>' +
+             '<div style="font-size:0.8rem; color:var(--text-secondary); line-height:1.45;">' + f.note + '</div>' +
+             '</div>';
+    }).join('');
+
+    let flashcardsHtml = (rev.flashcards || []).map((card, i) => {
+      return '<div class="flashcard-box" id="flashcard-' + i + '" onclick="const ans = this.querySelector(\'div:last-child\'); ans.style.display = (ans.style.display===\'none\'?\'block\':\'none\');" style="cursor:pointer; background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:10px; padding:16px; transition:all 0.25s ease;">' +
+             '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
+             '<span class="badge-tech" style="font-size:0.75rem;">Card ' + (i+1) + '</span>' +
+             '<span style="font-size:0.75rem; color:var(--text-muted);"><i data-lucide="flip-horizontal"></i> Click to Toggle Answer</span>' +
+             '</div>' +
+             '<div style="font-weight:600; font-size:0.9rem; margin-bottom:12px; color:var(--text-primary); line-height:1.5;">' + card.q + '</div>' +
+             '<div style="display:none; border-top:1px dashed var(--border-color); padding-top:10px; font-size:0.85rem; color:#10b981; line-height:1.55;"><strong>Exam Answer:</strong> ' + card.a + '</div>' +
+             '</div>';
+    }).join('');
+
+    let trapsHtml = (rev.examTraps || []).map(t => {
+      return '<li style="margin-bottom:6px;">' + t + '</li>';
+    }).join('');
+
+    contentArea.innerHTML = '<div class="level-header-banner mb-4" style="border-left: 4px solid var(--accent-primary);">' +
+      '<div class="level-badge-tag"><i data-lucide="repeat"></i> 15-Minute Daily Active Recall</div>' +
+      '<h2>' + rev.title + '</h2>' +
+      '<p class="text-secondary">' + rev.subtitle + '</p>' +
+      '</div>' +
+      '<div class="lesson-card mb-4" style="background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(16,185,129,0.08));">' +
+      '<h3 style="margin-top:0;"><i data-lucide="sparkles"></i> High-Yield Executive Summary</h3>' +
+      '<p style="font-size:0.92rem; line-height:1.6; margin-bottom:0; color:var(--text-primary);">' + rev.summary + '</p>' +
+      '</div>' +
+      '<div class="lesson-card mb-4">' +
+      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">' +
+      '<h3 style="margin:0;"><i data-lucide="calculator"></i> Essential Exam Formulas & Definitions</h3>' +
+      '<span class="badge-tech">' + (rev.keyFormulas ? rev.keyFormulas.length : 0) + ' Core Formulas</span>' +
+      '</div>' +
+      '<div class="grid-2-col" style="gap:14px;">' + formulasHtml + '</div>' +
+      '</div>' +
+      '<div class="lesson-card mb-4">' +
+      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">' +
+      '<h3 style="margin:0;"><i data-lucide="help-circle"></i> Active Recall Flashcards (Click to Flip & Reveal)</h3>' +
+      '<span class="badge-tech">' + (rev.flashcards ? rev.flashcards.length : 0) + ' Question-Answer Cards</span>' +
+      '</div>' +
+      '<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">Test yourself! Read the scenario question, mentally state your answer, then click the card to reveal the exact model answer.</p>' +
+      '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">' + flashcardsHtml + '</div>' +
+      '</div>' +
+      '<div class="lesson-card mb-4" style="border-left:4px solid #f43f5e;">' +
+      '<h3 style="color:#f43f5e; margin-top:0;"><i data-lucide="shield-alert"></i> Examiner Trap Alert (Where Students Lose Points)</h3>' +
+      '<ul style="margin:8px 0 0 0; padding-left:20px; font-size:0.88rem; line-height:1.6; color:var(--text-secondary);">' + trapsHtml + '</ul>' +
+      '</div>' +
+      '<div class="level-footer-nav mt-5">' +
+      this.renderFooterButtons('daily-revision') +
+      '</div>';
+
+    window.renderLatex(contentArea);
+    if (window.lucide) window.lucide.createIcons();
   }
 
   renderComingSoon(courseName) {
