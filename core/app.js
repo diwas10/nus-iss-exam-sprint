@@ -106,6 +106,10 @@ class LearningApp {
 
     // 7. Setup global event listeners
     this.setupEventListeners();
+    
+    // Mobile Drawer Setup
+    this.setupMobileMenu();
+
 
     if (window.lucide) window.lucide.createIcons();
   }
@@ -1135,6 +1139,39 @@ class LearningApp {
       </div>
     `;
     if (window.lucide) window.lucide.createIcons();
+  }
+
+
+  setupMobileMenu() {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const overlay = document.getElementById('sidebar-overlay');
+    const sidebar = document.querySelector('.sidebar');
+
+    const toggleSidebar = () => {
+      if (sidebar) sidebar.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('active');
+    };
+
+    const closeSidebar = () => {
+      if (sidebar) sidebar.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
+    };
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', toggleSidebar);
+    }
+    if (overlay) {
+      overlay.addEventListener('click', closeSidebar);
+    }
+
+    // Auto-close sidebar on mobile after clicking any day or level link
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 992) {
+        if (e.target.closest('.day-card-btn') || e.target.closest('.nav-item')) {
+          closeSidebar();
+        }
+      }
+    });
   }
 
   setupEventListeners() {
