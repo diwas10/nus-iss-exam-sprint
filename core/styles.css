@@ -131,6 +131,10 @@ body {
   padding: 12px 14px 10px 14px;
   border-bottom: 1px solid var(--border-color);
   background: rgba(0, 0, 0, 0.08);
+  max-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
 }
 
 .sidebar-section-title {
@@ -159,6 +163,25 @@ body {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.3) transparent;
+}
+
+.days-list::-webkit-scrollbar {
+  width: 5px;
+}
+.days-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.days-list::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+  border-radius: 4px;
+}
+.days-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
 }
 
 .day-card-btn {
@@ -264,6 +287,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-color);
 }
 
 .badge-active-day {
@@ -297,8 +322,26 @@ body {
 
 .sidebar-nav {
   flex: 1;
+  min-height: 140px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 8px 10px 16px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.3) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.3);
+  border-radius: 4px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.6);
 }
 
 .nav-item {
@@ -350,6 +393,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 
 /* Main Content Area */
