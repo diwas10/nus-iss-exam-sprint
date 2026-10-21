@@ -1,0 +1,18 @@
+{
+  "id": "day-6-neural-foundations",
+  "title": "Day 6: Deep Learning: Perceptrons, MLPs, RBF/SOM & Convolutions",
+  "shortTitle": "Day 6: MLPs & Convolutions",
+  "subtitle": "Perceptrons, Backpropagation, Activations, RBF/SOM Networks, 2D CNN Parameter Math & Explainable AI (XAI)",
+  "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)",
+  "badge": "Live Interactive",
+  "summary": "Dive into deep representation learning. Experience exact step-by-step backpropagation replicating the NUS ISS ANN-BP-v006 benchmark spreadsheet. Compare MLP global hyperplanes with RBF localized Gaussian receptive fields and SOM competitive maps. Master CNN convolution dimensions, padding, stride, and exact parameter counting with biases, and inspect Explainable AI (SHAP, LIME, Grad-CAM).",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "badge": "Neural Foundations" },
+    { "id": "level-1", "title": "1. Perceptrons, MLPs & Exact Backprop Math", "badge": "Backprop Engine" },
+    { "id": "level-2", "title": "2. RBF Networks, GRNN & Self-Organizing Maps", "badge": "Local Fields & SOM" },
+    { "id": "level-3", "title": "3. 2D CNNs: Kernels, Stride & Parameter Counting", "badge": "Computer Vision" },
+    { "id": "level-4", "title": "4. Inductive Learning, XAI & Python Labs", "badge": "Explainability & Code" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible & Trap Decoders", "badge": "Exam Traps" },
+    { "id": "quizzes", "title": "Slide Mastery Quizzes", "badge": "Knowledge Check" }
+  ]
+}

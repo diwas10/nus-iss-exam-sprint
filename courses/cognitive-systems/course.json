@@ -1,0 +1,18 @@
+{
+  "id": "cognitive-systems",
+  "title": "Cognitive Systems",
+  "code": "CS",
+  "icon": "cpu",
+  "description": "Exploration of human-like cognitive architectures, natural language understanding, memory models, and knowledge representation.",
+  "department": "NUS Institute of Systems Science (ISS)",
+  "modules": [
+    {
+      "id": "intro",
+      "day": 1,
+      "title": "Foundations of Cognitive Architectures",
+      "subtitle": "Perception, memory, and reasoning systems",
+      "badge": "Ready for Content",
+      "duration": "1 Day"
+    }
+  ]
+}

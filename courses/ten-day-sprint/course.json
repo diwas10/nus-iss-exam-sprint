@@ -1,0 +1,100 @@
+{
+  "id": "ten-day-sprint",
+  "title": "🏆 10-Day A+ Exam Sprint (PRS + IRS)",
+  "code": "SPRINT",
+  "icon": "award",
+  "description": "The unified interactive learning playground designed to guarantee an A+ in Pattern Recognition Systems and Intelligent Reasoning Systems. Synergistic 4-hour daily modules with zero-math-fear visualizers.",
+  "department": "NUS Institute of Systems Science (ISS)",
+  "modules": [
+    {
+      "id": "day-1-foundations",
+      "day": 1,
+      "title": "Day 1: Foundations of Perception, Search & Classifiers",
+      "shortTitle": "Day 1: Perception & Search",
+      "subtitle": "LLMs vs Reasoning, A* Search (Admissibility & Consistency), k-NN, Logistic Regression, Naive Bayes & Confusion Matrix",
+      "badge": "Live Interactive",
+      "duration": "4 Hours (6 Levels + 3 Interactive Sandboxes + Quiz)"
+    },
+    {
+      "id": "day-2-signals-rules",
+      "day": 2,
+      "title": "Day 2: Signals, Sampling & Rule-Based Reasoning",
+      "shortTitle": "Day 2: Signals & Rule Engines",
+      "subtitle": "Nyquist Sampling & Aliasing, arPLS Baseline Drift, Dynamic Time Warping (DTW) & Hospital Emergency Triage Rule Engine",
+      "badge": "Live Interactive",
+      "duration": "4 Hours (6 Levels + 4 Interactive Sandboxes + Quiz)"
+    },
+    {
+      "id": "day-3-transforms-bayes",
+      "day": 3,
+      "title": "Day 3: Frequency Transforms, STFT & Bayesian Reasoning",
+      "shortTitle": "Day 3: Transforms & Bayes",
+      "subtitle": "Fourier Paradox, STFT Spectrograms, Wavelets MRA, Bayesian Belief Networks & Cognitive Architectures (ACT-R / SOAR)",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    },
+    {
+      "id": "day-4-geometry-dim",
+      "day": 4,
+      "title": "Day 4: Geometric Boundaries, Dimensionality & CBR",
+      "shortTitle": "Day 4: SVM & Dimensionality",
+      "subtitle": "Support Vector Machines (Kernels & Margins), PCA vs LDA, Sensor Energy Compaction & Case-Based Reasoning (CBR)",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    },
+    {
+      "id": "day-5-clusters-recommenders",
+      "day": 5,
+      "title": "Day 5: Clustering, Latent Factors & Recommenders",
+      "shortTitle": "Day 5: Clusters & Recommenders",
+      "subtitle": "K-Means, Hierarchical Linkage, DBSCAN, Market Basket Analysis (Apriori), Collaborative Filtering & Matrix Factorization",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    },
+    {
+      "id": "day-6-neural-foundations",
+      "day": 6,
+      "title": "Day 6: Deep Learning: Perceptrons, MLPs & Convolutions",
+      "shortTitle": "Day 6: MLPs & Convolutions",
+      "subtitle": "Perceptrons, Backpropagation, Gradient Descent, Activations (ReLU/Softmax), CNN Filters, Pooling & CIFAR-10",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    },
+    {
+      "id": "day-7-sequences-time",
+      "day": 7,
+      "title": "Day 7: Sequences, Time Series & Language Models",
+      "shortTitle": "Day 7: RNNs, LSTMs & Word Embeddings",
+      "subtitle": "Vanishing Gradients, LSTM Gating (Forget/Input/Output), 1D-CNNs, Word2Vec, GloVe & Semantic Embedding Spaces",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    },
+    {
+      "id": "day-8-transformers-graphs",
+      "day": 8,
+      "title": "Day 8: Transformers, Knowledge Graphs & GraphRAG",
+      "shortTitle": "Day 8: Transformers & Graphs",
+      "subtitle": "Self-Attention, Multi-Head Transformers, Knowledge Graph Embeddings (TransE / PyKEEN), Neo4j Cypher & Graph-RAG",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    },
+    {
+      "id": "day-9-optimization-agents",
+      "day": 9,
+      "title": "Day 9: Optimization, Multimodal Fusion & Agents",
+      "shortTitle": "Day 9: GA & Multimodal Agents",
+      "subtitle": "Genetic Algorithms (Crossover/Mutation/TSP), Early vs Late Sensor Fusion, RVM Digital Twin & Cognitive ReAct Agents",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    },
+    {
+      "id": "day-10-ensembles-crucible",
+      "day": 10,
+      "title": "Day 10: Ensembles, Grand Synthesis & Mock Exam Crucible",
+      "shortTitle": "Day 10: Ensembles & Grand Finale",
+      "subtitle": "Bagging (Random Forest), Boosting (AdaBoost), Stacking Meta-Learners, Model Selection & Complete A+ Exam Simulation",
+      "badge": "Syllabus Ready",
+      "duration": "4 Hours"
+    }
+  ]
+}

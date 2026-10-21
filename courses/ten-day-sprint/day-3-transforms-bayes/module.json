@@ -1,0 +1,18 @@
+{
+  "id": "day-3-transforms-bayes",
+  "day": 3,
+  "title": "Day 3: Frequency Transforms, Audio/Vision Cognition & Bayesian Reasoning",
+  "shortTitle": "Day 3: Transforms & Bayes",
+  "subtitle": "Fourier Paradox, STFT Spectrograms, Haar Wavelet MRA, Marr's 3 Levels of Vision, Audio Cognition & Bayesian Belief Networks",
+  "badge": "Live Interactive",
+  "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "subtitle": "Fourier Time-Blindness & Cognitive Architectures", "icon": "zap" },
+    { "id": "level-1", "title": "1. STFT & Haar Wavelets", "subtitle": "Gabor Uncertainty & 1D Multi-Resolution Analysis", "icon": "activity" },
+    { "id": "level-2", "title": "2. Vision & Audio Cognition", "subtitle": "2D Wavelets, Marr's 3 Levels & Mel-Spectrograms", "icon": "disc" },
+    { "id": "level-3", "title": "3. Bayes Networks & EM", "subtitle": "Conditional Probability Tables & 18-Dice Latent EM", "icon": "git-merge" },
+    { "id": "level-4", "title": "4. NUS ISS Workshop Lab", "subtitle": "Pipe Choke Haar, Bayes ASD & Audio Separation", "icon": "code" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible", "subtitle": "Formula Cheat Sheet & Examiner Trap Decoders", "icon": "shield-check" },
+    { "id": "quizzes", "title": "6. Slide Mastery Quizzes", "subtitle": "10 High-Yield Exam Questions", "icon": "award" }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "day-1-foundations",
+  "day": 1,
+  "title": "Day 1: Foundations of Perception, Search & Classifiers",
+  "shortTitle": "Day 1: Perception & Search",
+  "subtitle": "LLMs vs Reasoning, A* Search & CSP Heuristics, k-NN, Logistic Regression, Naive Bayes Laplace & Confusion Matrix/Lift",
+  "badge": "Live Interactive",
+  "duration": "4 Hours (6 Levels + 4 Interactive Sandboxes + 10 Slide Quizzes)",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "subtitle": "System 1 vs System 2 & 5-Stage PR Pipeline", "icon": "zap" },
+    { "id": "level-1", "title": "1. Search Engine & CSP", "subtitle": "A* Path Trace & N-Queens CSP Backtracking", "icon": "compass" },
+    { "id": "level-2", "title": "2. Supervised Classifiers", "subtitle": "k-NN Decision Boundary & Naive Bayes Laplace", "icon": "layers" },
+    { "id": "level-3", "title": "3. Evaluation & Lift Studio", "subtitle": "Confusion Matrix, ROC & Cumulative Lift", "icon": "activity" },
+    { "id": "level-4", "title": "4. NUS ISS Workshop Lab", "subtitle": "N-Queens, Russian Cities A* & Diabetes Pipeline", "icon": "code" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible", "subtitle": "Formula Cheat Sheet & 5 Examiner Traps", "icon": "shield-check" },
+    { "id": "quizzes", "title": "6. Slide Mastery Quizzes", "subtitle": "10 High-Yield Exam Questions", "icon": "award" }
+  ]
+}

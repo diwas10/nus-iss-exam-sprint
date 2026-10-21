@@ -1,0 +1,238 @@
+[
+  {
+    "id": "ten-day-sprint",
+    "title": "🏆 10-Day A+ Exam Sprint (PRS + IRS)",
+    "code": "SPRINT",
+    "icon": "award",
+    "description": "The unified interactive learning playground designed to guarantee an A+ in Pattern Recognition Systems and Intelligent Reasoning Systems. Synergistic 4-hour daily modules with zero-math-fear visualizers.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "day-1-foundations",
+        "day": 1,
+        "title": "Day 1: Foundations of Perception, Search & Classifiers",
+        "shortTitle": "Day 1: Perception & Search",
+        "subtitle": "LLMs vs Reasoning, A* Search & CSP Heuristics, k-NN, Logistic Regression, Naive Bayes Laplace & Confusion Matrix/Lift",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-2-signals-rules",
+        "day": 2,
+        "title": "Day 2: Signals, Sampling & Rule-Based Reasoning",
+        "shortTitle": "Day 2: Signals & Rule Engines",
+        "subtitle": "Nyquist Sampling & Aliasing, arPLS Baseline Drift, Dynamic Time Warping (DTW) & Hospital Emergency Triage Rule Engine",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-3-transforms-bayes",
+        "day": 3,
+        "title": "Day 3: Frequency Transforms, STFT & Bayesian Reasoning",
+        "shortTitle": "Day 3: Transforms & Bayes",
+        "subtitle": "Fourier Paradox, STFT Spectrograms, Wavelets MRA, Bayesian Belief Networks & Cognitive Architectures (ACT-R / SOAR)",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-4-geometry-dim",
+        "day": 4,
+        "title": "Day 4: Geometric Boundaries, Dimensionality & CBR",
+        "shortTitle": "Day 4: SVM & Dimensionality",
+        "subtitle": "Support Vector Machines (Kernels & Margins), PCA vs LDA, Sensor Energy Compaction & Case-Based Reasoning (CBR)",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-5-clusters-recommenders",
+        "day": 5,
+        "title": "Day 5: Clustering, Latent Factors & Recommenders",
+        "shortTitle": "Day 5: Clusters & Recommenders",
+        "subtitle": "K-Means, Hierarchical Linkage, DBSCAN, Market Basket Analysis (Apriori), Collaborative Filtering & Matrix Factorization",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-6-neural-foundations",
+        "day": 6,
+        "title": "Day 6: Deep Learning: Perceptrons, MLPs & Convolutions",
+        "shortTitle": "Day 6: MLPs & Convolutions",
+        "subtitle": "Perceptrons, Backpropagation, Gradient Descent, Activations (ReLU/Softmax), CNN Filters, Pooling & CIFAR-10",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-7-sequences-time",
+        "day": 7,
+        "title": "Day 7: Sequences, Time Series & Language Models",
+        "shortTitle": "Day 7: RNNs, LSTMs & Word Embeddings",
+        "subtitle": "Vanishing Gradients, LSTM Gating (Forget/Input/Output), 1D-CNNs, Word2Vec, GloVe & Semantic Embedding Spaces",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-8-transformers-graphs",
+        "day": 8,
+        "title": "Day 8: Transformers, Knowledge Graphs & GraphRAG",
+        "shortTitle": "Day 8: Transformers & Graphs",
+        "subtitle": "Self-Attention, Multi-Head Transformers, Knowledge Graph Embeddings (TransE / PyKEEN), Neo4j Cypher & Graph-RAG",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-9-optimization-agents",
+        "day": 9,
+        "title": "Day 9: Evolutionary Optimization, Multimodal Fusion & Cognitive Agents",
+        "shortTitle": "Day 9: GA & Multimodal Agents",
+        "subtitle": "Genetic Algorithms (WS1GA.xlsx), Multimodal RVM Sensor Fusion, Cognitive Memory Maps (ACT-R / SOAR) & ReAct Agents",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 3 Interactive Studios + 10 Slide Quizzes)"
+      },
+      {
+        "id": "day-10-ensembles-crucible",
+        "day": 10,
+        "title": "Day 10: Ensembles, Grand Synthesis & Full A+ Mock Exam",
+        "shortTitle": "Day 10: Ensembles & Crucible",
+        "subtitle": "Bagging, Boosting (AdaBoost), Stacking Meta-Learners, RS Escape Room & 20-Question Comprehensive Grand Mock Exam",
+        "badge": "Live Interactive",
+        "duration": "4 Hours (6 Levels + 3 Interactive Studios + 20 Grand Exam Quizzes)"
+      }
+    ]
+  },
+  {
+    "id": "intelligent-sensing-systems",
+    "title": "Intelligent Sensing Systems",
+    "code": "ISSM",
+    "icon": "activity",
+    "description": "Transform physical sensor phenomena into actionable intelligence: signal processing, time-frequency transformations, machine learning representation, and multimodal sense-making.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "day-1-signals",
+        "day": 1,
+        "title": "Day 1: Foundations of Sensor Signal Processing",
+        "shortTitle": "Day 1: Signal Processing",
+        "subtitle": "Signals, Sampling, Peak Detection, arPLS Baseline Drift & Dynamic Time Warping (DTW)",
+        "badge": "Active & Interactive",
+        "duration": "1 Day (6 Levels + Slide Quizzes + Lab)"
+      },
+      {
+        "id": "day-2-transformation",
+        "day": 2,
+        "title": "Day 2: Sensory Signal Transformation",
+        "shortTitle": "Day 2: Signal Transformation",
+        "subtitle": "Time-frequency analysis, STFT spectrograms, wavelets, and signal decomposition in sound/vision",
+        "badge": "Active & Interactive",
+        "duration": "1 Day (8 Levels + Slide Quizzes + Lab)"
+      },
+      {
+        "id": "day-3-ml",
+        "day": 3,
+        "title": "Day 3: Intelligent Sensory Signal Processing using ML",
+        "shortTitle": "Day 3: ML Signal Processing",
+        "subtitle": "Data-driven representations, basis vectors, energy compaction property, and Principal Component Analysis (PCA)",
+        "badge": "Active & Interactive",
+        "duration": "1 Day (8 Levels + Slide Quizzes + Lab)"
+      },
+      {
+        "id": "day-4-multimodal",
+        "day": 4,
+        "title": "Day 4: Sense Making from Sensory Data",
+        "shortTitle": "Day 4: Multimodal Sense Making",
+        "subtitle": "Single vs multimodal sensing (inertial, audio, vision), sensor fusion, and reverse-engineering a reverse vending machine",
+        "badge": "Active & Interactive",
+        "duration": "1 Day (8 Levels + Slide Quizzes + Lab)"
+      }
+    ]
+  },
+  {
+    "id": "problem-solving-pr",
+    "title": "Problem Solving using Pattern Recognition",
+    "code": "PSUPR",
+    "icon": "target",
+    "description": "Pattern classification paradigms, feature extraction, discriminant analysis, SVMs, clustering, and decision surfaces.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "intro",
+        "day": 1,
+        "title": "Supervised Learning & Model Evaluation",
+        "subtitle": "k-NN, Logistic Regression, Naive Bayes & ROC-AUC",
+        "badge": "Active in Sprint Day 1",
+        "duration": "1 Day"
+      }
+    ]
+  },
+  {
+    "id": "machine-reasoning",
+    "title": "Machine Reasoning",
+    "code": "MR",
+    "icon": "git-branch",
+    "description": "Logic-based artificial intelligence, automated search engines (A*), constraint satisfaction, and knowledge graph embeddings.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "intro",
+        "day": 1,
+        "title": "State Space Search & A* Search",
+        "subtitle": "Heuristic admissibility, consistency & N-Queens",
+        "badge": "Active in Sprint Day 1",
+        "duration": "1 Day"
+      }
+    ]
+  },
+  {
+    "id": "reasoning-systems",
+    "title": "Reasoning Systems",
+    "code": "RS",
+    "icon": "compass",
+    "description": "Knowledge engineering, rule-based inference engines, recommender systems, and hybrid neuro-symbolic reasoning.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "intro",
+        "day": 1,
+        "title": "Rule-Based Systems & Hospital Triage",
+        "subtitle": "Forward/backward chaining & conflict resolution",
+        "badge": "Active in Sprint Day 2",
+        "duration": "1 Day"
+      }
+    ]
+  },
+  {
+    "id": "prmls",
+    "title": "Pattern Recognition & Machine Learning Systems",
+    "code": "PRMLS",
+    "icon": "layers",
+    "description": "Neural architectures, multilayer perceptrons, convolutional neural networks, sequential models, and deep ensembles.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "intro",
+        "day": 1,
+        "title": "MLP, Backpropagation & Convolutions",
+        "subtitle": "Gradient descent, activations, and CIFAR-10 CNNs",
+        "badge": "Active in Sprint Day 6",
+        "duration": "1 Day"
+      }
+    ]
+  },
+  {
+    "id": "cognitive-systems",
+    "title": "Cognitive Systems",
+    "code": "CS",
+    "icon": "cpu",
+    "description": "Human-like cognitive architectures, natural language understanding, semantic embeddings, and agentic memory models.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "intro",
+        "day": 1,
+        "title": "Cognitive Architectures & NLU",
+        "subtitle": "Perception, memory systems, and transformer representations",
+        "badge": "Active in Sprint Day 3",
+        "duration": "1 Day"
+      }
+    ]
+  }
+]

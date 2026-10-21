@@ -1,0 +1,18 @@
+{
+  "id": "day-10-ensembles-crucible",
+  "title": "Day 10: Ensembles, Grand Synthesis & Full A+ Mock Exam",
+  "shortTitle": "Day 10: Ensembles & Crucible",
+  "subtitle": "Bagging, Boosting (AdaBoost), Stacking Meta-Learners, RS Escape Room & 20-Question Comprehensive Grand Mock Exam",
+  "duration": "4 Hours (6 Levels + 3 Interactive Studios + 20 Grand Exam Quizzes)",
+  "badge": "Live Interactive",
+  "summary": "The capstone sprint! Master Bagging (Random Forest bootstrap reduction of variance), Boosting (AdaBoost sequential weighted error reduction of bias), and Stacking Meta-Learners. Solve the official RS Day 5 Escape Room multi-paradigm puzzles and explore the Master Scenario Architecture Router. Review the complete Paper 1 (PRS) and Paper 2 (IRS) Exam Bibles and conquer the 20-Question Comprehensive Grand A+ Mock Exam.",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "badge": "Ensembles & Synergy" },
+    { "id": "level-1", "title": "1. Bagging, Boosting & Stacking Studio", "badge": "Ensemble Studio" },
+    { "id": "level-2", "title": "2. RS Escape Room & Master Architecture Selector", "badge": "Grand Synthesis" },
+    { "id": "level-3", "title": "3. Paper 1 (PRS) Full Exam Formula & Trap Bible", "badge": "PRS Bible" },
+    { "id": "level-4", "title": "4. Paper 2 (IRS) Full Exam Formula & Trap Bible", "badge": "IRS Bible" },
+    { "id": "level-5", "title": "5. NUS ISS Workshop Code Lab", "badge": "Code Labs" },
+    { "id": "quizzes", "title": "Grand A+ Mock Exam Crucible (20 Questions)", "badge": "Grand Crucible" }
+  ]
+}

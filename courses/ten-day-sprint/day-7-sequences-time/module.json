@@ -1,0 +1,18 @@
+{
+  "id": "day-7-sequences-time",
+  "title": "Day 7: Sequences, Time Series & Language Models",
+  "shortTitle": "Day 7: RNNs, LSTMs & Word Embeddings",
+  "subtitle": "Vanishing Gradients, LSTM Gating (Forget/Input/Output), Deep Autoencoder Anomaly Detection & Word2Vec Vector Arithmetic",
+  "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)",
+  "badge": "Live Interactive",
+  "summary": "Master sequence processing, temporal memory, and sensory compression. Analyze why Vanilla RNNs suffer from vanishing gradients and explore how LSTM hydraulic gates (Forget, Input, Candidate, Output) preserve long-term temporal dependencies. Detect subtle sensory anomalies using Deep Bottleneck Autoencoders on the Smart Fish Tank benchmark. Experience semantic vector arithmetic with Word2Vec and GloVe.",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "badge": "Sequence Memory" },
+    { "id": "level-1", "title": "1. RNNs, Vanishing Gradients & LSTM Gating", "badge": "LSTM Engine" },
+    { "id": "level-2", "title": "2. Deep Autoencoders & Sensor Anomaly Detection", "badge": "Sensor Anomaly" },
+    { "id": "level-3", "title": "3. NLP Cognition & Word Embeddings", "badge": "Vector Semantics" },
+    { "id": "level-4", "title": "4. NUS ISS Workshop Code Lab", "badge": "Code Labs" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible & Trap Decoders", "badge": "Exam Traps" },
+    { "id": "quizzes", "title": "Slide Mastery Quizzes", "badge": "Knowledge Check" }
+  ]
+}

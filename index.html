@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUS ISS Learning Hub — Intelligent Sensing & Signal Processing</title>
+
+  <!-- Google Fonts & KaTeX CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- KaTeX CSS (Local with CDN fallback) -->
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+  <!-- Core App Stylesheet -->
+  <link rel="stylesheet" href="core/styles.css">
+
+  <!-- KaTeX & Lucide (Local bundles, synchronous) -->
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/auto-render.min.js"></script>
+  <script src="vendor/lucide/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Fixed Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">ISS</div>
+        <div class="brand-text">
+          <h1>NUS ISS Hub</h1>
+          <span>Interactive Learning Platform</span>
+        </div>
+      </div>
+
+      <!-- Course Dropdown Switcher (Extensible for all NUS ISS Courses) -->
+      <div class="course-selector-box">
+        <label for="course-select-dropdown">Active Course</label>
+        <select id="course-select-dropdown" class="select-styled">
+          <!-- Populated by app.js -->
+        </select>
+      </div>
+
+      <!-- Course Schedule & Days Selector (Directly below Active Course) -->
+      <div class="days-selector-box" id="sidebar-days-container">
+        <div class="sidebar-section-title">
+          <span>Course Schedule & Days</span>
+          <span class="badge-count" id="days-count-badge">4 Days</span>
+        </div>
+        <div class="days-list" id="sidebar-days-list">
+          <!-- Populated dynamically by app.js with Day titles and badges -->
+        </div>
+      </div>
+
+      <!-- Active Day Level Navigation Header -->
+      <div class="levels-header-box" id="sidebar-levels-header">
+        <div class="sidebar-section-title" style="margin-bottom: 0; width: 100%;">
+          <span id="active-day-heading">DAY 1 MODULE SECTIONS</span>
+          <span class="badge-active-day" id="active-day-badge">Live</span>
+        </div>
+      </div>
+
+      <!-- Serial Module Level Navigation -->
+      <nav class="sidebar-nav" id="sidebar-level-nav">
+        <!-- Populated dynamically by app.js -->
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <button class="btn btn-sm btn-outline" id="theme-toggle-btn" title="Toggle Dark/Light Mode">
+          <i data-lucide="sun"></i>
+        </button>
+        <span class="text-muted" style="font-size: 0.72rem;">NUS-ISS &copy; 2026</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="breadcrumbs" id="topbar-breadcrumbs">
+          <span>Intelligent Sensing Systems</span>
+          <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
+          <span id="topbar-active-day">Day 1: Foundations of Sensor Signal Processing</span>
+        </div>
+        <div class="topbar-actions">
+          <span class="badge-tech" id="topbar-status-badge"><i data-lucide="cpu" style="width: 12px; height: 12px; vertical-align: middle;"></i> Live Interactive</span>
+        </div>
+      </header>
+
+      <main class="content-container" id="main-content-area">
+        <!-- Dynamically rendered level content goes here -->
+      </main>
+    </div>
+  </div>
+
+  <!-- Course Data & Scripts -->
+  <!-- 🏆 10-Day A+ Exam Sprint (Master Hub) -->
+  <script src="courses/ten-day-sprint/course-curriculum.js"></script>
+  <!-- Sprint Day 1: Foundations of Perception, Search & Classifiers -->
+  <script src="courses/ten-day-sprint/day-1-foundations/data.js"></script>
+  <script src="courses/ten-day-sprint/day-1-foundations/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-1-foundations/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-1-foundations/content.js"></script>
+  <!-- Sprint Day 2: Signals, Sampling & Rule-Based Reasoning -->
+  <script src="courses/ten-day-sprint/day-2-signals-rules/data.js"></script>
+  <script src="courses/ten-day-sprint/day-2-signals-rules/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-2-signals-rules/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-2-signals-rules/content.js"></script>
+  <!-- Sprint Day 3: Frequency Transforms, Audio/Vision Cognition & Bayesian Reasoning -->
+  <script src="courses/ten-day-sprint/day-3-transforms-bayes/data.js"></script>
+  <script src="courses/ten-day-sprint/day-3-transforms-bayes/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-3-transforms-bayes/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-3-transforms-bayes/content.js"></script>
+  <!-- Sprint Day 4: Decision Trees, SVM Kernels, PCA vs LDA & Case-Based Reasoning -->
+  <script src="courses/ten-day-sprint/day-4-geometry-dim/data.js"></script>
+  <script src="courses/ten-day-sprint/day-4-geometry-dim/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-4-geometry-dim/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-4-geometry-dim/content.js"></script>
+  <!-- Sprint Day 5: Clustering, Latent Factors & Recommender Systems -->
+  <script src="courses/ten-day-sprint/day-5-clusters-recommenders/data.js"></script>
+  <script src="courses/ten-day-sprint/day-5-clusters-recommenders/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-5-clusters-recommenders/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-5-clusters-recommenders/content.js"></script>
+  <!-- Sprint Day 6: Deep Learning: Perceptrons, MLPs, RBF/SOM & Convolutions -->
+  <script src="courses/ten-day-sprint/day-6-neural-foundations/data.js"></script>
+  <script src="courses/ten-day-sprint/day-6-neural-foundations/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-6-neural-foundations/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-6-neural-foundations/content.js"></script>
+  <!-- Sprint Day 7: Sequences, Time Series & Language Models -->
+  <script src="courses/ten-day-sprint/day-7-sequences-time/data.js"></script>
+  <script src="courses/ten-day-sprint/day-7-sequences-time/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-7-sequences-time/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-7-sequences-time/content.js"></script>
+  <!-- Sprint Day 8: Deep Vision Architectures, Transformers, Knowledge Graphs & GraphRAG -->
+  <script src="courses/ten-day-sprint/day-8-transformers-graphs/data.js"></script>
+  <script src="courses/ten-day-sprint/day-8-transformers-graphs/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-8-transformers-graphs/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-8-transformers-graphs/content.js"></script>
+  <!-- Sprint Day 9: Evolutionary Optimization, Multimodal Fusion & Cognitive Agents -->
+  <script src="courses/ten-day-sprint/day-9-optimization-agents/data.js"></script>
+  <script src="courses/ten-day-sprint/day-9-optimization-agents/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-9-optimization-agents/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-9-optimization-agents/content.js"></script>
+  <!-- Sprint Day 10: Ensembles, Grand Synthesis & Full A+ Mock Exam -->
+  <script src="courses/ten-day-sprint/day-10-ensembles-crucible/data.js"></script>
+  <script src="courses/ten-day-sprint/day-10-ensembles-crucible/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-10-ensembles-crucible/quizzes.js"></script>
+  <script src="courses/ten-day-sprint/day-10-ensembles-crucible/content.js"></script>
+
+
+  <!-- Intelligent Sensing Systems Course Data -->
+  <script src="courses/intelligent-sensing-systems/course-curriculum.js"></script>
+  <!-- Day 1: Foundations of Sensor Signal Processing -->
+  <script src="courses/intelligent-sensing-systems/day-1-signals/slide-decks-data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-1-signals/data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-1-signals/quizzes.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-1-signals/research.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-1-signals/content.js"></script>
+
+  <!-- Day 2: Sensory Signal Transformation -->
+  <script src="courses/intelligent-sensing-systems/day-2-transformation/slide-decks-data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-2-transformation/data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-2-transformation/visualizers.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-2-transformation/quizzes.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-2-transformation/research.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-2-transformation/content.js"></script>
+
+  <!-- Day 3: Intelligent Sensory Signal Processing using ML -->
+  <script src="courses/intelligent-sensing-systems/day-3-ml/slide-decks-data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-3-ml/data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-3-ml/visualizers.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-3-ml/quizzes.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-3-ml/research.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-3-ml/content.js"></script>
+
+  <!-- Day 4: Sense Making from Sensory Data -->
+  <script src="courses/intelligent-sensing-systems/day-4-multimodal/slide-decks-data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-4-multimodal/data.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-4-multimodal/visualizers.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-4-multimodal/quizzes.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-4-multimodal/research.js"></script>
+  <script src="courses/intelligent-sensing-systems/day-4-multimodal/content.js"></script>
+
+  <!-- Core Engines -->
+  <script src="core/audio.js"></script>
+  <script src="core/dtw-engine.js"></script>
+  <script src="core/visualizers.js"></script>
+  <script src="core/quiz-engine.js"></script>
+  <script src="core/research-hub.js"></script>
+  <script src="core/slides-viewer.js"></script>
+  <script src="core/app.js"></script>
+</body>
+</html>

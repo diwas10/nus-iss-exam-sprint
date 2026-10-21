@@ -1,0 +1,99 @@
+{
+  "id": "day-3-ml",
+  "courseId": "intelligent-sensing-systems",
+  "title": "Intelligent Sensory Signal Processing using Machine Learning",
+  "code": "ISSM-Day3",
+  "author": "Dr. TIAN Jing (NUS-ISS) & Antigravity Learning Systems",
+  "description": "Master data-driven representations, basis vectors, energy compaction, Principal Component Analysis (PCA), representation learning, fully-connected & convolutional autoencoders, and sensory anomaly detection.",
+  "slidesRef": [
+    "3 Intelligent sensory signal processing using machine learning v3.6.pdf (44 pages)",
+    "ISSM Day3 worksheet your name.pptx (8 slides, Smart Fish Tank Case Study)",
+    "ISSM_Day3_wk_anomaly_yourname.ipynb (Machine Sensor Autoencoder Workshop)"
+  ],
+  "levels": [
+    {
+      "id": "level-0",
+      "index": 0,
+      "title": "Level 0: The Mental Model",
+      "subtitle": "Why machine learning? Moving from hand-crafted transforms to data-driven basis",
+      "icon": "zap"
+    },
+    {
+      "id": "level-1",
+      "index": 1,
+      "title": "Level 1: Basis Vectors & Coordinate Systems",
+      "subtitle": "Linear combinations, change of basis, and checkerboard representations",
+      "icon": "compass"
+    },
+    {
+      "id": "level-2",
+      "index": 2,
+      "title": "Level 2: Energy Compaction & PCA",
+      "subtitle": "Maximizing projection variance, minimizing reconstruction error & SVD",
+      "icon": "trending-up"
+    },
+    {
+      "id": "level-3",
+      "index": 3,
+      "title": "Level 3: Representation Learning Principles",
+      "subtitle": "Data space to abstract manifold: smoothness, linear adaptation & fine-tuning",
+      "icon": "layers"
+    },
+    {
+      "id": "level-4",
+      "index": 4,
+      "title": "Level 4: Generative Autoencoders",
+      "subtitle": "Encoder, latent bottleneck z, decoder & reconstruction loss minimization",
+      "icon": "cpu"
+    },
+    {
+      "id": "level-5",
+      "index": 5,
+      "title": "Level 5: Denoising & Contrastive Learning",
+      "subtitle": "Noise corruption, manifold projection, positive pairs & cosine similarity",
+      "icon": "filter"
+    },
+    {
+      "id": "level-6",
+      "index": 6,
+      "title": "Level 6: Sensory Anomaly Detection Foundations",
+      "subtitle": "Point, contextual, collective anomalies & reconstruction-based detection",
+      "icon": "alert-triangle"
+    },
+    {
+      "id": "level-7",
+      "index": 7,
+      "title": "Level 7: Machine Sensor Anomaly Lab & Fish Tank",
+      "subtitle": "PyTorch Autoencoder on machine sensors & smart fish tank feeding diagnosis",
+      "icon": "code"
+    },
+    {
+      "id": "quizzes",
+      "index": 8,
+      "title": "Lecture Slide Quizzes",
+      "subtitle": "10 rigorous slide-based questions with instant calculations and hints",
+      "icon": "award"
+    },
+    {
+      "id": "research",
+      "index": 9,
+      "title": "Student Research & Project Lab",
+      "subtitle": "Self-supervised sensory representations, Wave-ViT, and Fish Tank capstone",
+      "icon": "book-open"
+    },
+    {
+      "id": "slide-viewer",
+      "index": 10,
+      "title": "Slide Deck Companion",
+      "subtitle": "Official 44 PDF slides & 8 PPTX worksheet slides with diagrams & notes",
+      "icon": "presentation"
+    },
+    {
+      "id": "day3-audit",
+      "index": 11,
+      "title": "Slide & PDF Audit Matrix",
+      "subtitle": "100% verification & mapping of all 52 Day 3 lecture and worksheet slides",
+      "icon": "check-circle"
+    }
+  ]
+}

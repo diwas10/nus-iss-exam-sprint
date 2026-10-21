@@ -1,0 +1,99 @@
+{
+  "id": "day-4-multimodal",
+  "courseId": "intelligent-sensing-systems",
+  "title": "Sense Making from Sensory Data",
+  "code": "ISSM-Day4",
+  "author": "Dr. TIAN Jing (NUS-ISS) & Antigravity Learning Systems",
+  "description": "Understand single vs multimodal sensing (inertial, acoustic, vision), sensory data augmentation, multimodal fusion architectures (early, intermediate, late), cross-modal alignment, and reverse engineering a real-world multimodal reverse vending machine.",
+  "slidesRef": [
+    "4 Sense making from sensory data v3.3.pdf (40 pages)",
+    "ISSM Day4 worksheet instruction (revserse engineering a multimodal reverse vending machine).pdf (4 pages)",
+    "ISSM Day4 worksheet your name.pptx (9 slides, Reverse Vending Machine Case Study)"
+  ],
+  "levels": [
+    {
+      "id": "level-0",
+      "index": 0,
+      "title": "Level 0: The Mental Model",
+      "subtitle": "What is a modality? Why single sensors fail and multimodal systems prevail",
+      "icon": "zap"
+    },
+    {
+      "id": "level-1",
+      "index": 1,
+      "title": "Level 1: Single Modality Deep-Dive",
+      "subtitle": "Inertial (MHAD), Acoustic (SMD defects), and Vision (manufacturing & floods)",
+      "icon": "activity"
+    },
+    {
+      "id": "level-2",
+      "index": 2,
+      "title": "Level 2: Sensory Data Augmentation",
+      "subtitle": "Scaling, magnitude filtering, jittering, time-warping & permutation",
+      "icon": "sliders"
+    },
+    {
+      "id": "level-3",
+      "index": 3,
+      "title": "Level 3: Why Multimodal? The 4 Core Challenges",
+      "subtitle": "Representation, Alignment, Fusion & Translation (Baltrušaitis / Paul Liang)",
+      "icon": "shield"
+    },
+    {
+      "id": "level-4",
+      "index": 4,
+      "title": "Level 4: Fusion Architectures",
+      "subtitle": "Tightly coupled (Early), Loosely coupled (Restricted), and Uncoupled (Late)",
+      "icon": "git-merge"
+    },
+    {
+      "id": "level-5",
+      "index": 5,
+      "title": "Level 5: Multimodal Alignment",
+      "subtitle": "Spatial calibration, Temporal registration (DTW), and Feature alignment",
+      "icon": "crosshair"
+    },
+    {
+      "id": "level-6",
+      "index": 6,
+      "title": "Level 6: End-to-End Sense Making Pipelines",
+      "subtitle": "MIT AGI pipeline, ADAS autonomous vehicles (Radar/LiDAR/Camera) & Smart Factory",
+      "icon": "cpu"
+    },
+    {
+      "id": "level-7",
+      "index": 7,
+      "title": "Level 7: Multimodal Reverse Vending Machine Lab",
+      "subtitle": "Reverse-engineering Singapore's Beverage Container Return RVM digital twin",
+      "icon": "code"
+    },
+    {
+      "id": "quizzes",
+      "index": 8,
+      "title": "Lecture Slide Quizzes",
+      "subtitle": "10 rigorous slide-based questions with instant calculations and hints",
+      "icon": "award"
+    },
+    {
+      "id": "research",
+      "index": 9,
+      "title": "Student Research & Project Lab",
+      "subtitle": "Cross-modal contrastive representations, CLIP for sensors & RVM capstone",
+      "icon": "book-open"
+    },
+    {
+      "id": "slide-viewer",
+      "index": 10,
+      "title": "Slide Deck Companion",
+      "subtitle": "Official 40 PDF slides, 9 PPTX worksheet slides & 4 instruction pages",
+      "icon": "presentation"
+    },
+    {
+      "id": "day4-audit",
+      "index": 11,
+      "title": "Slide & PDF Audit Matrix",
+      "subtitle": "100% verification & mapping of all 53 Day 4 lecture, instruction & worksheet slides",
+      "icon": "check-circle"
+    }
+  ]
+}

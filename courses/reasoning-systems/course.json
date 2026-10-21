@@ -1,0 +1,18 @@
+{
+  "id": "reasoning-systems",
+  "title": "Reasoning Systems",
+  "code": "RS",
+  "icon": "compass",
+  "description": "Knowledge engineering, ontology modeling, rule-based inference engines, and hybrid neuro-symbolic reasoning.",
+  "department": "NUS Institute of Systems Science (ISS)",
+  "modules": [
+    {
+      "id": "intro",
+      "day": 1,
+      "title": "Knowledge Graphs & Semantic Reasoning",
+      "subtitle": "RDF, OWL, SPARQL, and graph neural networks",
+      "badge": "Ready for Content",
+      "duration": "1 Day"
+    }
+  ]
+}

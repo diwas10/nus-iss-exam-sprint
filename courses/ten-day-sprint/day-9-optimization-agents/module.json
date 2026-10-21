@@ -1,0 +1,18 @@
+{
+  "id": "day-9-optimization-agents",
+  "title": "Day 9: Evolutionary Optimization, Multimodal Fusion & Cognitive Agents",
+  "shortTitle": "Day 9: GA & Multimodal Agents",
+  "subtitle": "Genetic Algorithms (WS1GA.xlsx), Multimodal RVM Sensor Fusion, Cognitive Memory Maps (ACT-R / SOAR) & ReAct Agents",
+  "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)",
+  "badge": "Live Interactive",
+  "summary": "Master global heuristic optimization, sensor integration, and autonomous reasoning agents. Replicate Dr. Zhu Fangming's WS1GA.xlsx Genetic Algorithm hand calculations and watch live TSP city tour evolution. Deconstruct the official Reverse Vending Machine (RVM) multimodal sensor fusion digital twin to defeat fraud edge cases. Map human declarative/procedural memory architectures (ACT-R / SOAR) and trace agentic ReAct loops.",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "badge": "Optimization & Agency" },
+    { "id": "level-1", "title": "1. Genetic Algorithms: WS1GA.xlsx & TSP Arena", "badge": "Evolutionary GA" },
+    { "id": "level-2", "title": "2. Multimodal Fusion & RVM Digital Twin", "badge": "Sensor Fusion" },
+    { "id": "level-3", "title": "3. Cognitive Memory & Agentic ReAct Loops", "badge": "Cognitive Agents" },
+    { "id": "level-4", "title": "4. NUS ISS Workshop Code Lab", "badge": "Code Labs" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible & Trap Decoders", "badge": "Exam Traps" },
+    { "id": "quizzes", "title": "Slide Mastery Quizzes", "badge": "Knowledge Check" }
+  ]
+}

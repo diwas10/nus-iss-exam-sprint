@@ -1,0 +1,18 @@
+{
+  "id": "day-5-clusters-recommenders",
+  "title": "Day 5: Clustering, Latent Factors & Recommender Systems",
+  "shortTitle": "Day 5: Clusters & Recommenders",
+  "subtitle": "K-Means, Hierarchical Linkage, DBSCAN, Market Basket Analysis (Apriori), Collaborative Filtering & Matrix Factorization",
+  "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)",
+  "badge": "Live Interactive",
+  "summary": "Master unsupervised data discovery and modern recommendation systems. Explore K-Means, Hierarchical agglomerative clustering, and DBSCAN on non-convex shapes with live Silhouette, Davies-Bouldin, and Calinski-Harabasz metrics. Compute exact Apriori Support, Confidence, and Lift. Calculate mean-centered User-User and Item-Item collaborative filtering predictions, and trace Matrix Factorization (SVD) and Neural Collaborative Filtering (NCF).",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "badge": "Discovery & Personalization" },
+    { "id": "level-1", "title": "1. Clustering Arena: K-Means, Linkages & DBSCAN", "badge": "Unsupervised Discovery" },
+    { "id": "level-2", "title": "2. Market Basket Analysis (Apriori) & Content-Based", "badge": "Association Rules" },
+    { "id": "level-3", "title": "3. Collaborative Filtering & SVD Matrix Factorization", "badge": "Collaborative Filtering" },
+    { "id": "level-4", "title": "4. Implicit Feedback, Neural CF & Python Labs", "badge": "Deep Recommenders" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible & Mid-Course Synthesis", "badge": "Exam Traps" },
+    { "id": "quizzes", "title": "Slide Mastery Quizzes", "badge": "Knowledge Check" }
+  ]
+}

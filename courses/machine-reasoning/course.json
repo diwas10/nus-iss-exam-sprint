@@ -1,0 +1,18 @@
+{
+  "id": "machine-reasoning",
+  "title": "Machine Reasoning",
+  "code": "MR",
+  "icon": "git-branch",
+  "description": "Logic-based artificial intelligence, automated theorem proving, constraint satisfaction, and probabilistic reasoning engines.",
+  "department": "NUS Institute of Systems Science (ISS)",
+  "modules": [
+    {
+      "id": "intro",
+      "day": 1,
+      "title": "First-Order Logic & Inference",
+      "subtitle": "Unification, resolution, and forward/backward chaining",
+      "badge": "Ready for Content",
+      "duration": "1 Day"
+    }
+  ]
+}

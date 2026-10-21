@@ -1,0 +1,18 @@
+{
+  "id": "day-2-signals-rules",
+  "day": 2,
+  "title": "Day 2: Signals, Sampling & Rule-Based Reasoning",
+  "shortTitle": "Day 2: Signals & Rule Engines",
+  "subtitle": "Nyquist Sampling & Aliasing, arPLS Baseline Drift, Dynamic Time Warping (DTW) & Hospital Emergency Triage Rule Engine",
+  "badge": "Live Interactive",
+  "duration": "4 Hours (6 Levels + 4 Interactive Sandboxes + 10 Slide Quizzes)",
+  "sections": [
+    { "id": "level-0", "title": "0. The Physical World & 4 Pillars", "subtitle": "Sensors, Symmetry & Deductive/Abductive Logic", "icon": "zap" },
+    { "id": "level-1", "title": "1. Nyquist & Aliasing Studio", "subtitle": "Sampling Theorem, Ghost Frequencies & Symmetry", "icon": "activity" },
+    { "id": "level-2", "title": "2. Peak Detection & arPLS", "subtitle": "Peak Prominence & Rubber-Band Baseline Removal", "icon": "filter" },
+    { "id": "level-3", "title": "3. Dynamic Time Warping", "subtitle": "Elastic Alignment Matrix, ECG & Singapore GDP", "icon": "git-merge" },
+    { "id": "level-4", "title": "4. Hospital Triage Rule Engine", "subtitle": "Forward Chaining, Conflict Resolution & Guardrails", "icon": "shield-check" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible", "subtitle": "Formula Cheat Sheet & Examiner Trap Decoders", "icon": "award" },
+    { "id": "quizzes", "title": "6. Slide Mastery Quizzes", "subtitle": "10 High-Yield Exam Questions", "icon": "check-circle" }
+  ]
+}

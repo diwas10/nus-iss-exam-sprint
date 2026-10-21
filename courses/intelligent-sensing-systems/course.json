@@ -1,0 +1,75 @@
+{
+  "id": "intelligent-sensing-systems",
+  "title": "Intelligent Sensing Systems",
+  "code": "ISSM",
+  "icon": "activity",
+  "description": "Transform physical sensor phenomena into actionable intelligence: signal processing, time-frequency transformations, machine learning representation, and multimodal sense-making.",
+  "department": "NUS Institute of Systems Science (ISS)",
+  "modules": [
+    {
+      "id": "day-1-signals",
+      "day": 1,
+      "title": "Day 1: Foundations of Sensor Signal Processing",
+      "shortTitle": "Day 1: Signal Processing",
+      "subtitle": "Signals, Sampling, Peak Detection, arPLS Baseline Drift & Dynamic Time Warping (DTW)",
+      "badge": "Active & Interactive",
+      "duration": "1 Day (6 Levels + Slide Quizzes + Lab)",
+      "path": "courses/intelligent-sensing-systems/day-1-signals",
+      "files": [
+        "Module 1 - Introduction to intelligent sensing systems.pdf (36 pages)",
+        "Module 2 - Foundations of sensor signal processing.pptx (44 slides)",
+        "Module 3 - Workshop on sensor signal processing.pptx (44 slides)",
+        "workshops/ecg1D.csv, ecg2D.csv, GDP.csv"
+      ]
+    },
+    {
+      "id": "day-2-transformation",
+      "day": 2,
+      "title": "Day 2: Sensory Signal Transformation",
+      "shortTitle": "Day 2: Signal Transformation",
+      "subtitle": "Time-frequency analysis, STFT spectrograms, wavelets, and signal decomposition in sound/vision",
+      "badge": "Active & Interactive",
+      "duration": "1 Day (8 Levels + Slide Quizzes + Lab)",
+      "path": "courses/intelligent-sensing-systems/day-2-transformation",
+      "files": [
+        "2 Sensory signal transformation v3.3.pdf (48 pages)",
+        "ISSM Day2 worksheet your name.pptx",
+        "ISSM Day2 workshop.zip",
+        "[video] ISSM Day2 Slide 17.mp4",
+        "[video] ISSM Day2 Slide 19.mp4"
+      ]
+    },
+    {
+      "id": "day-3-ml",
+      "day": 3,
+      "title": "Day 3: Intelligent Sensory Signal Processing using ML",
+      "shortTitle": "Day 3: ML Signal Processing",
+      "subtitle": "Data-driven representations, basis vectors, energy compaction property, and Principal Component Analysis (PCA)",
+      "badge": "Active & Interactive",
+      "duration": "1 Day (8 Levels + Slide Quizzes + Lab)",
+      "path": "courses/intelligent-sensing-systems/day-3-ml",
+      "files": [
+        "3 Intelligent sensory signal processing using machine learning v3.6.pdf (44 pages)",
+        "ISSM Day3 worksheet your name.pptx (8 slides)",
+        "ISSM Day3 workshop.zip (machine_sensor_train.csv & test.csv)",
+        "[video] ISSM Day3 Slide 4.mp4"
+      ]
+    },
+    {
+      "id": "day-4-multimodal",
+      "day": 4,
+      "title": "Day 4: Sense Making from Sensory Data",
+      "shortTitle": "Day 4: Multimodal Sense Making",
+      "subtitle": "Single vs multimodal sensing (inertial, audio, vision), sensor fusion, and reverse-engineering a reverse vending machine",
+      "badge": "Active & Interactive",
+      "duration": "1 Day (8 Levels + Slide Quizzes + Lab)",
+      "path": "courses/intelligent-sensing-systems/day-4-multimodal",
+      "files": [
+        "4 Sense making from sensory data v3.3.pdf (40 pages)",
+        "ISSM Day4 worksheet instruction (reverse engineering a multimodal reverse vending machine).pdf (4 pages)",
+        "ISSM Day4 worksheet your name.pptx (9 slides)",
+        "[video] ISSM Day4 Slide 16 (MIT, Paul Liang).mp4"
+      ]
+    }
+  ]
+}

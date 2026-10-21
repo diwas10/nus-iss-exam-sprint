@@ -1,0 +1,18 @@
+{
+  "id": "prmls",
+  "title": "Pattern Recognition & Machine Learning Systems",
+  "code": "PRMLS",
+  "icon": "layers",
+  "description": "Statistical learning, feature engineering, classification, regression, clustering, and deep learning architectures.",
+  "department": "NUS Institute of Systems Science (ISS)",
+  "modules": [
+    {
+      "id": "intro",
+      "day": 1,
+      "title": "Supervised Learning & Decision Boundaries",
+      "subtitle": "Classification, linear models, and kernel tricks",
+      "badge": "Ready for Content",
+      "duration": "1 Day"
+    }
+  ]
+}

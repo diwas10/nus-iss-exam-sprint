@@ -1,0 +1,18 @@
+{
+  "id": "day-4-geometry-dim",
+  "day": 4,
+  "title": "Day 4: Geometric Boundaries, Dimensionality Reduction & Case-Based / Tree Reasoning",
+  "shortTitle": "Day 4: SVM & Dimensionality",
+  "subtitle": "Decision Trees, Entropy & Gain Ratio, SVM Kernels, PCA vs LDA, Energy Compaction & Case-Based Reasoning (CBR)",
+  "badge": "Live Interactive",
+  "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "subtitle": "Geometry of Decisions & The Curse of Dimensionality", "icon": "zap" },
+    { "id": "level-1", "title": "1. Decision Trees & Entropy", "subtitle": "ID3, C4.5, Information Gain & Gain Ratio", "icon": "git-branch" },
+    { "id": "level-2", "title": "2. Support Vector Machines", "subtitle": "Maximum Margin, Soft Margin C & Kernel Trick", "icon": "layers" },
+    { "id": "level-3", "title": "3. PCA vs LDA Studio", "subtitle": "Unsupervised Variance vs Supervised Class Separation", "icon": "compass" },
+    { "id": "level-4", "title": "4. Case-Based Reasoning & Lab", "subtitle": "CBR 4R Cycle & MNIST/Diabetes Workshop", "icon": "code" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible", "subtitle": "Formula Cheat Sheet & Examiner Trap Decoders", "icon": "shield-check" },
+    { "id": "quizzes", "title": "6. Slide Mastery Quizzes", "subtitle": "10 High-Yield Exam Questions", "icon": "award" }
+  ]
+}

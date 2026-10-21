@@ -1,0 +1,99 @@
+{
+  "id": "day-2-transformation",
+  "courseId": "intelligent-sensing-systems",
+  "title": "Sensory Signal Transformation",
+  "code": "ISSM-Day2",
+  "author": "Dr. TIAN Jing (NUS-ISS) & Antigravity Learning Systems",
+  "description": "An intuitive, step-by-step masterclass in Time-Frequency Analysis, Short-Time Fourier Transform (STFT), Wavelet Multiresolution Analysis (MRA), 2D Wavelets, Gaussian Naive Bayes, and the Expectation-Maximization (EM) Algorithm.",
+  "slidesRef": [
+    "2 Sensory signal transformation v3.3.pdf (48 pages)",
+    "ISSM Day2 worksheet your name.pptx (6 slides)",
+    "ISSM_Day2_wk_signal_yourname.ipynb (UCI HAR Workshop)"
+  ],
+  "levels": [
+    {
+      "id": "level-0",
+      "index": 0,
+      "title": "Level 0: Why Transform Signals?",
+      "subtitle": "From raw sensor ticks to time-frequency representations",
+      "icon": "zap"
+    },
+    {
+      "id": "level-1",
+      "index": 1,
+      "title": "Level 1: The Fourier Paradox",
+      "subtitle": "Global frequency vs. zero time-localization & Heisenberg blindness",
+      "icon": "activity"
+    },
+    {
+      "id": "level-2",
+      "index": 2,
+      "title": "Level 2: STFT & The Spectrogram Studio",
+      "subtitle": "Windowed Fourier, spectrograms, and the Gabor uncertainty trade-off",
+      "icon": "disc"
+    },
+    {
+      "id": "level-3",
+      "index": 3,
+      "title": "Level 3: Wavelet Multiresolution Analysis",
+      "subtitle": "Scaling, shifting, filter banks, and step-by-step Haar decomposition",
+      "icon": "trending-up"
+    },
+    {
+      "id": "level-4",
+      "index": 4,
+      "title": "Level 4: 2D Wavelets & Spatial Frequency",
+      "subtitle": "Separable 2D DWT, subbands (LL, LH, HL, HH), and image filtering",
+      "icon": "layers"
+    },
+    {
+      "id": "level-5",
+      "index": 5,
+      "title": "Level 5: Gaussian Naive Bayes Classification",
+      "subtitle": "Conditional independence, posterior probability, and sensor classification",
+      "icon": "git-merge"
+    },
+    {
+      "id": "level-6",
+      "index": 6,
+      "title": "Level 6: The Expectation-Maximization (EM) Algorithm",
+      "subtitle": "Latent variables, soft clustering, and Dr. Tian Jing's 18-dice simulation",
+      "icon": "cpu"
+    },
+    {
+      "id": "level-7",
+      "index": 7,
+      "title": "Level 7: Pipe Choke Case Study & Workshop Lab",
+      "subtitle": "Automated pipe inspection, Haar choke detection & UCI HAR Python lab",
+      "icon": "code"
+    },
+    {
+      "id": "quizzes",
+      "index": 8,
+      "title": "Lecture Slide Quizzes",
+      "subtitle": "10 rigorous slide-based questions with instant calculations and hints",
+      "icon": "award"
+    },
+    {
+      "id": "research",
+      "index": 9,
+      "title": "Student Research & Project Lab",
+      "subtitle": "UCI HAR deep-dive, Wave-ViT transformers, and industrial GMM/EM",
+      "icon": "book-open"
+    },
+    {
+      "id": "slide-viewer",
+      "index": 10,
+      "title": "Slide Deck Companion",
+      "subtitle": "Official 48 PDF slides & 6 PPTX worksheet slides with diagrams & notes",
+      "icon": "presentation"
+    },
+    {
+      "id": "day2-audit",
+      "index": 11,
+      "title": "Slide & PDF Audit Matrix",
+      "subtitle": "100% verification & mapping of all 54 Day 2 lecture and worksheet slides",
+      "icon": "check-circle"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "day-8-transformers-graphs",
+  "title": "Day 8: Deep Vision Architectures, Transformers, Knowledge Graphs & GraphRAG",
+  "shortTitle": "Day 8: Transformers & Graphs",
+  "subtitle": "ResNet Skips, MobileNet Separable Convolutions, Scaled Self-Attention, TransE Link Prediction & Neo4j GraphRAG",
+  "duration": "4 Hours (6 Levels + 4 Interactive Studios + 10 Slide Quizzes)",
+  "badge": "Live Interactive",
+  "summary": "Master state-of-the-art vision backbones, self-attention mechanisms, and relational knowledge graphs. Explore ResNet residual shortcuts and MobileNet depthwise separable efficiency. Calculate scaled dot-product attention Q, K, V matrices and trace why scaling prevents softmax saturation. Step through TransE vector translation and link prediction metrics (MRR, Hits@K), and compare Vector RAG with GraphRAG on multi-hop clinical queries.",
+  "sections": [
+    { "id": "level-0", "title": "0. The Mental Model", "badge": "Vision to Knowledge" },
+    { "id": "level-1", "title": "1. Modern CNNs: ResNet & MobileNet Convolutions", "badge": "Deep Vision" },
+    { "id": "level-2", "title": "2. Transformers & Scaled Self-Attention Studio", "badge": "Attention Engine" },
+    { "id": "level-3", "title": "3. Knowledge Graph Embeddings (TransE & MRR)", "badge": "KGE Models" },
+    { "id": "level-4", "title": "4. Neo4j Cypher & Graph-Enabled RAG", "badge": "GraphRAG & Code" },
+    { "id": "level-5", "title": "5. The A+ Exam Crucible & Trap Decoders", "badge": "Exam Traps" },
+    { "id": "quizzes", "title": "Slide Mastery Quizzes", "badge": "Knowledge Check" }
+  ]
+}
