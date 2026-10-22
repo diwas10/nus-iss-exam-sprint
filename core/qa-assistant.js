@@ -226,6 +226,140 @@ window.QAAssistant = {
     }
   ],
 
+  // AI Engine State (Default: Free Cloud LLM - No API Key Needed)
+  engine: (typeof localStorage !== 'undefined' && localStorage.getItem('iss_qa_engine')) || 'free_cloud',
+  freeModel: (typeof localStorage !== 'undefined' && localStorage.getItem('iss_qa_model')) || 'openai',
+  ollamaModel: (typeof localStorage !== 'undefined' && localStorage.getItem('iss_ollama_model')) || 'llama3',
+  ollamaHost: 'http://localhost:11434',
+
+  freeModelLabels: {
+    'openai': 'GPT-4o Mini (OpenAI)',
+    'deepseek': 'DeepSeek R1 / V3',
+    'llama': 'Llama 3.3 70B (Meta)',
+    'mistral': 'Mistral Large',
+    'qwen': 'Qwen 2.5 Coder 32B'
+  },
+
+  setEngine: function(eng, scope) {
+    this.engine = eng;
+    if (typeof localStorage !== 'undefined') localStorage.setItem('iss_qa_engine', eng);
+    this.updateEngineUI(scope || 'modal');
+  },
+
+  setFreeModel: function(model, scope) {
+    this.freeModel = model;
+    if (typeof localStorage !== 'undefined') localStorage.setItem('iss_qa_model', model);
+  },
+
+  setOllamaModel: function(model, scope) {
+    this.ollamaModel = model;
+    if (typeof localStorage !== 'undefined') localStorage.setItem('iss_ollama_model', model);
+  },
+
+  updateEngineUI: function(scope) {
+    const prefix = scope === 'inline' ? 'inline-' : 'modal-';
+    const tabs = ['free_cloud', 'ollama', 'offline'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`${prefix}btn-${t}`);
+      if (btn) {
+        if (this.engine === t) {
+          btn.className = 'btn btn-sm btn-primary';
+        } else {
+          btn.className = 'btn btn-sm btn-outline';
+        }
+      }
+    });
+
+    const cloudSettings = document.getElementById(`${prefix}free-cloud-settings`);
+    const ollamaSettings = document.getElementById(`${prefix}ollama-settings`);
+    if (cloudSettings) cloudSettings.style.display = this.engine === 'free_cloud' ? 'flex' : 'none';
+    if (ollamaSettings) ollamaSettings.style.display = this.engine === 'ollama' ? 'flex' : 'none';
+  },
+
+  parseMarkdown: function(md) {
+    if (!md) return '';
+    let html = md;
+
+    // Code blocks with syntax badge and copy button
+    html = html.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (m, lang, code) => {
+      return `<div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-color); border-radius: 8px; margin: 12px 0; overflow: hidden;">
+        <div style="background: rgba(255,255,255,0.05); padding: 4px 12px; font-size: 0.72rem; color: var(--text-muted); font-family: monospace; display: flex; justify-content: space-between;">
+          <span>${lang || 'code'}</span>
+          <span style="cursor: pointer; color: #38bdf8;" onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText); alert('Code block copied!');">Copy</span>
+        </div>
+        <pre style="margin: 0; padding: 12px; overflow-x: auto; font-size: 0.82rem; font-family: var(--font-mono, monospace); line-height: 1.5; color: #e2e8f0;"><code>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>
+      </div>`;
+    });
+
+    // Inline code
+    html = html.replace(/`([^`]+)`/g, '<code style="background: rgba(255, 255, 255, 0.08); padding: 2px 6px; border-radius: 4px; font-size: 0.85em; font-family: var(--font-mono, monospace); color: #38bdf8;">$1</code>');
+
+    // Headers
+    html = html.replace(/^#### (.*$)/gim, '<h5 style="color: #38bdf8; margin: 12px 0 4px 0; font-size: 0.92rem; font-weight: 700;">$1</h5>');
+    html = html.replace(/^### (.*$)/gim, '<h4 style="color: #38bdf8; margin: 14px 0 6px 0; font-size: 1.02rem; font-weight: 700;">$1</h4>');
+    html = html.replace(/^## (.*$)/gim, '<h3 style="color: var(--text-primary); margin: 16px 0 8px 0; font-size: 1.12rem; font-weight: 800; border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">$1</h3>');
+    html = html.replace(/^# (.*$)/gim, '<h2 style="color: var(--text-primary); margin: 18px 0 10px 0; font-size: 1.25rem; font-weight: 800;">$1</h2>');
+
+    // Bold & Italic
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong style="color: var(--text-primary);">$1</strong>');
+    html = html.replace(/\*([^*]+)\*/g, '<em style="color: var(--text-secondary);">$1</em>');
+
+    // Blockquotes
+    html = html.replace(/^\> (.*$)/gim, '<blockquote style="border-left: 3px solid #38bdf8; padding-left: 10px; margin: 8px 0; color: var(--text-secondary); font-style: italic;">$1</blockquote>');
+
+    // Unordered lists
+    html = html.replace(/^\s*[-*]\s+(.*$)/gim, '<li style="margin-bottom: 5px;">$1</li>');
+    html = html.replace(/(<li.*<\/li>\n?)+/g, '<ul style="margin: 8px 0 12px 20px; padding-left: 0; color: var(--text-primary); font-size: 0.88rem; line-height: 1.6;">$&</ul>');
+
+    // Tables
+    const lines = html.split('\n');
+    let inTable = false;
+    let tableHtml = '';
+    const newLines = [];
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (line.startsWith('|') && line.endsWith('|')) {
+        if (!inTable) {
+          inTable = true;
+          tableHtml = '<table class="styled-table" style="width: 100%; margin: 12px 0; font-size: 0.84rem;">';
+        }
+        if (line.includes('---')) continue;
+        const cells = line.split('|').slice(1, -1).map(c => c.trim());
+        const isHeader = !tableHtml.includes('<tbody>') && !tableHtml.includes('<tr>');
+        if (isHeader) {
+          tableHtml += '<thead><tr>' + cells.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+        } else {
+          tableHtml += '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
+        }
+      } else {
+        if (inTable) {
+          tableHtml += '</tbody></table>';
+          newLines.push(tableHtml);
+          inTable = false;
+          tableHtml = '';
+        }
+        newLines.push(lines[i]);
+      }
+    }
+    if (inTable) {
+      tableHtml += '</tbody></table>';
+      newLines.push(tableHtml);
+    }
+    html = newLines.join('\n');
+
+    // Paragraphs
+    html = html.split(/\n\n+/).map(p => {
+      p = p.trim();
+      if (!p) return '';
+      if (p.startsWith('<') && (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<div') || p.startsWith('<table') || p.startsWith('<pre') || p.startsWith('<blockquote'))) {
+        return p;
+      }
+      return `<p style="margin-bottom: 8px; line-height: 1.65; color: var(--text-primary);">${p}</p>`;
+    }).join('\n');
+
+    return html;
+  },
+
   init: function() {
     this.injectGlobalWidget();
   },
@@ -244,20 +378,57 @@ window.QAAssistant = {
               </span>
               <h3 style="margin: 0; font-size: 1.15rem; color: var(--text-primary);">Have a Question or Exam Doubt on This Topic?</h3>
             </div>
-            <span style="font-size: 0.8rem; color: var(--text-muted);"><i data-lucide="sparkles" style="width: 13px; height: 13px;"></i> Instant Syllabus Search</span>
+            <span class="badge-tech" style="font-size: 0.72rem; background: rgba(16, 185, 129, 0.15); color: #10b981;">
+              ✨ Free AI Models Included • No API Key Needed
+            </span>
           </div>
 
-          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 16px;">
-            Type any question or select a frequent exam doubt below to get an instant, step-by-step mathematical explanation, formula derivation, and exam scoring tips.
+          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 14px;">
+            Ask any question or choose an AI engine below for an instant mathematical explanation, formula derivation, and NUS-ISS scoring rubric tips.
           </p>
+
+          <!-- Engine Selector Bar -->
+          <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-sm ${this.engine === 'free_cloud' ? 'btn-primary' : 'btn-outline'}" id="inline-btn-free_cloud" onclick="QAAssistant.setEngine('free_cloud', 'inline')" style="font-size: 0.76rem; padding: 3px 10px;">
+                  🌐 Free Cloud AI (Pollinations)
+                </button>
+                <button class="btn btn-sm ${this.engine === 'ollama' ? 'btn-primary' : 'btn-outline'}" id="inline-btn-ollama" onclick="QAAssistant.setEngine('ollama', 'inline')" style="font-size: 0.76rem; padding: 3px 10px;">
+                  💻 Localhost Ollama
+                </button>
+                <button class="btn btn-sm ${this.engine === 'offline' ? 'btn-primary' : 'btn-outline'}" id="inline-btn-offline" onclick="QAAssistant.setEngine('offline', 'inline')" style="font-size: 0.76rem; padding: 3px 10px;">
+                  📚 Syllabus KB (Instant)
+                </button>
+              </div>
+
+              <!-- Inline Cloud Model Settings -->
+              <div id="inline-free-cloud-settings" style="display: ${this.engine === 'free_cloud' ? 'flex' : 'none'}; align-items: center; gap: 6px;">
+                <label style="font-size: 0.76rem; color: var(--text-muted);">Model:</label>
+                <select id="inline-free-model-select" onchange="QAAssistant.setFreeModel(this.value, 'inline')" style="background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 3px 8px; font-size: 0.76rem;">
+                  <option value="openai" ${this.freeModel === 'openai' ? 'selected' : ''}>GPT-4o Mini (OpenAI) [Free]</option>
+                  <option value="deepseek" ${this.freeModel === 'deepseek' ? 'selected' : ''}>DeepSeek R1 / V3 [Free]</option>
+                  <option value="llama" ${this.freeModel === 'llama' ? 'selected' : ''}>Llama 3.3 70B (Meta) [Free]</option>
+                  <option value="mistral" ${this.freeModel === 'mistral' ? 'selected' : ''}>Mistral Large [Free]</option>
+                  <option value="qwen" ${this.freeModel === 'qwen' ? 'selected' : ''}>Qwen 2.5 Coder [Free]</option>
+                </select>
+              </div>
+
+              <!-- Inline Ollama Settings -->
+              <div id="inline-ollama-settings" style="display: ${this.engine === 'ollama' ? 'flex' : 'none'}; align-items: center; gap: 6px;">
+                <label style="font-size: 0.76rem; color: var(--text-muted);">Model:</label>
+                <input type="text" id="inline-ollama-model-input" value="${this.ollamaModel || 'llama3'}" onchange="QAAssistant.setOllamaModel(this.value, 'inline')" placeholder="llama3" style="width: 110px; background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 3px 8px; font-size: 0.76rem;">
+              </div>
+            </div>
+          </div>
 
           <!-- Query Input -->
           <div style="display: flex; gap: 10px; margin-bottom: 16px;">
             <div style="position: relative; flex: 1;">
-              <input type="text" id="inline-qa-input" class="form-control" placeholder="Ask anything (e.g. 'SVM Lagrangian dual & KKT', 'CNN receptive field', 'LSTM error carousel', 'GMM EM', 'VAE reparameterization')..." style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); font-size: 0.9rem;" onkeydown="if(event.key==='Enter') QAAssistant.handleInlineQuery();">
+              <input type="text" id="inline-qa-input" class="form-control" placeholder="Ask anything (e.g. 'SVM Lagrangian dual & KKT', 'CNN receptive field & GAP', 'LSTM error carousel', 'GMM EM', 'VAE reparameterization')..." style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); font-size: 0.9rem;" onkeydown="if(event.key==='Enter') QAAssistant.handleInlineQuery();">
             </div>
             <button class="btn btn-primary" onclick="QAAssistant.handleInlineQuery()" style="display: flex; align-items: center; gap: 6px; padding: 0 18px;">
-              <i data-lucide="send"></i> Ask
+              <i data-lucide="send"></i> Ask AI
             </button>
           </div>
 
@@ -267,33 +438,15 @@ window.QAAssistant = {
               Popular Exam Doubts:
             </span>
             <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('svm lagrangian dual kkt slack')" style="font-size: 0.78rem;">
-                📌 SVM Dual & KKT Sparsity
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('cnn receptive field dilated gap flatten parameters')" style="font-size: 0.78rem;">
-                📌 CNN Receptive Field & GAP
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('rnn lstm bptt spectral radius constant error carousel')" style="font-size: 0.78rem;">
-                📌 LSTM Error Carousel & BPTT
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('pca lda fisher rayleigh target leakage prs q1e')" style="font-size: 0.78rem;">
-                📌 PCA vs LDA & Target Leakage
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('gmm expectation maximization k-means dbscan ward')" style="font-size: 0.78rem;">
-                📌 GMM-EM Responsibilities
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('autoencoder anomaly 3-sigma vae elbo reparameterization')" style="font-size: 0.78rem;">
-                📌 VAE Reparameterization Trick
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('stft wavelet haar heisenberg uncertainty parseval')" style="font-size: 0.78rem;">
-                📌 2D Haar Wavelets & Energy
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('ensemble bagging random forest variance reduction adaboost')" style="font-size: 0.78rem;">
-                📌 Bagging vs RF Variance Math
-              </button>
-              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('multimodal sensor fusion rvm early late hybrid')" style="font-size: 0.78rem;">
-                📌 RVM Multimodal Sensor Fusion
-              </button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('svm lagrangian dual kkt slack')" style="font-size: 0.78rem;">📌 SVM Dual & KKT</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('cnn receptive field dilated gap flatten parameters')" style="font-size: 0.78rem;">📌 CNN Params & GAP</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('rnn lstm bptt spectral radius constant error carousel')" style="font-size: 0.78rem;">📌 LSTM Error Carousel</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('pca lda fisher rayleigh target leakage prs q1e')" style="font-size: 0.78rem;">📌 PCA vs LDA Leakage</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('gmm expectation maximization k-means dbscan ward')" style="font-size: 0.78rem;">📌 GMM-EM Clustering</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('autoencoder anomaly 3-sigma vae elbo reparameterization')" style="font-size: 0.78rem;">📌 VAE Reparameterization</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('stft wavelet haar heisenberg uncertainty parseval')" style="font-size: 0.78rem;">📌 2D Haar Wavelets</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('ensemble bagging random forest variance reduction adaboost')" style="font-size: 0.78rem;">📌 Bagging vs RF Variance</button>
+              <button class="btn btn-outline btn-sm" onclick="QAAssistant.askPreset('multimodal sensor fusion rvm early late hybrid')" style="font-size: 0.78rem;">📌 RVM Sensor Fusion</button>
             </div>
           </div>
 
@@ -322,6 +475,197 @@ window.QAAssistant = {
   },
 
   respond: function(query, outputContainerId) {
+    if (this.engine === 'free_cloud') {
+      this.askFreeCloudLLM(query, outputContainerId);
+    } else if (this.engine === 'ollama') {
+      this.askOllama(query, outputContainerId);
+    } else {
+      this.respondOffline(query, outputContainerId);
+    }
+  },
+
+  askFreeCloudLLM: async function(query, outputContainerId) {
+    const container = document.getElementById(outputContainerId);
+    if (!container) return;
+    container.style.display = 'block';
+
+    const modelKey = this.freeModel || 'openai';
+    const modelLabel = this.freeModelLabels[modelKey] || modelKey;
+
+    container.innerHTML = `
+      <div style="padding: 24px 16px; text-align: center; color: var(--text-muted);">
+        <div class="qa-spinner" style="margin-bottom: 12px;"></div>
+        <div style="font-size: 0.9rem; color: #38bdf8; font-weight: 700;">Consulting Free AI Model: ${modelLabel}...</div>
+        <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Zero API keys required • Grounding in NUS-ISS Syllabus</div>
+      </div>
+    `;
+
+    const systemPrompt = `You are a senior AI curriculum architect and NUS-ISS Graduate Examination Specialist for Pattern Recognition Systems (ISY5002) and Intelligent Reasoning Systems (ISY5001).
+Answer the student's revision question with:
+1. Rigorous, step-by-step mathematical reasoning using standard LaTeX formatting ($...$ for inline math and $$...$$ for standalone display formulas).
+2. Precise algorithmic mechanics and boundary conditions.
+3. Key trade-offs (e.g. Bias vs Variance, Overfitting, Computational Complexity, Parameter explosions).
+4. NUS-ISS Open-Book Examination marking criteria and common student pitfalls.
+Keep the answer direct, highly structured, well-formatted, and educational.`;
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 25000);
+
+      const res = await fetch('https://text.pollinations.ai/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: query }
+          ],
+          model: modelKey,
+          seed: Math.floor(Math.random() * 100000)
+        }),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+
+      if (text.includes("Free limit reached") || text.includes("Please wait")) {
+        // Fallback gracefully to offline syllabus KB with polite banner
+        this.respondOffline(query, outputContainerId, `
+          <div style="background: rgba(245, 158, 11, 0.12); border-left: 3px solid #f59e0b; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 0.82rem; color: #f59e0b; line-height: 1.5;">
+            <i data-lucide="clock" style="width: 14px; height: 14px; vertical-align: middle;"></i> <strong>Free Cloud AI Cooldown:</strong> The public free endpoint has a 30-second rate-limit window. Showing instant verified response from offline NUS-ISS Knowledge Base below:
+          </div>
+        `);
+        return;
+      }
+
+      const parsedHtml = this.parseMarkdown(text);
+      container.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="badge-tech" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.76rem;">
+              <i data-lucide="sparkles" style="width: 12px; height: 12px; vertical-align: middle;"></i> ${modelLabel} (Free LLM)
+            </span>
+            <span style="font-size: 0.74rem; color: var(--text-muted);">No API Key • Live Response</span>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-outline btn-sm" onclick="QAAssistant.copyAnswer('${outputContainerId}')" style="font-size: 0.72rem; padding: 3px 8px;">
+              <i data-lucide="copy" style="width: 12px; height: 12px;"></i> Copy
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="QAAssistant.saveToNotebook('${query.replace(/'/g, "\\'")}')" style="font-size: 0.72rem; padding: 3px 8px;">
+              ⭐ Save
+            </button>
+          </div>
+        </div>
+        <div class="qa-response-body" style="font-size: 0.9rem; line-height: 1.65; color: var(--text-primary);">
+          ${parsedHtml}
+        </div>
+      `;
+
+      if (window.lucide) window.lucide.createIcons();
+      if (typeof window.renderLatex === 'function') window.renderLatex(container);
+
+    } catch (err) {
+      console.warn("Free cloud LLM fallback:", err);
+      this.respondOffline(query, outputContainerId, `
+        <div style="background: rgba(239, 68, 68, 0.12); border-left: 3px solid #ef4444; padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: 0.82rem; color: #ef4444; line-height: 1.5;">
+          <i data-lucide="wifi-off" style="width: 14px; height: 14px; vertical-align: middle;"></i> Could not reach external AI endpoint (${err.message || 'network timeout'}). Serving instant verified response from offline NUS-ISS Knowledge Base:
+        </div>
+      `);
+    }
+  },
+
+  askOllama: async function(query, outputContainerId) {
+    const container = document.getElementById(outputContainerId);
+    if (!container) return;
+    container.style.display = 'block';
+
+    const model = this.ollamaModel || 'llama3';
+    container.innerHTML = `
+      <div style="padding: 24px 16px; text-align: center; color: var(--text-muted);">
+        <div class="qa-spinner" style="margin-bottom: 12px; border-top-color: #10b981;"></div>
+        <div style="font-size: 0.9rem; color: #10b981; font-weight: 700;">Connecting to Localhost Ollama (${model})...</div>
+        <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">Zero latency • 100% Offline & Private • http://localhost:11434</div>
+      </div>
+    `;
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+      const res = await fetch(`${this.ollamaHost}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: model,
+          prompt: `System: You are an expert NUS-ISS Graduate Examination Tutor (Pattern Recognition Systems ISY5002 & Intelligent Reasoning Systems ISY5001). Answer concisely with step-by-step mathematical reasoning, formal LaTeX notation ($...$ and $$...$$), and exam marking advice.\n\nStudent Question: ${query}\n\nAnswer:`,
+          stream: false
+        }),
+        signal: controller.signal
+      });
+
+      clearTimeout(timeoutId);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const data = await res.json();
+      const parsedHtml = this.parseMarkdown(data.response || '');
+
+      container.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="badge-tech" style="background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 0.76rem;">
+              <i data-lucide="cpu" style="width: 12px; height: 12px; vertical-align: middle;"></i> Ollama: ${model}
+            </span>
+            <span style="font-size: 0.74rem; color: var(--text-muted);">Local Machine • Private & Free</span>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-outline btn-sm" onclick="QAAssistant.copyAnswer('${outputContainerId}')" style="font-size: 0.72rem; padding: 3px 8px;">
+              <i data-lucide="copy" style="width: 12px; height: 12px;"></i> Copy
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="QAAssistant.saveToNotebook('${query.replace(/'/g, "\\'")}')" style="font-size: 0.72rem; padding: 3px 8px;">
+              ⭐ Save
+            </button>
+          </div>
+        </div>
+        <div class="qa-response-body" style="font-size: 0.9rem; line-height: 1.65; color: var(--text-primary);">
+          ${parsedHtml}
+        </div>
+      `;
+
+      if (window.lucide) window.lucide.createIcons();
+      if (typeof window.renderLatex === 'function') window.renderLatex(container);
+
+    } catch (err) {
+      container.innerHTML = `
+        <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 14px; margin-bottom: 12px;">
+          <div style="color: #ef4444; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            <i data-lucide="alert-circle" style="width: 16px; height: 16px;"></i> Ollama Connection Failed
+          </div>
+          <p style="font-size: 0.82rem; color: var(--text-primary); margin: 0 0 8px 0;">
+            Could not reach Ollama at <code>http://localhost:11434</code>. To use local models without API keys:
+          </p>
+          <ol style="font-size: 0.8rem; color: var(--text-secondary); margin: 0 0 10px 16px; padding: 0;">
+            <li>Install Ollama from <a href="https://ollama.com" target="_blank" style="color: #38bdf8; text-decoration: underline;">ollama.com</a>.</li>
+            <li>Run <code>ollama run ${model}</code> in your terminal.</li>
+            <li>Enable CORS if needed: <code>OLLAMA_ORIGINS="*" ollama serve</code>.</li>
+          </ol>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-sm btn-primary" onclick="QAAssistant.setEngine('free_cloud', 'modal'); QAAssistant.handleModalQuery();" style="font-size: 0.75rem;">
+              Switch to Free Cloud AI
+            </button>
+            <button class="btn btn-sm btn-outline" onclick="QAAssistant.setEngine('offline', 'modal'); QAAssistant.handleModalQuery();" style="font-size: 0.75rem;">
+              View Offline Syllabus Answer
+            </button>
+          </div>
+        </div>
+      `;
+      if (window.lucide) window.lucide.createIcons();
+    }
+  },
+
+  respondOffline: function(query, outputContainerId, topBanner) {
     const container = document.getElementById(outputContainerId);
     if (!container) return;
 
@@ -342,18 +686,23 @@ window.QAAssistant = {
       }
     });
 
-    let html = '';
+    let html = topBanner || '';
 
     if (bestMatch && maxHits > 0) {
-      html = `
+      html += `
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 12px;">
           <div>
             <span class="badge-tech" style="font-size: 0.75rem; background: rgba(59,130,246,0.15); color: #60a5fa;">${bestMatch.topic}</span>
             <h4 style="margin: 6px 0 0 0; color: var(--accent-primary); font-size: 1.05rem;">${bestMatch.title}</h4>
           </div>
-          <button class="btn btn-outline btn-sm" onclick="QAAssistant.saveToNotebook('${bestMatch.title.replace(/'/g, "\\'")}')" style="font-size: 0.75rem;">
-            ⭐ Save Doubt
-          </button>
+          <div style="display: flex; gap: 6px;">
+            <button class="btn btn-outline btn-sm" onclick="QAAssistant.copyAnswer('${outputContainerId}')" style="font-size: 0.72rem; padding: 2px 8px;">
+              <i data-lucide="copy" style="width: 12px; height: 12px;"></i> Copy
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="QAAssistant.saveToNotebook('${bestMatch.title.replace(/'/g, "\\'")}')" style="font-size: 0.72rem; padding: 2px 8px;">
+              ⭐ Save Doubt
+            </button>
+          </div>
         </div>
 
         ${bestMatch.formula ? `
@@ -362,25 +711,25 @@ window.QAAssistant = {
           </div>
         ` : ''}
 
-        <div style="font-size: 0.92rem; line-height: 1.65; color: var(--text-primary);">
+        <div class="qa-response-body" style="font-size: 0.92rem; line-height: 1.65; color: var(--text-primary);">
           ${bestMatch.answer}
         </div>
       `;
     } else {
       // Dynamic synthesis for unlisted query
-      html = `
+      html += `
         <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 12px;">
           <span class="badge-tech" style="font-size: 0.75rem;">NUS ISS Masterclass Assistant</span>
           <h4 style="margin: 6px 0 0 0; color: var(--text-primary); font-size: 1.05rem;">Analysis of: "${query}"</h4>
         </div>
-        <div style="font-size: 0.92rem; line-height: 1.65; color: var(--text-primary);">
+        <div class="qa-response-body" style="font-size: 0.92rem; line-height: 1.65; color: var(--text-primary);">
           <p>For the NUS ISS syllabus, here is the structured rubric breakdown for <strong>${query}</strong>:</p>
           <ul>
             <li><strong>Core Mathematical Principle:</strong> Formulate the problem precisely using the standard state, probabilistic, or neural representations discussed in lectures. Check boundary conditions and normalization requirements (e.g. probabilities sum to 1, loss functions are convex, heuristics are admissible).</li>
             <li><strong>Algorithm Execution:</strong> Show intermediate matrix states or search queue states step-by-step. Never skip intermediate arithmetic because examiners award method marks even if a minor arithmetic error occurs at the very end.</li>
             <li><strong>Examiner Justification:</strong> Explicitly mention trade-offs (e.g. Bias vs Variance, Overfitting vs Underfitting, Euclidean vs Non-linear DTW, High $C$ vs Low $C$ in SVM, Flatten parameter explosion vs GAP).</li>
           </ul>
-          <p style="color: var(--text-secondary); font-size: 0.85rem;">Tip: You can also search specific topics like <em>"SVM KKT"</em>, <em>"CNN GAP"</em>, <em>"LSTM CEC"</em>, <em>"GMM EM"</em>, <em>"VAE reparameterization"</em>, or <em>"Bagging variance"</em> for detailed worked formulas.</p>
+          <p style="color: var(--text-secondary); font-size: 0.85rem;">Tip: You can also search specific topics like <em>"SVM KKT"</em>, <em>"CNN GAP"</em>, <em>"LSTM CEC"</em>, <em>"GMM EM"</em>, <em>"VAE reparameterization"</em>, or <em>"Bagging variance"</em> for detailed worked formulas, or switch to <strong>Free Cloud AI</strong> to query any live LLM model.</p>
         </div>
       `;
     }
@@ -392,6 +741,15 @@ window.QAAssistant = {
     if (typeof window.renderLatex === 'function') {
       window.renderLatex(container);
     }
+  },
+
+  copyAnswer: function(outputContainerId) {
+    const el = document.getElementById(outputContainerId);
+    if (!el) return;
+    const body = el.querySelector('.qa-response-body') || el;
+    navigator.clipboard.writeText(body.innerText).then(() => {
+      alert("Answer copied to clipboard!");
+    });
   },
 
   saveToNotebook: function(title) {
@@ -416,7 +774,7 @@ window.QAAssistant = {
         </button>
 
         <!-- Floating Modal Drawer -->
-        <div id="qa-modal" style="display: none; position: fixed; bottom: 80px; right: 24px; width: 440px; max-width: 90vw; max-height: 80vh; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow-y: auto; padding: 20px; z-index: 10000;">
+        <div id="qa-modal" style="display: none; position: fixed; bottom: 80px; right: 24px; width: 490px; max-width: 92vw; max-height: 82vh; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow-y: auto; padding: 20px; z-index: 10000;">
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 14px;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span class="badge-tech" style="background: var(--accent-primary); color: white;">AI Tutor</span>
@@ -427,8 +785,47 @@ window.QAAssistant = {
             </button>
           </div>
 
+          <!-- Engine Switcher -->
+          <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Reasoning Engine:</span>
+              <span class="badge-tech" style="font-size: 0.68rem; background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                ✨ No API Key Required
+              </span>
+            </div>
+            <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+              <button class="btn btn-sm ${this.engine === 'free_cloud' ? 'btn-primary' : 'btn-outline'}" id="modal-btn-free_cloud" onclick="QAAssistant.setEngine('free_cloud', 'modal')" style="font-size: 0.74rem; padding: 3px 8px; flex: 1;">
+                🌐 Free Cloud AI
+              </button>
+              <button class="btn btn-sm ${this.engine === 'ollama' ? 'btn-primary' : 'btn-outline'}" id="modal-btn-ollama" onclick="QAAssistant.setEngine('ollama', 'modal')" style="font-size: 0.74rem; padding: 3px 8px; flex: 1;">
+                💻 Local Ollama
+              </button>
+              <button class="btn btn-sm ${this.engine === 'offline' ? 'btn-primary' : 'btn-outline'}" id="modal-btn-offline" onclick="QAAssistant.setEngine('offline', 'modal')" style="font-size: 0.74rem; padding: 3px 8px; flex: 1;">
+                📚 Syllabus KB
+              </button>
+            </div>
+
+            <!-- Modal Cloud Model Settings -->
+            <div id="modal-free-cloud-settings" style="display: ${this.engine === 'free_cloud' ? 'flex' : 'none'}; align-items: center; justify-content: space-between; font-size: 0.76rem;">
+              <span style="color: var(--text-secondary);">Select Open Model:</span>
+              <select id="modal-free-model-select" onchange="QAAssistant.setFreeModel(this.value, 'modal')" style="background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 3px 8px; font-size: 0.76rem;">
+                <option value="openai" ${this.freeModel === 'openai' ? 'selected' : ''}>GPT-4o Mini (OpenAI) [Free]</option>
+                <option value="deepseek" ${this.freeModel === 'deepseek' ? 'selected' : ''}>DeepSeek R1 / V3 [Free]</option>
+                <option value="llama" ${this.freeModel === 'llama' ? 'selected' : ''}>Llama 3.3 70B (Meta) [Free]</option>
+                <option value="mistral" ${this.freeModel === 'mistral' ? 'selected' : ''}>Mistral Large [Free]</option>
+                <option value="qwen" ${this.freeModel === 'qwen' ? 'selected' : ''}>Qwen 2.5 Coder [Free]</option>
+              </select>
+            </div>
+
+            <!-- Modal Ollama Settings -->
+            <div id="modal-ollama-settings" style="display: ${this.engine === 'ollama' ? 'flex' : 'none'}; align-items: center; justify-content: space-between; font-size: 0.76rem;">
+              <span style="color: var(--text-secondary);">Model Tag:</span>
+              <input type="text" id="modal-ollama-model-input" value="${this.ollamaModel || 'llama3'}" onchange="QAAssistant.setOllamaModel(this.value, 'modal')" placeholder="llama3" style="width: 120px; background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 3px 8px; font-size: 0.76rem;">
+            </div>
+          </div>
+
           <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 12px;">
-            Need help with a formula, derivation, or lecture slide concept? Ask below for an instant syllabus-grounded explanation.
+            Need help with a formula derivation or scenario? Ask below for an instant syllabus-grounded explanation.
           </p>
 
           <div style="display: flex; gap: 8px; margin-bottom: 12px;">
