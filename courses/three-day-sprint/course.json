@@ -1,36 +1,36 @@
 {
   "id": "three-day-sprint",
-  "title": "⚡ 3-Day Fast-Track Sprint (PRS + IRS)",
+  "title": "⚡ Intelligent Pattern Recognition & Reasoning Systems — 3-Day Mastery Sprint",
   "code": "SPRINT-3D",
   "icon": "zap",
-  "description": "Accelerated 3-day dependency-grouped curriculum synthesizing Classical ML, Probabilistic Reasoning, Signal Transformations, Deep Learning, Symbolic Rules, and Comprehensive A+ Exam Simulations.",
+  "description": "An integrated, visualization-first revision of classical machine learning, probabilistic reasoning, signal processing, deep learning, symbolic reasoning, cognitive architectures, and intelligent system design.",
   "department": "NUS Institute of Systems Science (ISS)",
   "modules": [
     {
       "id": "day-1-classical-ml",
       "day": 1,
-      "title": "Day 1: Classical ML + Probability + Search",
-      "shortTitle": "Day 1: Classical ML & Search",
-      "subtitle": "k-NN, Naive Bayes (Laplace), SVM (Dual & KKT), PCA vs LDA (Rayleigh), K-Means/GMM-EM/Ward, A* & BBNs",
-      "badge": "Live Interactive",
+      "title": "Day 1: Classical Machine Learning, Probability & Search",
+      "shortTitle": "Day 1: Classical ML, Probability & Search",
+      "subtitle": "From Data to Decisions — Classification, Bayesian Inference, Geometric Learning, Dimensionality Reduction and Intelligent Search",
+      "badge": "PRS + IRS Foundation",
       "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + 6 Structured Exam Questions)"
     },
     {
       "id": "day-2-signals-deeplearning",
       "day": 2,
-      "title": "Day 2: Signal Processing + Deep Learning",
+      "title": "Day 2: Signal Processing, Deep Learning & Representation Learning",
       "shortTitle": "Day 2: Signals & Deep Learning",
-      "subtitle": "Nyquist Aliasing, arPLS Drift, DTW, 2D Wavelets & STFT, CNNs (Receptive Field, Dilated, ResNet, GAP), LSTM CEC & Generative VAEs",
-      "badge": "Live Interactive",
+      "subtitle": "From Raw Sensory Signals to Intelligent Neural Representations",
+      "badge": "Sensory to Deep Learning",
       "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + 6 Structured Exam Questions)"
     },
     {
       "id": "day-3-reasoning-integration",
       "day": 3,
-      "title": "Day 3: Reasoning Systems + Integration + Exams",
+      "title": "Day 3: Reasoning Systems, Cognitive Architectures & Intelligent System Integration",
       "shortTitle": "Day 3: Reasoning, Agents & Exams",
-      "subtitle": "Rule Engines & Daemons, Cognitive Models (11 Entities / ACT-R), Attention & TransE, GAs (OX), Ensembles (Bagging/RF Variance, AdaBoost, Stacking), Multimodal RVM & Nov 2026 Crucible",
-      "badge": "Live Interactive",
+      "subtitle": "From Symbolic Knowledge and Uncertainty to Explainable, Adaptive and Hybrid AI Systems",
+      "badge": "Reasoning & Exam Crucible",
       "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + 20 Grand Quizzes + 6 Structured Exam Questions)"
     }
   ]

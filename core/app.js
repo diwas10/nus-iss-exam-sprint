@@ -965,13 +965,17 @@ class LearningApp {
       } else if (dayId === 'day-3-reasoning-integration') {
         if (levelId === 'level-1') {
           if (window.SprintDay2Visualizers?.initHospitalTriageStudio) window.SprintDay2Visualizers.initHospitalTriageStudio();
+          if (window.ThreeDaySprintDay3Visualizers?.initLevel1Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel1Visualizers();
         } else if (levelId === 'level-3') {
           if (window.SprintDay8Visualizers?.initTransEStudio) window.SprintDay8Visualizers.initTransEStudio();
           if (window.SprintDay8Visualizers?.initSelfAttentionStudio) window.SprintDay8Visualizers.initSelfAttentionStudio();
+          if (window.ThreeDaySprintDay3Visualizers?.initLevel3Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel3Visualizers();
         } else if (levelId === 'level-4') {
           if (window.SprintDay9Visualizers?.initGeneticAlgorithmArena) window.SprintDay9Visualizers.initGeneticAlgorithmArena();
+          if (window.ThreeDaySprintDay3Visualizers?.initLevel4Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel4Visualizers();
         } else if (levelId === 'level-5') {
           if (window.SprintDay10Visualizers?.initEnsembleStudio) window.SprintDay10Visualizers.initEnsembleStudio();
+          if (window.ThreeDaySprintDay3Visualizers?.initLevel5Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel5Visualizers();
         }
       } else if (dayId === 'day-1-foundations') {
         if (levelId === 'level-1') {

@@ -1,26 +1,27 @@
-// Day 2 Content: Signal Processing + Deep Learning
-// Deepened & Expanded Edition: Rigorous Sampling, Transforms (2D Wavelets, STFT), CNNs (Receptive Field, Dilated, Depthwise, ResNet, GAP), RNN/LSTM (BPTT, Spectral Radius, CEC), & Autoencoders (Anomaly MSE, VAE ELBO, Reparameterization)
+// Day 2 Content: Signal Processing, Deep Learning & Representation Learning
+// Course: Intelligent Pattern Recognition & Reasoning Systems — 3-Day Mastery Sprint
+// Subtitle: From Raw Sensory Signals to Intelligent Neural Representations
 
 window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
   id: "day-2-signals-deeplearning",
-  title: "Day 2: Signal Processing + Deep Learning",
+  title: "Day 2: Signal Processing, Deep Learning & Representation Learning",
   author: "NUS-ISS Masterclass Senior Faculty",
   sections: [
     {
       id: "level-0",
-      title: "Level 0: The Unified Dependency Map — Physical Sensing to Deep Representations",
-      subtitle: "From Continuous Sensor Voltages to Deep Convolutional and Recurrent Latent Features",
-      badge: "Sensory to Deep Architecture",
+      title: "Level 0: The Unified Mental Model — From Physical Signals to Machine Intelligence",
+      subtitle: "Sensory Physics, Analog-to-Digital Conversion, and Hierarchical Feature Representations",
+      badge: "Sensory to Deep Learning",
       content: `
         <div class="lesson-card hero-card mb-4">
           <div class="card-icon"><i data-lucide="activity"></i></div>
           <div class="card-body">
-            <h3>Day 2 Synthesis: Signal Processing + Deep Learning</h3>
+            <h3>Day 2 Synthesis: Signal Processing, Deep Learning & Representation Learning</h3>
             <p class="lead-text">
-              Welcome to <strong>Day 2 of your Accelerated 3-Day Sprint</strong>. Today unites the continuous physical world of sensor acquisition with the representation power of deep neural architectures:
+              Welcome to <strong>Day 2 of your Intensive 3-Day Mastery Sprint</strong>. Today unites the continuous physical world of sensor acquisition with the representation power of deep neural architectures:
             </p>
             <div class="quote-box">
-              <em>"Sensors transduce continuous physical energy into analog voltages; the Nyquist theorem dictates ADC digitization; Wavelets and STFT resolve time-frequency uncertainty; Convolutions exploit local 2D spatial translation equivariance; LSTMs maintain linear gradient highways across temporal sequences; and Autoencoders compress healthy sensor manifolds for anomaly detection and generative synthesis."</em>
+              <em>"Sensors transduce continuous physical energy (voltages, sound waves, vibrations) into digital arrays; the Nyquist theorem dictates ADC sampling limits; Wavelets and STFT resolve time-frequency uncertainty; Convolutions exploit local 2D spatial translation equivariance; LSTMs maintain linear gradient highways across temporal sequences; and Autoencoders compress healthy sensor manifolds for anomaly detection and generative synthesis."</em>
               <div class="quote-author">— NUS ISS Sensory-to-Deep Pipeline</div>
             </div>
           </div>
@@ -62,12 +63,12 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
     },
     {
       id: "level-1",
-      title: "Level 1: Physical Signal Acquisition & Preprocessing (Nyquist, arPLS & DTW)",
-      subtitle: "Sampling Theorem, Folding Frequencies, Rubber-Band Baseline Denoising & Elastic DTW",
+      title: "Level 1: Sampling, Preprocessing & Signal Alignment (Nyquist, arPLS & DTW)",
+      subtitle: "Recovering Useful Information from Noisy Sensor Data and Elastic Alignment",
       badge: "Sensory Physics & Calibration",
       content: `
         <div class="lesson-card mb-4">
-          <h3>The Nyquist-Shannon Sampling Theorem & Aliasing Mathematics</h3>
+          <h3>1. The Nyquist-Shannon Sampling Theorem & Aliasing Mathematics</h3>
           <p>
             An Analog-to-Digital Converter (ADC) samples continuous-time voltage $x(t)$ at uniform interval $T_s = 1/f_s$. To guarantee that $x(t)$ can be reconstructed without loss of information:
           </p>
@@ -83,7 +84,18 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Baseline Correction: Asymmetric Reweighted Penalized Least Squares (arPLS)</h3>
+          <h3>2. Quantization Noise & ADC Bit Depth</h3>
+          <p>
+            An ADC maps continuous voltage into $2^B$ discrete levels, where $B$ is the resolution in bits. The theoretical Signal-to-Quantization-Noise Ratio (SQNR) is given by:
+          </p>
+          $$\\mathbf{\\text{SNR}_{\\text{quant}} \\approx 6.02 B + 1.76 \\text{ dB}}$$
+          <p style="font-size:0.85rem; color:var(--text-secondary);">
+            Every additional bit of ADC resolution improves dynamic range by approximately $6\\text{ dB}$ (doubles precision).
+          </p>
+        </div>
+
+        <div class="lesson-card mb-4">
+          <h3>3. Baseline Correction: Asymmetric Reweighted Penalized Least Squares (arPLS)</h3>
           <p>
             Sensory signals (spectroscopy, ECG, PPG) suffer from low-frequency baseline drift due to temperature fluctuations, electrode movement, or battery discharge. Standard polynomial regression gets pulled upwards by signal peaks, distorting peak amplitudes.
           </p>
@@ -111,7 +123,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Dynamic Time Warping (DTW): Elastic Sequence Alignment</h3>
+          <h3>4. Dynamic Time Warping (DTW): Elastic Sequence Alignment</h3>
           <p>
             Standard Euclidean distance fails when two sensory time series have different speeds, phase shifts, or localized temporal dilations. DTW aligns sequences $X = [x_1, \\dots, x_N]$ and $Y = [y_1, \\dots, y_M]$ using dynamic programming:
           </p>
@@ -147,12 +159,12 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
     },
     {
       id: "level-2",
-      title: "Level 2: Frequency & Multi-Resolution Transforms (STFT & Wavelets)",
-      subtitle: "The Fourier Paradox, Gabor Uncertainty & 2D Haar Energy Compaction",
+      title: "Level 2: Fourier Transforms, STFT & Wavelets",
+      subtitle: "Understanding Signals Across Time, Frequency and Scale (The Fourier Paradox to 2D Wavelets)",
       badge: "Spectral & Spatial Multi-Resolution",
       content: `
         <div class="lesson-card mb-4">
-          <h3>The Fourier Paradox & Short-Time Fourier Transform (STFT)</h3>
+          <h3>1. The Fourier Paradox & Short-Time Fourier Transform (STFT)</h3>
           <p>
             The continuous Fourier Transform integrates over all time ($-\\infty$ to $+\\infty$), telling you WHAT frequencies exist globally, but has <strong>zero time localization</strong> (cannot tell WHEN a transient frequency burst occurred).
           </p>
@@ -169,7 +181,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Discrete Wavelet Transform (DWT): Multi-Resolution Analysis (MRA)</h3>
+          <h3>2. Discrete Wavelet Transform (DWT): Multi-Resolution Analysis (MRA)</h3>
           <p>
             Wavelets overcome the fixed-window limitation using dyadic scaling: high frequencies are analyzed with narrow time windows, and low frequencies are analyzed with wide time windows:
           </p>
@@ -182,7 +194,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>2D Wavelet Decomposition (Image & Sensory Matrix Processing)</h3>
+          <h3>3. 2D Wavelet Decomposition (Image & Sensory Matrix Processing)</h3>
           <p>
             In 2D signal processing (sensory images, spatial vibration arrays), applying low-pass ($L$) and high-pass ($H$) filters sequentially along rows and columns decomposes the input into <strong>4 distinct spatial subbands</strong>:
           </p>
@@ -217,12 +229,12 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
     },
     {
       id: "level-3",
-      title: "Level 3: Neural Foundations & Backpropagation Calculus",
+      title: "Level 3: Neural Network Fundamentals & Backpropagation Calculus",
       subtitle: "Gradient Descent, Vanishing Gradients & Activation Saturation (ReLU vs Sigmoid)",
       badge: "Deep Learning Foundations",
       content: `
         <div class="lesson-card mb-4">
-          <h3>Backpropagation Calculus: The Chain Rule of Gradient Flow</h3>
+          <h3>1. Backpropagation Calculus: The Chain Rule of Gradient Flow</h3>
           <p>
             For a feedforward neural network with loss function $\\mathcal{L}$, the error $\\boldsymbol{\\delta}^{(l)}$ at layer $l$ is backpropagated as:
           </p>
@@ -241,12 +253,12 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
     },
     {
       id: "level-4",
-      title: "Level 4: Deep 2D Convolutions, Sizing Math & Architecture Design (PRS Q2a)",
+      title: "Level 4: Convolutional Neural Networks & Visual Recognition (PRS Q2a)",
       subtitle: "Receptive Fields, Dilated Convs, Depthwise Separable, ResNet Identity & GAP Redesign",
       badge: "Computer Vision & Advanced Sizing",
       content: `
         <div class="lesson-card mb-4">
-          <h3>2D Convolutional Spatial Dimensions & Parameter Counting Formulas</h3>
+          <h3>1. 2D Convolutional Spatial Dimensions & Parameter Counting Formulas</h3>
           $$\\mathbf{O = \\left\\lfloor \\frac{W - K + 2P}{S} \\right\\rfloor + 1}$$
           $$\\mathbf{\\text{Conv2D Trainable Params} = (K_h \\times K_w \\times C_{\\text{in}} + 1) \\times C_{\\text{out}}}$$
           $$\\mathbf{\\text{Dense Trainable Params} = (N_{\\text{in}} + 1) \\times N_{\\text{out}}}$$
@@ -257,7 +269,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Receptive Field Arithmetic & Dilated (Atrous) Convolutions</h3>
+          <h3>2. Receptive Field Arithmetic & Dilated (Atrous) Convolutions</h3>
           <p>
             The Receptive Field (RF) of a neuron is the spatial region in the input image that influences its activation:
           </p>
@@ -274,7 +286,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Depthwise Separable Convolutions & ResNet Identity Highways</h3>
+          <h3>3. Depthwise Separable Convolutions & ResNet Identity Highways</h3>
           <div class="grid-2-col mt-2">
             <div style="background:var(--bg-secondary); padding:14px; border-radius:8px;">
               <h4 style="margin:0 0 6px 0; color:#34d399;">Depthwise Separable (MobileNet)</h4>
@@ -313,12 +325,12 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
     },
     {
       id: "level-5",
-      title: "Level 5: Sequential Memory, LSTMs & Generative Autoencoders",
+      title: "Level 5: Sequential Models, LSTMs & Autoencoders",
       subtitle: "BPTT Spectral Radius, Constant Error Carousels, Anomaly MSE Calibration & VAE Reparameterization",
       badge: "Temporal & Latent Intelligence",
       content: `
         <div class="lesson-card mb-4">
-          <h3>Recurrent Networks & The Spectral Radius Vanishing Gradient Proof</h3>
+          <h3>1. Recurrent Networks & The Spectral Radius Vanishing Gradient Proof</h3>
           <p>
             In a vanilla RNN, hidden state $h_t = \\tanh(W_{hh} h_{t-1} + W_{xh} x_t + b)$. Backpropagation Through Time (BPTT) requires computing:
           </p>
@@ -333,7 +345,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>The Long Short-Term Memory (LSTM) Constant Error Carousel (CEC)</h3>
+          <h3>2. The Long Short-Term Memory (LSTM) Constant Error Carousel (CEC)</h3>
           <p>
             An LSTM maintains an internal linear cell state $\\mathbf{c}_t$ regulated by three multiplicative gating valves:
           </p>
@@ -353,7 +365,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Unsupervised Anomaly Autoencoders (PRS Q2c)</h3>
+          <h3>3. Unsupervised Anomaly Autoencoders (PRS Q2c)</h3>
           <p>
             In industrial predictive maintenance with 3,000 normal sequences and only 2 failures, supervised models achieve 99.93% accuracy by predicting 'Normal' all the time, missing all breakdowns!
           </p>
@@ -364,7 +376,7 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Variational Autoencoders (VAEs): The Evidence Lower Bound & Reparameterization Trick</h3>
+          <h3>4. Variational Autoencoders (VAEs): The Evidence Lower Bound & Reparameterization Trick</h3>
           <p>
             Standard autoencoders learn an unconstrained, discontinuous latent space with empty gaps. A <strong>Variational Autoencoder (VAE)</strong> is a generative model that constrains the latent distribution to match a standard Gaussian prior $p(\\mathbf{z}) = \\mathcal{N}(\\mathbf{0}, \\mathbf{I})$:
           </p>
@@ -387,8 +399,8 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {
     },
     {
       id: "level-6",
-      title: "Level 6: Python Code Labs & Complete Mathematical Workout",
-      subtitle: "Verified PyTorch Code Labs & Step-by-Step Derivations",
+      title: "Level 6: Integrated Signal & Deep Learning Workshop",
+      subtitle: "Designing and Evaluating an End-to-End Intelligent Sensing System",
       badge: "Hands-on Code & Proofs",
       content: `
         <div class="lesson-card mb-4">

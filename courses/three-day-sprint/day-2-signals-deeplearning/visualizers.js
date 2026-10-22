@@ -1,5 +1,14 @@
 // Day 2 Visualizers Bridge for 3-Day Sprint (Signal Processing + Deep Learning)
 
+window.SprintDay2Visualizers = window.SprintDay2Visualizers || {
+  computeAliasing: function(f, fs) {
+    const fn = fs / 2;
+    if (f <= fn) return f;
+    const k = Math.round(f / fs);
+    return Math.abs(f - k * fs);
+  }
+};
+
 window.ThreeDaySprintDay2Visualizers = {
   initNyquist: function() {
     if (window.SprintDay2Visualizers?.initNyquistAliasingStudio) {
@@ -28,12 +37,6 @@ window.ThreeDaySprintDay2Visualizers = {
   initWavelet: function() {
     if (window.SprintDay3Visualizers?.init1DHaarStudio) {
       window.SprintDay3Visualizers.init1DHaarStudio();
-    }
-  },
-
-  initBackpropagation: function() {
-    if (window.SprintDay6Visualizers?.initBackpropCalculator) {
-      window.SprintDay6Visualizers.initBackpropCalculator();
     }
   },
 

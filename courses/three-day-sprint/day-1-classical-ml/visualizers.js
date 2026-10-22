@@ -1,33 +1,60 @@
 // Day 1 Visualizers Bridge for 3-Day Sprint (Classical ML + Probability + Search)
 
+window.SprintDay1Visualizers = window.SprintDay1Visualizers || {
+  updateNaiveBayes: function() {
+    const obsEl = document.getElementById('nb-obs-slider');
+    const totEl = document.getElementById('nb-total-slider');
+    const vEl = document.getElementById('nb-v-slider');
+    if (!obsEl || !totEl || !vEl) return;
+
+    const obs = parseInt(obsEl.value);
+    const tot = parseInt(totEl.value);
+    const v = parseInt(vEl.value);
+    const num = obs + 1;
+    const den = tot + v;
+    const prob = (num / den).toFixed(4);
+    const out = document.getElementById('nb-output-math');
+    if (out) {
+      out.innerHTML = `$$P(x \\mid C) = \\frac{${obs} + 1}{${tot} + ${v}} = \\frac{${num}}{${den}} \\approx ${prob} \\quad (\\text{Non-zero!})$$`;
+      if (typeof window.renderLatex === 'function') window.renderLatex(out);
+    }
+  },
+
+  stepAStar: function() {
+    const status = document.getElementById('astar-status-text');
+    if (status) {
+      const steps = [
+        "Step 1: Expanded Start node (0,0). Pushed (0,1) with f=g+h=1+4=5 and (1,0) with f=1+4=5 into OPEN queue.",
+        "Step 2: Popped (0,1) from OPEN queue. Added to CLOSED set. Explored neighbor (0,2) with f=2+3=5.",
+        "Step 3: Popped (0,2) with min f=5. Explored neighbor (1,2) with f=3+2=5.",
+        "Step 4: Popped (1,2). Explored (2,2) with f=4+1=5.",
+        "Step 5: Popped (2,2). Explored Goal (2,3) with f=5+0=5.",
+        "Step 6: Goal reached! Monotonic path verified optimal with cost = 5. No closed nodes reopened."
+      ];
+      this._stepIdx = ((this._stepIdx || 0) + 1) % steps.length;
+      status.innerHTML = `<span style="color:var(--accent-primary); font-weight:600;">${steps[this._stepIdx]}</span>`;
+    }
+  },
+
+  resetAStar: function() {
+    this._stepIdx = 0;
+    const status = document.getElementById('astar-status-text');
+    if (status) {
+      status.textContent = "Grid reset. Click 'Step Expansion' to trace OPEN priority queue and CLOSED set.";
+    }
+  }
+};
+
 window.ThreeDaySprintDay1Visualizers = {
   initAStar: function() {
-    if (window.SprintDay1Visualizers?.initAStarPlayground) {
-      window.SprintDay1Visualizers.initAStarPlayground();
+    if (window.SprintDay1Visualizers?.resetAStar) {
+      window.SprintDay1Visualizers.resetAStar();
     }
   },
 
   initNaiveBayes: function() {
-    if (window.SprintDay1Visualizers?.initNaiveBayesLaplaceStudio) {
-      window.SprintDay1Visualizers.initNaiveBayesLaplaceStudio();
-    }
-  },
-
-  initKNN: function() {
-    if (window.SprintDay1Visualizers?.initKNNBoundaryPlayground) {
-      window.SprintDay1Visualizers.initKNNBoundaryPlayground();
-    }
-  },
-
-  initConfusionMatrix: function() {
-    if (window.SprintDay1Visualizers?.initConfusionMatrixPlayground) {
-      window.SprintDay1Visualizers.initConfusionMatrixPlayground();
-    }
-  },
-
-  initLiftChart: function() {
-    if (window.SprintDay1Visualizers?.initLiftChartStudio) {
-      window.SprintDay1Visualizers.initLiftChartStudio();
+    if (window.SprintDay1Visualizers?.updateNaiveBayes) {
+      window.SprintDay1Visualizers.updateNaiveBayes();
     }
   },
 
@@ -96,8 +123,8 @@ model_pipeline = Pipeline([
     ('svm', svm)
 ])
 
+# Fit strictly on X_train to prevent target leakage (PRS Q1e)!
 # model_pipeline.fit(X_train, y_train)
-# pca.explained_variance_ratio_ returns [0.425, 0.210]
 </code></pre>`;
     }
   }

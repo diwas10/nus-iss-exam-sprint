@@ -3,41 +3,41 @@
 
 window.THREE_DAY_CURRICULUM = {
   id: "three-day-sprint",
-  title: "⚡ 3-Day Fast-Track Sprint (PRS + IRS)",
-  description: "Accelerated 3-day dependency-grouped curriculum synthesizing Classical ML, Probabilistic Reasoning, Signal Transformations, Deep Learning, Symbolic Rules, and Comprehensive A+ Exam Simulations.",
+  title: "⚡ Intelligent Pattern Recognition & Reasoning Systems — 3-Day Mastery Sprint",
+  description: "An integrated, visualization-first revision of classical machine learning, probabilistic reasoning, signal processing, deep learning, symbolic reasoning, cognitive architectures, and intelligent system design.",
   days: [
     {
       id: "day-1-classical-ml",
       day: 1,
-      title: "Day 1: Classical ML + Probability + Search",
-      shortTitle: "Day 1: Classical ML & Search",
-      subtitle: "k-NN, Naive Bayes (Laplace), SVM (Dual & KKT), PCA vs LDA (Rayleigh), K-Means/GMM-EM/Ward, A* & BBNs",
+      title: "Day 1: Classical Machine Learning, Probability & Search",
+      shortTitle: "Day 1: Classical ML, Probability & Search",
+      subtitle: "From Data to Decisions — Classification, Bayesian Inference, Geometric Learning, Dimensionality Reduction and Intelligent Search",
       duration: "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + 6 Structured Exam Questions)",
       status: "live",
-      badge: "Live Interactive",
-      summary: "Master the foundational pillars of statistical learning, state-space search, and probabilistic reasoning. Learn A* optimality proofs, constraint satisfaction (CSP MRV/LCV), parametric/non-parametric classifiers (k-NN, Naive Bayes Laplace smoothing), Bayesian Belief Networks (d-separation & collider traps), maximal-margin SVM (Lagrangian dual, KKT complementary slackness, RBF Gaussian kernels), unsupervised PCA vs supervised Fisher LDA (Rayleigh quotient & PRS Q1e target leakage), and unsupervised clustering (K-Means WCSS convergence, GMM Expectation-Maximization responsibilities, DBSCAN density connectivity, Ward's linkage, Apriori, CF)."
+      badge: "PRS + IRS Foundation",
+      summary: "Understand how classical algorithms classify data, model uncertainty, reduce complexity and solve constrained problems. Covers state-space search (A* optimality & consistency proofs), constraint satisfaction (CSP MRV/LCV), supervised learning (k-NN, Logistic Regression, Naive Bayes Laplace smoothing), decision trees & entropy, confusion matrix metrics (Precision, Recall, Specificity, F1, Lift), Bayesian Belief Networks (CPTs, d-separation, collider traps), maximal-margin SVM (primal/dual, KKT conditions, RBF kernels), unsupervised PCA vs supervised Fisher LDA (Rayleigh quotient, data leakage traps), clustering (K-Means WCSS, GMM Expectation-Maximization, DBSCAN, Ward linkage), and recommender foundations (Apriori, Collaborative Filtering, Matrix Factorization)."
     },
     {
       id: "day-2-signals-deeplearning",
       day: 2,
-      title: "Day 2: Signal Processing + Deep Learning",
+      title: "Day 2: Signal Processing, Deep Learning & Representation Learning",
       shortTitle: "Day 2: Signals & Deep Learning",
-      subtitle: "Nyquist Aliasing, arPLS Drift, DTW, 2D Wavelets & STFT, CNNs (Receptive Field, Dilated, ResNet, GAP), LSTM CEC & Generative VAEs",
+      subtitle: "From Raw Sensory Signals to Intelligent Neural Representations",
       duration: "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + 6 Structured Exam Questions)",
       status: "live",
-      badge: "Live Interactive",
-      summary: "Bridge physical sensory phenomena to deep representation learning. Master Nyquist-Shannon sampling limits, ghost frequency aliasing, arPLS rubber-band baseline correction, and DTW elastic alignment. Tackle time-frequency uncertainty via STFT and 2D Haar Wavelets (LL/LH/HL/HH subbands and Parseval energy conservation). Derive backpropagation calculus from scratch, design 2D CNNs with receptive field math, dilated and depthwise separable convs, ResNet identity shortcuts, and GAP parameter redesign (PRS Q2a). Construct sequential LSTM networks (BPTT, spectral radius vanishing gradient proof, Constant Error Carousel), unsupervised anomaly autoencoders (3-sigma calibration), and generative VAEs with the reparameterization trick."
+      badge: "Sensory to Deep Learning",
+      summary: "Understand how signals are captured, transformed, represented and processed by neural networks. Covers analog-to-digital conversion, Nyquist–Shannon sampling theorem ($f_s > 2f_{\\max}$), spectral aliasing and folding frequency ($f_N = f_s/2$), analog anti-aliasing hardware filters, arPLS rubber-band baseline correction, Dynamic Time Warping (DTW) alignment, Fourier transforms, STFT time-frequency trade-offs (Heisenberg-Gabor uncertainty), 2D Haar wavelets (LL, LH, HL, HH subbands and Parseval energy conservation), neural network backpropagation calculus, 2D CNN architecture design (receptive fields, dilated & depthwise separable convolutions, ResNet skip connections, Global Average Pooling vs Flatten redesign in PRS Q2a), sequential modeling with RNNs & LSTMs (BPTT, spectral radius vanishing gradient proof, Constant Error Carousel), and autoencoders (reconstruction MSE anomaly detection with 3-sigma calibration in PRS Q2c, Generative VAE ELBO and reparameterization trick)."
     },
     {
       id: "day-3-reasoning-integration",
       day: 3,
-      title: "Day 3: Reasoning Systems + Integration + Exams",
+      title: "Day 3: Reasoning Systems, Cognitive Architectures & Intelligent System Integration",
       shortTitle: "Day 3: Reasoning, Agents & Exams",
-      subtitle: "Rule Engines & Daemons, Cognitive Models (11 Entities / ACT-R), Attention & TransE, GAs (OX), Ensembles (Bagging/RF Variance, AdaBoost, Stacking), Multimodal RVM & Nov 2026 Crucible",
+      subtitle: "From Symbolic Knowledge and Uncertainty to Explainable, Adaptive and Hybrid AI Systems",
       duration: "5–6 Hours (7 Levels + 6 Interactive Studios + 20 Grand Quizzes + 6 Structured Exam Questions)",
       status: "live",
-      badge: "Live Interactive",
-      summary: "Synthesize high-level symbolic deduction, agency, and cumulative exam mastery. Master production rule engines (Forward/Backward chaining, conflict resolution, frame daemons), cognitive architectures (11-entity model, ACT-R declarative/procedural buffers, Marr's 3 levels), Transformer Scaled Dot-Product Attention, Knowledge Graph Embeddings (TransE / Neo4j GraphRAG), Genetic Algorithm evolutionary optimization (WS1GA.xlsx / Order Crossover), multimodal sensor fusion (RVM digital twin: early vs late vs hybrid), rigorous ensemble theory (Condorcet's theorem, Bagging vs Random Forest variance reduction formula, AdaBoost exponential loss & sample reweighting ratio, Stacking OOF), and deconstruct the complete Nov 2026 Sample Papers (IRS 50m + PRS 40m)."
+      badge: "Reasoning & Exam Crucible",
+      summary: "Understand how intelligent systems represent knowledge, reason under uncertainty, optimize decisions, integrate multiple AI approaches and explain conclusions. Covers production rules (Forward/Backward chaining, conflict resolution), frame daemons (if-needed / if-added, camera distance calculation), Case-Based Reasoning (CBR 4R cycle), uncertainty models (MYCIN Certainty Factors, Fuzzy Sets & Mamdani inference with Centroid defuzzification), cognitive architectures (the 11-entity cognitive model in IRS Q2h, ACT-R, SOAR, Marr's 3 levels of vision), Transformer Scaled Dot-Product Attention, Knowledge Graphs (TransE embeddings, GraphRAG), Genetic Algorithms (Order Crossover OX for TSP permutations), multimodal sensor fusion (RVM digital twin: early vs late vs hybrid), rigorous ensemble theory (Condorcet's theorem, Bagging vs Random Forest variance reduction $\\rho \\sigma^2 + \\frac{1-\\rho}{M}\\sigma^2$, AdaBoost exponential loss & sample reweighting ratio, Stacking OOF cross-validation), and full deconstruction of the official Nov 2026 Sample Papers (IRS 50m + PRS 40m)."
     }
   ]
 };
