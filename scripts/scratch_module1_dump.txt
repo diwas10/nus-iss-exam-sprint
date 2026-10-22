@@ -1,0 +1,465 @@
+--- PAGE 1 ---
+NUS-ISS
+Intelligent Sensing and 
+Sense Making
+© 2024 National University of Singapore.
+All Rights Reserved.
+Module 1 - Introduction to intelligent 
+sensing system
+Hu Zhengqing
+Zq.hu@nus.edu.sg
+
+
+--- PAGE 2 ---
+Let’s take at a look at some signals
+
+--- PAGE 3 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+3
+Signals
+Source: 
+http://911research.wtc7.net/mirrors/guardian2/wtc/seismic
+/WTC_PENT_KIM.htm
+issm/m1.1/v1.0
+
+
+--- PAGE 4 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+What is signal? •In signal processing, signal is a 
+function that conveys information 
+about a phenomenon
+•A signal can also be defined as an 
+observable change in a quantity 
+(property)
+•Any physical quantity that exhibits 
+variation in space or time can be a 
+signal
+Source: 
+https://volcanoes.usgs.gov/vhp/seismic_signals.html
+4
+
+--- PAGE 5 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Signals
+Example: ECG
+5
+For Heart!
+
+
+--- PAGE 6 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Signals
+Example: EEG
+6
+For Brain!
+
+--- PAGE 7 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+7
+Source: https://www.youtube.com/watch?v=Zd9WhJPa2Ok
+Using Brain Signals via EEG to Control Robot by MIT CSAIL 
+(Computer Science & Artificial Intelligence Laboratory)
+
+--- PAGE 8 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Signals
+Example: 
+Electropherogram
+Source: https://www.nucleics.com/peaktrace/peaktrace-
+box-overview.html
+8
+For DNA!
+
+--- PAGE 9 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Signals
+Example: 4 walking 
+strides from an elderly
+Source: doi:10.3390/s150306419 
+9
+Visually unable to decipher anything. But with 
+algorithms, we may be able to make sense out 
+of these signals!
+
+--- PAGE 10 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+
+
+--- PAGE 11 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Signals
+Example: Acceleration and velocity in 
+rowing
+Source: DOI: 10.1109/ISSNIP.2014.6827684 
+11
+Time Series Prediction!
+
+--- PAGE 12 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Signals
+Example: Ultrasound 
+image
+Source: https://www.cliniciansbrief.com/article/liver-
+ultrasound-guided-fine-needle-aspiration
+12
+Hepatic vein
+Portal vein
+
+--- PAGE 13 ---
+Sensors that produce signals
+
+--- PAGE 14 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Signals
+Sensors are getting 
+more and more 
+important to make the 
+world ‘smart’
+"One way to think of 
+IoT is second phase 
+of internet", by The 
+Economist
+Source: https://www.finoit.com/blog/top-15-sensor-types-
+used-iot/
+14
+Need IoT technologies to help manage, transfer, store the data; 
+making sense of data make the city smart!
+
+--- PAGE 15 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Sensors
+Temperature sensors
+Source: https://www.finoit.com/blog/top-15-sensor-types-
+used-iot/
+•Function: measure amount of heat 
+energy that allows to detect a 
+physical change in temperature 
+from a particular source 
+•In early days mostly used in Aircon, 
+refrigerators
+•Now, Manufacturing: as some 
+machines require specific 
+environment temperature, need 
+monitoring
+•Now, agriculture: soil temperature 
+is crucial for crop growth; helps with 
+plants production, maximizing 
+output
+Source: https://icon-library.net/icon/temperature-sensor-
+icon-19.html
+15
+
+--- PAGE 16 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Sensors
+Proximity sensors
+Source: https://www.finoit.com/blog/top-15-sensor-types-
+used-iot/
+•Function: detects the presence or 
+absence of a nearby object, or 
+properties of that object without 
+getting in contact with them.
+•Used in vehicles a lot, also for 
+parking availability
+•In retail industry, detect motion and 
+the correlation between customer 
+and the product they are interested 
+in
+•Some sensors specifically detect 
+metallic objects
+Source: https://icon-library.net/icon/proximity-icon-6.html
+16
+E.g. Magnetic switch, 
+Infrared sensors
+
+--- PAGE 17 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Sensors
+Distance sensors: 
+E.g. LiDAR Sensors
+17
+LiDAR = Light Detection and Ranging
+
+--- PAGE 18 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Sensors
+Pressure sensors
+Source: https://www.finoit.com/blog/top-15-sensor-types-
+used-iot/
+•Function: sense pressure and 
+converts it into electric signal
+•Often used to check if pressure 
+deviates from standard range
+•Useful in manufacturing
+•Useful in maintenance / monitoring 
+of whole water systems and 
+healting systems, as it is easy to 
+detect any fluctuation or drops in 
+pressure
+Source: https://www.123rf.com/profile_vectori1
+18
+
+
+--- PAGE 19 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Sensors
+Water quality sensors
+Source: https://www.finoit.com/blog/top-15-sensor-types-
+used-iot/
+•Function: monitor water quality and 
+ion
+•Chlorine residual sensor: measure 
+chlorine residual
+•Total organic carbon sensor: 
+measure organic element in water
+•Turbidity sensor: measure 
+suspended solids in water, typically 
+used in river
+•pH sensor: measure pH level in 
+water
+Source: 
+https://stock.adobe.com/sg/contributor/207708434/anton-
+shaparenko
+19
+
+--- PAGE 20 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+More than data
+Intelligent sense 
+making
+•Signals are just ….. numbers
+•Need to extract useful information 
+from signal - making sense out of 
+the signal
+•Understand the underlying events 
+that produce the signals, then make 
+(A) prediction, or (B) take action, 
+or (C) suggest possible actions
+•Create values for user and 
+customer
+Source: https://www.slideshare.net/muralidhar9s/data-
+analytics-for-iot
+20
+
+--- PAGE 21 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Value is created 
+by making sense 
+of data
+Source: vmob.me/IoT
+21
+Suggest possible 
+actions Take actionTake action
+
+--- PAGE 22 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Apple watch leading to 
+actionable insights
+Source: https://www.youtube.com/watch?v=b_96eFGwrOk
+22
+
+
+--- PAGE 23 ---
+Individual exercise (15~20 mins)
+Suggest an example on intelligent sense making. 
+Avoid re-use any examples given in the lecture notes.
+Refer to the given “use case exercise” template 
+with some examples in it.
+You are to describe clearly:
+(a)how the sensor(s) is used/deployed and what is the 
+acquired signal, 
+(b)what are the findings you are looking for from the 
+signal
+(c) what are the possible actions after the finding
+
+--- PAGE 24 ---
+Fundamentals of signals
+
+--- PAGE 25 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•Continuous function of real 
+indepedent variables
+•1 dimensional:
+•2 dimensional:
+Source: "The scientist and engineer's guide to digital signal processing", by 
+Steven W. Smith
+𝑧 = 𝑓(𝑥)
+Signal as function
+Real - Real
+𝑧 = 𝑓(𝑥, 𝑦)
+𝑧, 𝑥, 𝑦 ∈ 𝑅
+25
+Limitation in detecting the 
+signals in real-time in the 
+actual situation!
+
+--- PAGE 26 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•Continuous function of real 
+indepedent variables
+•1 dimensional:
+•2 dimensional:
+Source: "The scientist and engineer's guide to digital signal processing", by 
+Steven W. Smith
+𝑧 = 𝑓[𝑖]
+Signal as function
+Real - Discrete
+𝑧 = 𝑓[𝑖, 𝑗]
+𝑧 ∈ 𝑅 𝑖, 𝑗 ∈ 𝑍+
+26
+Practical situation: 
+Collecting the signals in 
+specific time intervals
+
+--- PAGE 27 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•Continuous function of real 
+indepedent variables
+•1 dimensional:
+•2 dimensional:
+Source: "The scientist and engineer's guide to digital signal processing", by 
+Steven W. Smith
+𝑧 = 𝑓[𝑖]
+Signal as function
+Discrete - Discrete
+𝑧 = 𝑓[𝑖, 𝑗]
+𝑧 ∈ 𝑍 𝑖, 𝑗 ∈ 𝑍+
+27
+Signals from real world supposed 
+to be continuous and smooth, but 
+limitations of sensor devices can 
+only enable us to collect data at 
+certain time intervals
+Sampled analog readings 
+is relatable and can be 
+converted to digital 
+signals
+
+--- PAGE 28 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Source: "The scientist and engineer's guide to digital signal processing", by 
+Steven W. Smith
+Sampling
+28
+Sampling rate is same 
+for all graphs!
+Highlights importance of choosing the 
+correct sampling rate. How to ensure 
+original signals are retained??
+
+--- PAGE 29 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•Suppose the highest frequency 
+component, in hertz, for a given 
+analog signal is fmax. 
+•According to the Nyquist-Shannon 
+theorem, the sampling rate must be 
+at least 2fmax, or twice the 
+highest analog frequency 
+component.
+•If the sampling rate is less than 
+2fmax, some of the highest 
+frequency components in the 
+analog input signal will not be 
+correctly represented in the 
+digitized output
+Source: http://www.writeopinions.com/nyquist-ndash-shannon-
+sampling-theorem
+Nyquist-Shannon 
+theorem
+Source: https://whatis.techtarget.com/definition/Nyquist-Theorem
+29
+
+--- PAGE 30 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•Wheel of a forward-moving car is 
+seemed rotating backward when by 
+right it should rotate forward
+•Can be explained by under-
+sampling. If movie is filmed at 20
+frames per second, but wheel 
+rotates more than 12 times per 
+second, under-sampling likely 
+creates the impression of backward 
+rotation
+Source: https://www.howitworksdaily.com/question-of-the-day-why-do-car-wheels-
+look-like-they-are-spinning-backwards-at-high-speed/
+Sampling
+Under Sampling Example
+30
+
+
+--- PAGE 31 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•A telephone company digitize voice 
+by assuming a maximum frequency 
+of 4000 Hz
+•What should be the sampling rate?
+Question
+31
+
+--- PAGE 32 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•A complex signal has a bandwidth 
+of 200 kHz.
+•What is the minimum sampling rate 
+for this signal?
+Question
+32
+
+--- PAGE 33 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•A signal is periodic if there exists a 
+positive constant T0 such that
+Source: 
+http://pilot.cnxproject.org/content/collection/col10064/latest/module/m1005
+7/latest
+Signal types
+Periodic | Aperiodic
+𝑓(𝑡 + 𝑇0) = 𝑓(𝑡) ∀𝑡
+33
+Same pattern 
+repeats
+
+--- PAGE 34 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+•Even signals can be easily spotted 
+as they are symmetric around 
+vertical axis
+Source: https://www.slideshare.net/mihirkjain/ch1-46505880
+Signal types
+Even | Odd
+𝑓(𝑡) = 𝑓(−𝑡)
+•An odd signal is a signal such that
+𝑓(𝑡) = −𝑓(−𝑡)
+34
+
+--- PAGE 35 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Superposition, decomposition
+decomposition
+superposition
+Source: "The scientist and engineer's guide to digital signal processing", by 
+Steven W. Smith
+35
+
+--- PAGE 36 ---
+issm/m1.1/v1.0of 35 © 2024 National University of Singapore. All Rights Reserved.
+Superposition, decomposition
+Source: "The scientist and engineer's guide to digital signal processing", by 
+Steven W. Smith
+•When dealing with linear systems, 
+signals can only be combined by 
+scaling and adding, no signal-
+signal multiplication
+•Synthesis: The process of 
+combining signals through scaling 
+and addition
+•The beauty of decomposition: 
+Instead of trying to understand how 
+complicated signals behave as a 
+whole, we study the individual 
+components, which are simpler 
+signals 
+36
+

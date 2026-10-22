@@ -1,0 +1,496 @@
+=== SLIDE 1 ===
+NUS-ISS
+Intelligent Sensing and Sense Making
+© 2024 National University of Singapore.
+All Rights Reserved.
+Module 2 - Foundations of sensor signal processing
+by Hu Zhengqing
+
+=== SLIDE 2 ===
+2
+Problem
+original
+peaks detected
+
+=== SLIDE 3 ===
+Peaks
+Peaks: useful topological features of a time-series
+Indicate significant events.
+In network distribution data, indicate sudden high demands
+In server utilization workload, indicate sharp increase in workload
+Source: https://pixabay.com/en/alps-mountain-peaks-nature-snow-2194319/
+3
+How about health or financial world?
+
+=== SLIDE 4 ===
+Time series has 2 distinct level changes and 3 spikes
+Red dots show the time when level change is detected
+Red arrows show detected spikes
+Source: https://blogs.technet.microsoft.com/machinelearning/2014/11/05/anomaly-detection-using-machine-learning-to-detect-abnormalities-in-time-series-data/
+Anomaly detection
+For log analytics
+4
+
+=== SLIDE 5 ===
+Peaks / Troughs
+Troughs: considered inverted peaks, equally important in many applications
+After peaks detected, analysis of peaks involving
+identifying periodicity of peaks
+forecasting the time of occurrence and value of next peak
+identifying dependencies among of peaks of two or more time-series
+Source: https://www.nps.gov/ever/learn/education/learning/mntsandvalleys.htm
+5
+
+=== SLIDE 6 ===
+Peaks / Troughs
+Peaks easily identified visually, but not so straightforward doing through algorithm
+Noise in data creates tremendous amount of false positive
+Some peaks are not result of noise, but still not relevant/desirable in analysis
+6
+
+=== SLIDE 7 ===
+Maxima / Minima
+For a time-continuous signal, peaks / troughs can be determined by searching maxima / minima in the signal
+Assume
+The maxima and minima are points where
+Source: https://www.mathsisfun.com/calculus/maxima-minima.html
+7
+
+=== SLIDE 8 ===
+Maxima / Minima
+At a maxima, f'(x) changes sign from + to -
+At a minima, f'(x) changes sign from - to +
+Question: Is this entire idea applicable to discrete signal?
+Question: Should we search the signal and find the point where f'(x) equals to 0?
+Source: https://www.toppr.com/guides/maths/application-of-derivatives/maxima-and-minima/
+8
+This method NOT applicable to discrete signals!
+Because not continuous!
+
+=== SLIDE 9 ===
+Finite difference
+Forward difference
+Source: https://www.toppr.com/guides/maths/application-of-derivatives/maxima-and-minima/
+Backward difference
+Central difference
+9
+Delta x is the sampling period
+For simplicity purposes, it is assumed to be 1 for our WS
+
+=== SLIDE 10 ===
+Finite difference in numpy
+Import the necessary, create the array
+Calculate the finite difference (forward difference by default in numpy)
+> import numpy as np
+> sg  = np.array([1,2,5,7,4,2])
+> dsg = np.diff(sg)
+> dsg
+: array([ 1,  3,  2, -3, -2])
+10
+numpy library can help us calculate finite difference
+
+=== SLIDE 11 ===
+Plotting ....
+Use matplotlib to do plotting
+Change plotting style to 'ggplot', if want to change back to default, set 'classic'
+> import matplotlib.pyplot as plt
+> plt.style.use('ggplot')
+'classic'
+'ggplot'
+11
+
+=== SLIDE 12 ===
+Plotting ....
+Show the y-axis label values at the right side
+> plt.rcParams['ytick.right']     = True
+> plt.rcParams['ytick.labelright']= True
+> plt.rcParams['ytick.left']      = False
+> plt.rcParams['ytick.labelleft'] = False
+left
+right
+12
+
+=== SLIDE 13 ===
+Finite difference in numpy
+Plot graph and take a look
+> plt.figure()
+> plt.subplot(211)
+> plt.plot(sg)
+> plt.subplot(212)
+> plt.bar(np.arange(dsg.shape[0]),
+dsg,)
+13
+Looking at this chart, what is the right strategy to search for peaks in discrete signal?
+Downside of finite difference methods?
+All the peaks will be located; many of which are not useful; need an option to filter out
+
+=== SLIDE 14 ===
+Finding peak
+using findPeaks from scipy
+> from scipy.signal import find_peaks as findPeaks
+> (Pks,_) = findPeaks(sg)
+> Pks
+: array([3])
+> plt.figure()
+> plt.plot(sg)
+> plt.plot(Pks,sg[Pks],'x')
+Plot the finding
+14
+
+=== SLIDE 15 ===
+Back to the problem
+original
+peaks detected
+Steps to do:
+Load data
+run findPeaks
+Fine tune / optimizing
+Repeat step 2 and 3 until we get satisfactory detection
+Display output
+15
+A useful tool to enhance the finite difference method:
+findPeaks API
+Filtering process here
+
+=== SLIDE 16 ===
+Many times 1D signal comes in the form of comma-separated values (csv)
+fields/columns separated by comma
+record/rows terminated by newline
+Use pandas to read in csv
+Solving the problem
+1. Load data
+-0.57
+-0.545
+-0.535
+-0.525
+-0.545
+-0.58
+-0.575
+-0.565
+-0.555
+-0.55
+-0.57
+-0.585
+-0.57
+-0.56
+-0.555
+-0.545
+-0.565
+-0.585
+-0.55
+-0.535
+-0.52
+-0.535
+-0.55
+-0.555
+.
+.
+.
+> import pandas as pd
+> l1D  = pd.read_csv('ecg1D.csv',
+header=None)
+> ecg1D= l1D[0].values
+16
+
+=== SLIDE 17 ===
+Read in a csv with header
+About pandas ...
+reading csv...
+x, y,z
+1.3,0.1,2.2
+1.1,0.05,2.6
+-0.7,0.3,2.5
+-0.5,0.36,2.5
+> pos  = pd.read_csv('pos.csv')
+> list(pos)
+: ['x', ' y', 'z']
+Sometimes it is good to list out the header, because some headers may have an empty space before letters
+To convert a column into a numpy array
+> y   = pos[' y'].values
+17
+
+=== SLIDE 18 ===
+run findPeaks without any adjustment or arguments
+Solving the problem
+2. run findPeaks
+> from scipy.signal import find_peaks as findPeaks
+> (allPks,_) = findPeaks(ecg1D)
+Plot the output
+> plt.figure()
+> plt.plot(ecg1D)
+> plt.plot(allPks,ecg1D[allPks],'x')
+18
+Need to filter out unwanted peaks!
+
+=== SLIDE 19 ===
+Add additional arguments to improve outcome
+Solving the problem
+2, 3. fine tune and re-run findPeaks
+> (somePks,_) = findPeaks(ecg1D,height=1)
+Get only peaks with height of at least 1
+> plt.figure()
+> plt.plot(ecg1D)
+> plt.plot(somePks,ecg1D[somePks],'x')
+It works, but is this a good strategy?
+19
+Height may not be a good strategy due to variations in signals (e.g. amplitude, baseline)!
+Removing the baseline may help increase the effectiveness (TBC)
+
+=== SLIDE 20 ===
+Try another strategy, use distance
+Solving the problem
+2, 3. fine tune and re-run findPeaks
+> (distPks,_) = findPeaks(ecg1D,distance=100)
+Get only peaks with at least 100 points apart
+> plt.figure()
+> plt.plot(ecg1D)
+> plt.plot(somePks,ecg1D[somePks],'x')
+Some points at T wave are picked up, some are not, why?
+20
+Like “height”, distance may not be a good strategy too; depends on use cases
+
+=== SLIDE 21 ===
+Use prominence
+Solving the problem
+2, 3. fine tune and re-run findPeaks
+> (prmPks,_) = findPeaks(ecg1D,prominence=0.5)
+Get only peaks with prominence of at least 0.5
+> plt.figure()
+> plt.plot(ecg1D)
+> plt.plot(prmPks,ecg1D[prmPks],'x')
+It works, but what is prominence?
+21
+
+=== SLIDE 22 ===
+The prominence of a peak measures how much a peak stands out from the surrounding baseline of the signal. The strategy:
+Extend a horizontal line from the current peak to the left and right until the line either reaches the window border or intersects the signal again at the slope of a higher peak. An intersection with a peak of the same height is ignored.
+On each side find the minimal signal value within the interval defined above. These points are the peak’s bases.
+The higher one of the two bases marks the peak’s lowest contour line. The prominence can then be calculated as the vertical difference between the peaks height itself and its lowest contour line.
+© 2019 National University of Singapore.
+All Rights Reserved.
+Prominence
+2, 3. fine tune and re-run findPeaks
+issm/m1.2/v1.0
+of 31
+22
+
+=== SLIDE 23 ===
+© 2019 National University of Singapore.
+All Rights Reserved.
+Prominence
+2, 3. fine tune and re-run findPeaks
+issm/m1.2/v1.0
+of 31
+23
+Extend a horizontal line from the current peak to the left and right until the line either reaches the window border or intersects the signal again at the slope of a higher peak. An intersection with a peak of the same height is ignored.
+On each side find the minimal signal value within the interval defined above. These points are the peak’s bases.
+The higher one of the two bases marks the peak’s lowest contour line. The prominence can then be calculated as the vertical difference between the peaks height itself and its lowest contour line.
+
+=== SLIDE 24 ===
+© 2019 National University of Singapore.
+All Rights Reserved.
+Prominence
+2, 3. fine tune and re-run findPeaks
+issm/m1.2/v1.0
+of 31
+24
+Extend a horizontal line from the current peak to the left and right until the line either reaches the window border or intersects the signal again at the slope of a higher peak. An intersection with a peak of the same height is ignored.
+On each side find the minimal signal value within the interval defined above. These points are the peak’s bases.
+The higher one of the two bases marks the peak’s lowest contour line. The prominence can then be calculated as the vertical difference between the peaks height itself and its lowest contour line.
+
+=== SLIDE 25 ===
+By default, the width of a peak is defined from the position half of of the prominence
+We can fine-tune the peak searching using multiple parameters
+Width
+2, 3. fine tune and re-run findPeaks
+25
+
+=== SLIDE 26 ===
+Baseline correction
+
+=== SLIDE 27 ===
+Problem
+baseline corrected
+original
+27
+Sometimes baselines of signals can be unstable; can lead to wrong deduction by algorithms
+Correcting baselines can solve this problem and enable easier peak and trough detection, hence promoting easier pattern comparison
+
+=== SLIDE 28 ===
+Baseline correction
+Unstable baselines occur in many types of instrumental measurements
+Drift in sensor values are common phenomenon, due to changes in environment factors such as temperature and humidity
+They can cause problem, for example, disturb peak detection, pattern comparison
+Correction is routinely needed
+Source: https://tvsquared.com/baseline-works-better/
+28
+The cheaper your sensor, the more you will encounter this problem!
+
+=== SLIDE 29 ===
+GC chromatogram: used to analyze content of a chemical product
+Examples: analyzing the contents of a lavender oil; measuring toxic substances in soil, air or water
+Also used extensively in forensic science
+Source: http://hiq.linde-gas.com/en/analytical_methods/gas_chromatography/index.html
+GC(Gas) chromatogram
+Example
+29
+
+=== SLIDE 30 ===
+GC chromatograms of refined petroleum products
+The other name of Gasoline is … petrol
+Source: https://www.researchgate.net/publication/275046766_Identification_of_refined_petroleum_products_in_contaminated_soils_using_an_identification_index_for_GC_chromatograms/figures?lo=1
+GC chromatogram
+Example
+30
+Critical to find out what are the components existing in each product
+Different components CXX have different intensity levels!
+
+=== SLIDE 31 ===
+Sometimes the signals acquired are not ideal
+For example ….
+Source: https://chem.libretexts.org/Bookshelves/Analytical_Chemistry/Supplemental_Modules_(Analytical_Chemistry)/Chromedia/01Gas_Chromotography_(GC)/Gas_Chromotography%3A_Basic_Theory/27Some_%27bad%27_GC_chromatograms
+GC chromatogram
+Example
+31
+Baseline wandering examples
+
+=== SLIDE 32 ===
+Sometimes the signals acquired are not ideal
+Source: https://www.phenomenex.com/Info/Page/baselineosc
+GC chromatogram
+Example
+32
+
+=== SLIDE 33 ===
+Need a solution to correct baseline
+Source: "Baseline correction with asymmetric least square", by Eilers and Boelens
+Baseline correction
+Example
+33
+
+=== SLIDE 34 ===
+Low cost air sensors have issues of baseline drift, not so useful for particle concentration, but spikes could characterize emissions events
+Air quality
+Monitoring of particle concentration
+34
+Source: https://cfpub.epa.gov
+
+=== SLIDE 35 ===
+Assume y is the original signal, z as the other signal which has this two properties: smooth, faithful to y
+Source: https://www.mathsisfun.com/calculus/maxima-minima.html
+Baseline correction
+Basic idea
+The baseline can be estimated by minimizing the penalized least squared function
+where
+35
+Derivation steps (NOT important!)
+First term here measures the fit to the data; second term is a penalty on non-smooth behavior of z; parameter lambda tunes the balance between the two terms
+
+=== SLIDE 36 ===
+Baseline correction
+Basic idea
+36
+yc is the parameter of interest but easy to calculate z or yc?
+Usually y is known and z is not. Need to find z here first in order to find yc!
+What’s the solution?
+Weights
+Diagonal sparse matrix
+
+=== SLIDE 37 ===
+Baseline drift in an ECG
+The measured trace contains heartbeat activity plus a slowly changing background
+Measured signal = heartbeat waveform + baseline drift + noise
+2  of 10
+© 2024 National University of Singapore. All Rights Reserved.
+
+=== SLIDE 38 ===
+How arPLS separates peaks from baseline
+Large positive residuals receive less influence during the next fit
+High weight: likely baseline or noise
+Low weight: likely a positive peak
+4  of 10
+© 2024 National University of Singapore. All Rights Reserved.
+
+=== SLIDE 39 ===
+The iterative arPLS algorithm
+The baseline and weights improve together until their change becomes small
+1
+Start with equal weights
+2
+Fit a smooth baseline
+3
+Calculate residuals
+4
+Reduce peak weights
+5
+Check convergence
+If the weight change is larger than tol, repeat steps 2 to 5
+The algorithm also stops when it reaches max_iter
+5  of 10
+© 2024 National University of Singapore. All Rights Reserved.
+
+=== SLIDE 40 ===
+Lambda controls baseline stiffness
+The correct scale depends on signal length, drift, peak width and noise
+Too small: follows ECG detail
+Useful starting scale
+Too large: misses curvature
+6  of 10
+© 2024 National University of Singapore. All Rights Reserved.
+
+=== SLIDE 41 ===
+Python workflow with pybaselines
+The method returns the estimated baseline and convergence information
+import numpy as np
+from pybaselines import Baseline
+samples = np.arange(len(ecg_raw))
+fitter = Baseline(x_data=samples)
+baseline, params = fitter.arpls(
+ecg_raw, lam=1e5, max_iter=50, tol=1e-3
+)
+ecg_corrected = ecg_raw - baseline
+baseline
+The slowly changing curve estimated by arPLS
+params
+weights and tol_history help us inspect the fit
+7  of 10
+© 2024 National University of Singapore. All Rights Reserved.
+
+=== SLIDE 42 ===
+ECG example
+The corrected signal keeps the heartbeat shape while the slow background is removed
+baseline, params = Baseline(samples).arpls(ecg_raw, lam=1e5)
+ecg_corrected = ecg_raw − baseline
+8  of 10
+© 2024 National University of Singapore. All Rights Reserved.
+
+=== SLIDE 43 ===
+Choosing and checking a baseline
+No ground-truth baseline is provided, so visual and numerical checks both matter
+1
+Inspect the curve
+It should follow slow drift and avoid heartbeat-shaped bumps.
+2
+Compare lambda values
+Try 10⁴, 10⁵, 10⁶ and 10⁷ on the same plot.
+3
+Check convergence
+The last tol_history value should be less than tol.
+4
+Inspect the result
+Quiet intervals should sit near zero without losing QRS shape.
+if params['tol_history'][-1] < 1e-3:  converged
+9  of 10
+© 2024 National University of Singapore. All Rights Reserved.
+
+=== SLIDE 44 ===
+Use pandas to read in csv
+Workshop
+Detect all the peaks in all the ECGs and perform baseline correction
+> import pandas as pd
+> l2D  = pd.read_csv('ecg2D.csv',
+header=None)
+44
+Note that for this workshop, use ecg2D data; ecg1D is for you to test out
+ecg2D data is a representative of 3 various signals (choose 1 column for your workshop; if you cannot decide, just choose the 2nd column)
+
