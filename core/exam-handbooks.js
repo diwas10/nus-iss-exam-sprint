@@ -75,7 +75,7 @@ window.ExamHandbooks = {
                 <tr>
                   <td><strong>Evaluation Metrics</strong></td>
                   <td>$$\\text{Precision} = \\frac{TP}{TP+FP}, \\quad \\text{Recall} = \\frac{TP}{TP+FN}$$</td>
-                  <td>$$\\text{F1} = \\frac{2PR}{P+R}, \\quad \\text{Lift} = \\frac{\% \\text{ responders in decile}}{\% \\text{ overall}}$$</td>
+                  <td>$$\\text{F1} = \\frac{2PR}{P+R}, \\quad \\text{Lift} = \\frac{\\text{Decile 1 Responders (\\\\%)}}{\\text{Overall Responders (\\\\%)}}$$</td>
                 </tr>
                 <tr>
                   <td><strong>PCA Covariance & Variance</strong></td>
@@ -324,7 +324,7 @@ window.ExamHandbooks = {
             <li><strong>Trap 4 (Single Decision Tree for Medical Diagnosis):</strong> Selecting a single decision tree over k-NN or Random Forest for 40 symptoms + 10 signs (IRS Q3a). Single trees suffer extreme high variance and greedy bias.</li>
             <li><strong>Trap 5 (TransE 1-to-N Limitation):</strong> Using TransE for 1-to-N relations (e.g. <code>is_director_of</code>). TransE forces all tail entities to map to the exact same point! Must use TransH or TransR.</li>
             <li><strong>Trap 6 (TSP Crossover):</strong> Using standard 1-point crossover on TSP paths. This produces invalid tours with duplicate cities and missing cities. Must use Order Crossover (OX) or PMX!</li>
-            <li><strong>Trap 7 (Support Threshold in Healthcare):</strong> Setting min_support too high (e.g. 20%) in clinical association mining. Rare life-threatening diseases have $<1\%$ support and would be completely pruned out!</li>
+            <li><strong>Trap 7 (Support Threshold in Healthcare):</strong> Setting min_support too high (e.g. 20%) in clinical association mining. Rare life-threatening diseases have $<1\\%$ support and would be completely pruned out!</li>
             <li><strong>Trap 8 (MYCIN Disbelief Combination):</strong> Forgetting that certainty factors range from $-1$ to $+1$, not $0$ to $1$.</li>
             <li><strong>Trap 9 (RAG Hallucination Mitigation):</strong> Claiming vector similarity search guarantees factual accuracy. RAG requires Knowledge Graph verification (GraphRAG) or deterministic rule checks.</li>
             <li><strong>Trap 10 (Patient Self-Service Endorsement):</strong> Agreeing to replace primary care doctors with autonomous self-service apps without stating medical liability, false-negative risks, and Human-in-the-Loop governance.</li>

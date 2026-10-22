@@ -88,23 +88,23 @@
           <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
           <span id="topbar-active-day">Day 1: Classical ML + Probability + Search</span>
         </div>
-        <div class="topbar-actions" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-          <button class="btn btn-sm btn-outline" onclick="if(window.app) window.app.loadLevel('exam-generator')" style="border-color: #38bdf8; color: #38bdf8; font-size: 0.76rem;" title="Open 4-Tier Interactive Question Simulator">
+        <div class="topbar-actions" style="display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; overflow-x: auto; padding: 2px 0;">
+          <button class="btn btn-sm btn-outline" onclick="if(window.app) window.app.loadLevel('exam-generator')" style="border-color: #38bdf8; color: #38bdf8; font-size: 0.76rem; white-space: nowrap;" title="Open 4-Tier Interactive Question Simulator">
             <i data-lucide="cpu" style="width: 13px; height: 13px;"></i> Exam Generator
           </button>
-          <button class="btn btn-sm btn-outline" onclick="if(window.app) window.app.loadLevel('mastery-tracker')" style="border-color: #10b981; color: #10b981; font-size: 0.76rem;" title="View PRS vs IRS Readiness & Mistake Log">
+          <button class="btn btn-sm btn-outline" onclick="if(window.app) window.app.loadLevel('mastery-tracker')" style="border-color: #10b981; color: #10b981; font-size: 0.76rem; white-space: nowrap;" title="View PRS vs IRS Readiness & Mistake Log">
             <i data-lucide="bar-chart-2" style="width: 13px; height: 13px;"></i> Mastery & Mistakes
           </button>
-          <button class="btn btn-sm btn-outline" onclick="if(window.app) window.app.loadLevel('traceability')" style="border-color: #f59e0b; color: #f59e0b; font-size: 0.76rem;" title="Verify 100% Course & Slide Coverage">
+          <button class="btn btn-sm btn-outline" onclick="if(window.app) window.app.loadLevel('traceability')" style="border-color: #f59e0b; color: #f59e0b; font-size: 0.76rem; white-space: nowrap;" title="Verify 100% Course & Slide Coverage">
             <i data-lucide="check-square" style="width: 13px; height: 13px;"></i> Traceability
           </button>
-          <a href="index.html" class="btn btn-sm btn-outline" style="border-color: rgba(255,255,255,0.2); color: var(--text-secondary); text-decoration: none; font-size: 0.76rem;">
+          <a href="index.html" class="btn btn-sm btn-outline" style="border-color: rgba(255,255,255,0.2); color: var(--text-secondary); text-decoration: none; font-size: 0.76rem; white-space: nowrap;">
             <i data-lucide="calendar"></i> 10-Day Plan
           </a>
-          <button class="btn btn-sm btn-primary" onclick="if(window.QAAssistant) window.QAAssistant.toggleModal();" style="display: flex; align-items: center; gap: 6px; font-size: 0.76rem; background: linear-gradient(135deg, #0284c7, #4f46e5);">
+          <button class="btn btn-sm btn-primary" onclick="if(window.QAAssistant) window.QAAssistant.toggleModal();" style="display: flex; align-items: center; gap: 6px; font-size: 0.76rem; background: linear-gradient(135deg, #0284c7, #4f46e5); white-space: nowrap;">
             <i data-lucide="help-circle"></i> Ask Doubt / AI
           </button>
-          <span class="badge-tech" id="topbar-status-badge"><i data-lucide="activity" style="width: 12px; height: 12px; vertical-align: middle;"></i> Live Interactive</span>
+          <span class="badge-tech" id="topbar-status-badge" style="white-space: nowrap;"><i data-lucide="activity" style="width: 12px; height: 12px; vertical-align: middle;"></i> Live Interactive</span>
         </div>
       </header>
 

@@ -1029,6 +1029,7 @@ class LearningApp {
         if (levelId === 'level-1' || levelId === 'mod-1' || levelId === 'mod-2') {
           if (window.SprintDay2Visualizers?.initHospitalTriageStudio) window.SprintDay2Visualizers.initHospitalTriageStudio();
           if (window.ThreeDaySprintDay3Visualizers?.initLevel1Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel1Visualizers();
+          if (window.ThreeDaySprintDay3Visualizers?.initReasoningTypesStudio) window.ThreeDaySprintDay3Visualizers.initReasoningTypesStudio();
         } else if (levelId === 'mod-4') {
           if (window.ThreeDaySprintDay3Visualizers?.initMYCINCalculator) window.ThreeDaySprintDay3Visualizers.initMYCINCalculator();
           if (window.ThreeDaySprintDay3Visualizers?.initMamdaniDefuzzifier) window.ThreeDaySprintDay3Visualizers.initMamdaniDefuzzifier();
@@ -1480,24 +1481,37 @@ class LearningApp {
       return '<li style="margin-bottom:6px;">' + t + '</li>';
     }).join('');
 
+    const isRunning = !!window._dailyTimerInterval;
+    const curSeconds = typeof window._dailySecondsLeft === 'number' ? window._dailySecondsLeft : 45 * 60;
+    const mins = Math.floor(curSeconds / 60);
+    const secs = curSeconds % 60;
+    const timeFormatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
     contentArea.innerHTML = `
-      <div class="level-header-banner mb-4" style="border-left: 4px solid var(--accent-primary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
-        <div>
-          <div class="level-badge-tag"><i data-lucide="repeat"></i> ${rev.durationRecommended || '45-60 Min'} Active Recall & Drills</div>
-          <h2>${rev.title}</h2>
-          <p class="text-secondary">${rev.subtitle}</p>
-        </div>
-        <!-- Live Countdown Timer -->
-        <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:10px; padding:12px 18px; text-align:center; min-width:180px;">
-          <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Revision Timer</div>
-          <div id="daily-timer-display" style="font-size:1.6rem; font-weight:800; font-family:monospace; color:#38bdf8; margin:2px 0;">45:00</div>
-          <div style="display:flex; gap:6px; justify-content:center;">
-            <button class="btn btn-sm btn-outline" id="daily-timer-btn" onclick="window.toggleDailyStopwatch()" style="font-size:0.72rem; padding:2px 8px;">
-              <i data-lucide="play"></i> Start
-            </button>
-            <button class="btn btn-sm btn-outline" onclick="window.resetDailyStopwatch()" style="font-size:0.72rem; padding:2px 8px;" title="Reset 45 min">
-              <i data-lucide="rotate-ccw"></i> Reset
-            </button>
+      <div class="lesson-card mb-4" style="background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(99, 102, 241, 0.08)); border: 1px solid rgba(56, 189, 248, 0.25); border-left: 4px solid var(--accent-primary); border-radius: 12px; padding: 22px 24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+          <div style="flex: 1; min-width: 260px;">
+            <div class="level-badge-tag" style="background: var(--accent-primary); color: white; margin-bottom: 8px;">
+              <i data-lucide="repeat"></i> ${rev.durationRecommended || '45-60 Min'} Active Recall & Drills
+            </div>
+            <h2 style="margin: 0 0 6px 0; color: var(--text-primary); font-size: 1.45rem;">${rev.title}</h2>
+            <p class="text-secondary" style="margin: 0; font-size: 0.92rem; line-height: 1.5;">${rev.subtitle}</p>
+          </div>
+          <!-- Live Countdown Timer -->
+          <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 10px; padding: 14px 22px; text-align: center; min-width: 190px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+            <div style="font-size: 0.72rem; color: #38bdf8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: ${isRunning ? '#10b981' : '#f59e0b'};"></span>
+              Revision Timer
+            </div>
+            <div id="daily-timer-display" style="font-size: 1.85rem; font-weight: 800; font-family: var(--font-mono, monospace); color: #38bdf8; margin: 4px 0;">${timeFormatted}</div>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+              <button class="btn btn-sm ${isRunning ? 'btn-primary' : 'btn-outline'}" id="daily-timer-btn" onclick="window.toggleDailyStopwatch()" style="font-size: 0.75rem; padding: 3px 10px;">
+                <i data-lucide="${isRunning ? 'pause' : 'play'}"></i> ${isRunning ? 'Pause' : (curSeconds < 45 * 60 ? 'Resume' : 'Start')}
+              </button>
+              <button class="btn btn-sm btn-outline" onclick="window.resetDailyStopwatch()" style="font-size: 0.75rem; padding: 3px 10px;" title="Reset 45 min">
+                <i data-lucide="rotate-ccw"></i> Reset
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1773,17 +1787,25 @@ window.toggleDailyStopwatch = function() {
 
     window._dailyTimerInterval = setInterval(() => {
       window._dailySecondsLeft--;
+      const curDisplay = document.getElementById('daily-timer-display');
+      const curBtn = document.getElementById('daily-timer-btn');
       if (window._dailySecondsLeft <= 0) {
         clearInterval(window._dailyTimerInterval);
         window._dailyTimerInterval = null;
-        display.textContent = '00:00';
-        btn.innerHTML = `<i data-lucide="rotate-ccw"></i> Reset`;
+        if (curDisplay) curDisplay.textContent = '00:00';
+        if (curBtn) {
+          curBtn.innerHTML = `<i data-lucide="rotate-ccw"></i> Reset`;
+          curBtn.className = 'btn btn-sm btn-outline';
+          if (window.lucide) window.lucide.createIcons();
+        }
         alert('45-Minute Timed Revision Completed! Review your mathematical workings.');
         return;
       }
       const mins = Math.floor(window._dailySecondsLeft / 60);
       const secs = window._dailySecondsLeft % 60;
-      display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      if (curDisplay) {
+        curDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      }
     }, 1000);
   }
   if (window.lucide) window.lucide.createIcons();

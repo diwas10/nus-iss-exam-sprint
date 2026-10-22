@@ -481,26 +481,26 @@ window.TraceabilityMatrix = {
       </div>
 
       <!-- Stats Grid -->
-      <div class="grid-4-col mb-4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px;">
-        <div class="stat-card" style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+      <div class="mb-4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+        <div class="stat-card" style="background: var(--bg-secondary); padding: 14px 12px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center; min-width: 0;">
           <div style="font-size: 1.8rem; font-weight: 800; color: #38bdf8;">${matrix.length}</div>
-          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">Total Core Topics</div>
-          <div style="font-size: 0.75rem; color: #10b981; margin-top: 2px;">100% Course Coverage</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">Total Core Topics</div>
+          <div style="font-size: 0.73rem; color: #10b981; margin-top: 2px;">100% Course Coverage</div>
         </div>
-        <div class="stat-card" style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+        <div class="stat-card" style="background: var(--bg-secondary); padding: 14px 12px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center; min-width: 0;">
           <div style="font-size: 1.8rem; font-weight: 800; color: #38bdf8;">${prsCount}</div>
-          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">ISY5002 (PRS) Topics</div>
-          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">PSUPR, PRMLS, ISSM</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">ISY5002 (PRS) Topics</div>
+          <div style="font-size: 0.73rem; color: var(--text-secondary); margin-top: 2px;">PSUPR, PRMLS, ISSM</div>
         </div>
-        <div class="stat-card" style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+        <div class="stat-card" style="background: var(--bg-secondary); padding: 14px 12px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center; min-width: 0;">
           <div style="font-size: 1.8rem; font-weight: 800; color: #10b981;">${irsCount}</div>
-          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">ISY5001 (IRS) Topics</div>
-          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">MR, RS, CS</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">ISY5001 (IRS) Topics</div>
+          <div style="font-size: 0.73rem; color: var(--text-secondary); margin-top: 2px;">MR, RS, CS</div>
         </div>
-        <div class="stat-card" style="background: var(--bg-secondary); padding: 16px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center;">
+        <div class="stat-card" style="background: var(--bg-secondary); padding: 14px 12px; border-radius: 10px; border: 1px solid var(--border-color); text-align: center; min-width: 0;">
           <div style="font-size: 1.8rem; font-weight: 800; color: #f59e0b;">37</div>
-          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">Lecture Decks Audited</div>
-          <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">Zero Missing Elements</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px;">Lecture Decks Audited</div>
+          <div style="font-size: 0.73rem; color: var(--text-secondary); margin-top: 2px;">Zero Missing Elements</div>
         </div>
       </div>
 

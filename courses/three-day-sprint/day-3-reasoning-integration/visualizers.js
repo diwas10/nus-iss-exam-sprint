@@ -37,6 +37,253 @@ window.ThreeDaySprintDay3Visualizers = {
   },
 
   // -------------------------------------------------------------------------
+  // 0. The 4 Types of Reasoning Visual Studio & Simulator (Day 3 Mod 1)
+  // -------------------------------------------------------------------------
+  _currentReasoningType: 'deductive',
+  _currentReasoningScenario: 'eyecoach',
+
+  _reasoningData: {
+    deductive: {
+      title: "Deductive Reasoning (Top-Down / Truth-Preserving)",
+      color: "#38bdf8",
+      tag: "Guaranteed 100% Certainty",
+      direction: "General Rule + Specific Fact \\implies Guaranteed Conclusion",
+      formula: "$$\\text{Modus Ponens: } P, \\; P \\to Q \\vdash Q \\qquad \\text{Modus Tollens: } \\neg Q, \\; P \\to Q \\vdash \\neg P$$",
+      certainty: 100,
+      certaintyLabel: "100% Sound & Valid (Truth-Preserving, Monotonic)",
+      systemMode: "System 2: Slow, deliberative, formal rule-engine execution",
+      scenarios: {
+        eyecoach: {
+          premise1: "General Rule: IF continuous screen time > 20 min, THEN EyeCoach MUST trigger 20-20-20 break alarm.",
+          premise2: "Specific Fact: Employee Tan has logged 22 minutes continuous gaze without lookaway.",
+          conclusion: "Conclusion: Trigger break alarm immediately (100% mathematically and logically guaranteed).",
+          inferenceTrace: "Rule Engine Match-Resolve-Act cycle fired Rule #04 with specificity score 1.0. No contradiction possible."
+        },
+        drone: {
+          premise1: "General Rule: IF obstacle proximity sensor < 0.5m, THEN initiate emergency braking thrust.",
+          premise2: "Specific Fact: LiDAR ping detects wall at 0.35m.",
+          conclusion: "Conclusion: Fire reverse thrusters immediately (Safety critical: zero tolerance for uncertainty).",
+          inferenceTrace: "Hard real-time interrupt triggered state transition to EMERGENCY_HALT."
+        },
+        fraud: {
+          premise1: "General Rule: IF card country is Singapore AND transaction IP is Nigeria within 3 minutes, THEN Flag Impossible Velocity Fraud.",
+          premise2: "Specific Fact: Physical swipe at Orchard Rd at 12:00, online authorization in Lagos at 12:02.",
+          conclusion: "Conclusion: Block transaction and freeze card (Deductive business rule violation).",
+          inferenceTrace: "Compliance Rule Set 12 triggered deterministic block."
+        }
+      },
+      examTip: "NUS-ISS Open-Book Trap: Deductive logic is monotonic — adding new facts can never invalidate a sound conclusion. In clinical/legal AI, deduction is mandatory for accountability and audit trails."
+    },
+    inductive: {
+      title: "Inductive Reasoning (Bottom-Up / Statistical)",
+      color: "#10b981",
+      tag: "Probabilistic Generalization (ML)",
+      direction: "Specific Observations \\implies Generalized Probabilistic Pattern",
+      formula: "$$\\hat{\\theta} = \\arg\\max_\\theta \\prod_{i=1}^N P(x_i \\mid \\theta), \\quad P(Y=1 \\mid X) = \\sigma(w^T X + b)$$",
+      certainty: 88,
+      certaintyLabel: "Probabilistic (High confidence, but falsifiable by counterexample)",
+      systemMode: "System 1: Fast, pattern-associative, neural feature representation",
+      scenarios: {
+        eyecoach: {
+          premise1: "Observations: 1,400 recorded gaze sessions show users blinking > 25 times/min exhibit 89% eye strain symptoms after 2 hours.",
+          premise2: "Observed Pattern: High blink rate strongly correlates with uncalibrated monitor brightness.",
+          conclusion: "Conclusion: Generalize model: P(Eye Strain | High Blink Rate, Glare) = 0.89.",
+          inferenceTrace: "Logistic regression / random forest fit on historical observational dataset."
+        },
+        drone: {
+          premise1: "Observations: Over 5,000 flight hours across monsoon winds, turbulent gusts caused sudden 12° yaw drift in 94% of cases.",
+          premise2: "Observed Pattern: High barometer variance precedes wind shear.",
+          conclusion: "Conclusion: Learn adaptive Kalman Filter covariance matrix Q for gust compensation.",
+          inferenceTrace: "Empirical covariance estimation from flight telemetry."
+        },
+        fraud: {
+          premise1: "Observations: 200,000 historical credit transactions reveal that 93% of fraudulent attempts occur between 2 AM and 4 AM on overseas merchant categories.",
+          premise2: "Observed Pattern: Anomaly score clusters in high-risk latent space.",
+          conclusion: "Conclusion: Induce XGBoost decision boundary classifying risk score > 0.85.",
+          inferenceTrace: "Gradient boosted trees optimizing cross-entropy loss."
+        }
+      },
+      examTip: "NUS-ISS Open-Book Trap: Induction is non-monotonic and never guarantees truth. A single counterexample can falsify the induced hypothesis (David Hume's Problem of Induction)."
+    },
+    abductive: {
+      title: "Abductive Reasoning (Diagnostic / Effect \\to Cause)",
+      color: "#f59e0b",
+      tag: "Inference to the Best Explanation",
+      direction: "Observed Effect / Symptom + Causal Knowledge \\implies Most Plausible Cause",
+      formula: "$$\\text{Observation } Q, \\; P \\to Q \\vdash \\text{Hypothesize } P \\quad \\text{subject to } \\arg\\max_P P(P \\mid Q)$$",
+      certainty: 72,
+      certaintyLabel: "Plausible Hypothesis (Requires differential confirmation)",
+      systemMode: "System 2 + 1: Hypothesize-and-Test diagnostic cycle (Clinical reasoning)",
+      scenarios: {
+        eyecoach: {
+          premise1: "Observed Symptom: User presents with severe headaches, red sclera, and frequent squinting after 3 PM.",
+          premise2: "Known Causality: Astigmatism (A), Poor Ergonomic Distance (E), or Ambient Glare (G) cause these symptoms.",
+          conclusion: "Conclusion: EyeCoach hypothesizes 'Improper Display Distance' as best initial explanation because ambient light sensor reads normal.",
+          inferenceTrace: "Abductive differential diagnosis ruled out Glare; recommended screen distance calibration before clinical referral."
+        },
+        drone: {
+          premise1: "Observed Symptom: Motor #3 RPM abruptly spiked 40% while altitude dropped 1.2 meters.",
+          premise2: "Known Causality: Propeller blade chip, motor bearing seizure, or sudden downdraft.",
+          conclusion: "Conclusion: Hypothesize blade micro-fracture as most likely cause based on vibration frequency analysis.",
+          inferenceTrace: "Abductive fault isolation module selected hypothesis with maximum posterior probability."
+        },
+        fraud: {
+          premise1: "Observed Symptom: Customer with 10-year spotless record has 5 micro-charges of $1.00 within 2 minutes.",
+          premise2: "Known Causality: Card testing bot attack or customer testing new digital wallet.",
+          conclusion: "Conclusion: Hypothesize automated card credential testing bot attack as most plausible explanation.",
+          inferenceTrace: "Abductive fraud investigator agent generates alert for immediate silent step-up 2FA."
+        }
+      },
+      examTip: "NUS-ISS Open-Book Trap: Confusing Abduction with Deduction is the #1 mistake in IRS exams! In formal logic, affirming the consequent ($Q, P \\to Q \\implies P$) is a logical fallacy, but in AI diagnosis it is the fundamental heuristic engine of Abduction."
+    },
+    analogical: {
+      title: "Analogical Reasoning (Source \\to Target / CBR)",
+      color: "#ec4899",
+      tag: "Case-Based Structural Mapping",
+      direction: "Source Case Domain Knowledge \\implies Adapted Target Solution",
+      formula: "$$\\text{Sim}(C_{\\text{target}}, C_{\\text{source}}) = \\frac{\\sum w_i \\cdot s_i(f_{i}^{\\text{tgt}}, f_{i}^{\\text{src}})}{\\sum w_i}, \\quad \\text{Solution} = \\text{Adapt}(S_{\\text{src}})$$",
+      certainty: 78,
+      certaintyLabel: "Heuristic Transfer (Depends on domain structural similarity)",
+      systemMode: "System 2: Structural mapping + Case-Based Retrieval (CBR 4R Cycle)",
+      scenarios: {
+        eyecoach: {
+          premise1: "Source Case: Case #812 — Software engineer with identical ergonomic desk height and dry eyes was cured by 20° monitor downward tilt.",
+          premise2: "Target Situation: Current designer has similar workstation dimensions and reports dry eyes.",
+          conclusion: "Conclusion: Retrieve Case #812 and adapt solution: recommend tilting monitor downwards by 18°.",
+          inferenceTrace: "CBR 4R cycle: Retrieve (k-NN distance = 0.92) -> Reuse solution -> Revise angle for designer's height -> Retain new case."
+        },
+        drone: {
+          premise1: "Source Case: Flocking behavior in bird murmurations avoids collisions without central broadcast communication.",
+          premise2: "Target Situation: Swarm of 50 delivery drones operating in tight urban corridor.",
+          conclusion: "Conclusion: Map Reynolds Boids rules (Separation, Alignment, Cohesion) onto decentralized drone flight controllers.",
+          inferenceTrace: "Cross-domain bio-inspired analogical mapping."
+        },
+        fraud: {
+          premise1: "Source Case: 2023 crypto phishing attack pattern that simulated fake refund notifications.",
+          premise2: "Target Situation: New wave of SMS claiming transit card account refunds with spoofed headers.",
+          conclusion: "Conclusion: Adapt previous phishing mitigation signature to instantly block sender domain pattern.",
+          inferenceTrace: "Incident response CBR engine reused previous remediation playbook."
+        }
+      },
+      examTip: "NUS-ISS Open-Book Trap: In Case-Based Reasoning questions, always cite the 4R cycle (Retrieve, Reuse, Revise, Retain). Analogical reasoning succeeds when surface features differ but deep structural relationships are isomorphic."
+    }
+  },
+
+  initReasoningTypesStudio: function() {
+    this.selectReasoningType(this._currentReasoningType || 'deductive');
+  },
+
+  setReasoningScenario: function(scen) {
+    this._currentReasoningScenario = scen;
+    this.renderReasoningWorkbench();
+  },
+
+  selectReasoningType: function(type) {
+    if (!this._reasoningData[type]) return;
+    this._currentReasoningType = type;
+
+    // Update active style on cards
+    ['deductive', 'inductive', 'abductive', 'analogical'].forEach(t => {
+      const el = document.getElementById(`rcard-${t}`);
+      if (el) {
+        if (t === type) {
+          el.style.border = `2px solid ${this._reasoningData[t].color}`;
+          el.style.background = 'rgba(56, 189, 248, 0.08)';
+          el.style.boxShadow = `0 0 12px ${this._reasoningData[t].color}33`;
+        } else {
+          el.style.border = '1px solid var(--border-color)';
+          el.style.background = 'var(--bg-card)';
+          el.style.boxShadow = 'none';
+        }
+      }
+    });
+
+    this.renderReasoningWorkbench();
+  },
+
+  renderReasoningWorkbench: function() {
+    const wb = document.getElementById('reasoning-workbench');
+    if (!wb) return;
+
+    const type = this._currentReasoningType || 'deductive';
+    const data = this._reasoningData[type];
+    const scenKey = this._currentReasoningScenario || 'eyecoach';
+    const scen = (data.scenarios && data.scenarios[scenKey]) ? data.scenarios[scenKey] : data.scenarios['eyecoach'];
+
+    wb.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+        <div>
+          <h4 style="margin: 0; color: ${data.color}; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+            <span>${data.title}</span>
+          </h4>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 3px;">
+            <i data-lucide="compass" style="width: 12px; height: 12px; vertical-align: middle;"></i> Direction: <strong>${data.direction}</strong>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <span class="badge-tech" style="background: rgba(255,255,255,0.06); color: var(--text-secondary); font-size: 0.72rem;">
+            ${data.systemMode}
+          </span>
+        </div>
+      </div>
+
+      <!-- Formal Mathematical Syllogism -->
+      <div style="background: var(--bg-secondary); border-radius: 6px; padding: 10px 14px; margin-bottom: 12px; text-align: center;">
+        <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">Formal Logical / Mathematical Formulation</div>
+        <div id="rw-math" style="font-size: 0.95rem; color: #38bdf8;">${data.formula}</div>
+      </div>
+
+      <!-- Live Scenario Syllogism Trace -->
+      <div class="grid-2-col" style="gap: 12px; margin-bottom: 12px;">
+        <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px; border-left: 3px solid ${data.color};">
+          <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">Premises & Inputs</div>
+          <div style="font-size: 0.82rem; color: var(--text-primary); margin-bottom: 6px;"><strong>Premise 1:</strong> ${scen.premise1}</div>
+          <div style="font-size: 0.82rem; color: var(--text-primary);"><strong>Premise 2:</strong> ${scen.premise2}</div>
+        </div>
+        <div style="background: var(--bg-secondary); padding: 12px; border-radius: 6px; border-left: 3px solid #10b981;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px;">Inference Result</div>
+          <div style="font-size: 0.84rem; color: #10b981; font-weight: 600; margin-bottom: 6px;">${scen.conclusion}</div>
+          <div style="font-size: 0.76rem; color: var(--text-secondary);"><i data-lucide="cpu" style="width: 12px; height: 12px; vertical-align: middle;"></i> <em>${scen.inferenceTrace}</em></div>
+        </div>
+      </div>
+
+      <!-- Certainty Bar -->
+      <div style="background: var(--bg-secondary); padding: 10px 14px; border-radius: 6px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px;">
+          <span style="color: var(--text-muted); font-weight: 600;">Certainty & Soundness Level:</span>
+          <span style="color: ${data.color}; font-weight: 700;">${data.certaintyLabel}</span>
+        </div>
+        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+          <div style="width: ${data.certainty}%; height: 100%; background: ${data.color}; transition: width 0.4s ease;"></div>
+        </div>
+      </div>
+
+      <!-- Exam Tip & Trap -->
+      <div style="background: rgba(245, 158, 11, 0.08); border-left: 3px solid #f59e0b; padding: 10px 14px; border-radius: 4px; font-size: 0.8rem; color: var(--text-primary); line-height: 1.5;">
+        <strong style="color: #f59e0b;"><i data-lucide="alert-triangle" style="width: 13px; height: 13px; vertical-align: middle;"></i> Exam Strategy & Pitfalls:</strong> ${data.examTip}
+      </div>
+    `;
+
+    this.renderMath(wb);
+    if (window.lucide) window.lucide.createIcons();
+  },
+
+  checkReasoningChallenge: function(selectedType) {
+    const feedback = document.getElementById('reasoning-challenge-feedback');
+    if (!feedback) return;
+
+    feedback.style.display = 'block';
+    if (selectedType === 'abductive') {
+      feedback.style.color = '#10b981';
+      feedback.innerHTML = `<strong><i data-lucide="check-circle" style="width:14px;height:14px;vertical-align:middle;"></i> Correct!</strong> This is <strong>Abductive Reasoning</strong>. EyeCoach observed the symptom (slow blinks, droopy eyelids) and inferred the most plausible explanatory cause (ocular fatigue). Note that eye fatigue is not 100% guaranteed (deduction) nor is it a learned dataset distribution (pure induction) — it is a diagnostic hypothesis.`;
+    } else {
+      feedback.style.color = '#ef4444';
+      feedback.innerHTML = `<strong><i data-lucide="x-circle" style="width:14px;height:14px;vertical-align:middle;"></i> Not quite.</strong> You selected <em>${selectedType.toUpperCase()}</em>. The scenario describes observing an <strong>effect / symptom</strong> and hypothesizing the <strong>underlying cause</strong>. In NUS-ISS IRS, that is the defining definition of <strong>Abductive Reasoning</strong> (Inference to the Best Explanation). Try clicking the "Abductive" card above!`;
+    }
+    if (window.lucide) window.lucide.createIcons();
+  },
+
+  // -------------------------------------------------------------------------
   // 1. MYCIN Certainty Factor Combination Calculator
   // -------------------------------------------------------------------------
   initMYCINCalculator: function() {
