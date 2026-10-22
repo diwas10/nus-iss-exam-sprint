@@ -1,3 +1,4 @@
+import os
 import json
 
 def make_stage_html(mod_num, title, diagnostic_data, intuitive_html, vis_html, math_html, practice_html, exam_html, summary_html):
@@ -19,17 +20,8 @@ def make_stage_html(mod_num, title, diagnostic_data, intuitive_html, vis_html, m
           </p>
           
           <div class="grid-2-col" style="gap: 12px;">
-            <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
-              <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Q1: {d_q1['q']}</div>
-              <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 8px;">{d_q1['options']}</div>
-              <button class="btn btn-sm btn-outline" onclick="alert('{d_q1['feedback']}')">Check Answer</button>
-            </div>
-
-            <div style="background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
-              <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px;">Q2: {d_q2['q']}</div>
-              <div style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 8px;">{d_q2['options']}</div>
-              <button class="btn btn-sm btn-outline" onclick="alert('{d_q2['feedback']}')">Check Answer</button>
-            </div>
+            <div id="diag-mount-mod-{mod_num}-q1"></div>
+            <div id="diag-mount-mod-{mod_num}-q2"></div>
           </div>
         </div>
 
@@ -66,7 +58,7 @@ def make_stage_html(mod_num, title, diagnostic_data, intuitive_html, vis_html, m
             Stage 5: Independent Practice
           </div>
           <h3 style="margin-top: 4px; color: var(--text-primary);">Solve Without Looking</h3>
-          {practice_html}
+          <div id="prac-mount-mod-{mod_num}"></div>
         </div>
 
         <!-- STAGE 6: EXAM APPLICATION -->
@@ -284,13 +276,7 @@ modules.append({
       <p>Training an MLP is an exercise in multivariable calculus: <strong>Backpropagation</strong> applies the chain rule in reverse from the output loss back to the input weights, allowing gradient descent (SGD, Adam) to iteratively adjust every weight.</p>
     """,
     "vis": """
-      <div class="p-3" style="background:var(--bg-secondary); border-radius:8px;">
-        <h4 style="color:#38bdf8; margin-top:0;">Backpropagation Chain Rule Flow</h4>
-        <p style="font-size:0.85rem; color:var(--text-secondary);">
-          $\\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{W}} = \\frac{\\partial \\mathcal{L}}{\\partial \\hat{y}} \\cdot \\frac{\\partial \\hat{y}}{\\partial \\mathbf{z}} \\cdot \\frac{\\partial \\mathbf{z}}{\\partial \\mathbf{W}} = \\boldsymbol{\\delta} \\cdot \\mathbf{a}_{\\text{prev}}^T$.
-          Gradients flow backward while activations flow forward.
-        </p>
-      </div>
+      <div id="backprop-calculator-studio"></div>
     """,
     "math": """
       <p><strong>Binary Cross-Entropy Loss:</strong></p>
@@ -450,7 +436,8 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {{
 }};
 """
 
-with open("learning_platform/courses/three-day-sprint/day-2-signals-deeplearning/content.js", "w") as f:
+out_dir = "courses" if os.path.exists("courses") else "learning_platform/courses"
+with open(f"{out_dir}/three-day-sprint/day-2-signals-deeplearning/content.js", "w") as f:
     f.write(js_output)
 
 print(f"Generated Day 2 content.js with {len(modules)} modules and {len(sections)} sections (including aliases).")
@@ -949,7 +936,8 @@ window.DAY2_SIGNALS_DEEPLEARNING_CONTENT = {{
 }};
 """
 
-with open("learning_platform/courses/three-day-sprint/day-2-signals-deeplearning/content.js", "w") as f:
+out_dir = "courses" if os.path.exists("courses") else "learning_platform/courses"
+with open(f"{out_dir}/three-day-sprint/day-2-signals-deeplearning/content.js", "w") as f:
     f.write(js_output)
 
 print(f"Updated Day 2 content.js with all {len(modules)} modules and {len(sections)} sections (including aliases).")

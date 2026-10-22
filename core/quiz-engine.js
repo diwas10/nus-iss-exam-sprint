@@ -183,11 +183,62 @@ window.QuizEngine = {
         feedbackBox.innerHTML = `
           <div class="feedback-header"><i data-lucide="x-circle"></i> Review Step-by-Step Solution:</div>
           <p>${q.explanation}</p>
+          <div class="mt-2">
+            <button class="btn btn-sm btn-outline" onclick="QuizEngine.resetQuestion('${qid}')">
+              <i data-lucide="rotate-ccw"></i> Retry Question
+            </button>
+          </div>
         `;
+
+        // Automatically log mistake to MasteryTracker
+        if (window.MasteryTracker && typeof window.MasteryTracker.logMistake === 'function') {
+          window.MasteryTracker.logMistake({
+            id: `err_quiz_${qid}_${Date.now()}`,
+            topic: q.module || 'Lecture Slide Quiz',
+            exam: window.app?.currentDayId?.includes('day-3') ? 'IRS' : 'PRS',
+            question: q.question,
+            myAnswer: q.options[selected],
+            correctAnswer: q.options[correctIdx],
+            errorType: 'Concept Recall Gap',
+            explanation: q.explanation
+          });
+        }
       }
       if (typeof window.renderLatex === 'function') {
         window.renderLatex(feedbackBox);
       }
+    }
+
+    this.recalculateScore();
+    if (window.lucide) window.lucide.createIcons();
+  },
+
+  resetQuestion: function(qid) {
+    delete this.state.answers[qid];
+    delete this.state.submitted[qid];
+
+    const q = this.state.currentQuizzes.find(item => item.id === qid);
+    if (!q) return;
+
+    const submitBtn = document.getElementById(`btn-submit-${qid}`);
+    if (submitBtn) submitBtn.disabled = false;
+
+    q.options.forEach((_, idx) => {
+      const optLabel = document.getElementById(`opt-label-${qid}-${idx}`);
+      if (optLabel) {
+        optLabel.classList.remove('opt-correct', 'opt-wrong');
+        const input = optLabel.querySelector('input');
+        if (input) {
+          input.disabled = false;
+          input.checked = false;
+        }
+      }
+    });
+
+    const feedbackBox = document.getElementById(`feedback-${qid}`);
+    if (feedbackBox) {
+      feedbackBox.style.display = 'none';
+      feedbackBox.innerHTML = '';
     }
 
     this.recalculateScore();

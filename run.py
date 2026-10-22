@@ -23,6 +23,7 @@ def check_files():
         "core/visualizers.js",
         "core/dtw-engine.js",
         "core/quiz-engine.js",
+        "core/assessment-engine.js",
         "core/research-hub.js",
         "courses/courses.json",
         "courses/intelligent-sensing-systems/course.json",

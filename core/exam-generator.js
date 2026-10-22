@@ -321,7 +321,7 @@ window.ExamGenerator = {
 
         <div class="quiz-options-list mt-3">
           ${q.options.map((opt, optIdx) => `
-            <button class="quiz-option" id="btn-${q.id}-${optIdx}" onclick="ExamGenerator.checkLevelA('${q.id}', ${optIdx}, ${q.correctIndex})" style="text-align: left; width: 100%; display: block; margin-bottom: 8px;">
+            <button class="quiz-option" id="btn-${q.id}-${optIdx}" onclick="ExamGenerator.checkLevelA('${q.id}', ${optIdx})" style="text-align: left; width: 100%; display: block; margin-bottom: 8px;">
               <span class="opt-letter">${String.fromCharCode(65 + optIdx)}</span> ${opt}
             </button>
           `).join('')}
@@ -332,11 +332,12 @@ window.ExamGenerator = {
     `;
   },
 
-  checkLevelA: function(qId, selectedIdx, correctIdx) {
+  checkLevelA: function(qId, selectedIdx) {
     const q = this.questions.find(item => item.id === qId);
     const feedbackEl = document.getElementById(`feedback-${qId}`);
     if (!feedbackEl || !q) return;
 
+    const correctIdx = q.correctIndex;
     const isCorrect = selectedIdx === correctIdx;
 
     q.options.forEach((_, idx) => {
@@ -358,15 +359,54 @@ window.ExamGenerator = {
       <div style="padding: 12px; border-radius: 8px; background: ${isCorrect ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; border-left: 4px solid ${isCorrect ? '#10b981' : '#ef4444'}; font-size: 0.9rem;">
         <strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</strong>
         <p style="margin: 6px 0 0 0; color: var(--text-primary);">${q.explanation}</p>
-        ${!isCorrect ? `
-          <button class="btn btn-sm btn-outline mt-2" onclick="ExamGenerator.logToMistakes('${q.id}', '${q.options[selectedIdx].replace(/'/g, "\'")}', '${q.options[correctIdx].replace(/'/g, "\'")}', '${q.explanation.replace(/'/g, "\'")}')">
-            <i data-lucide="bookmark-plus"></i> Add to Mistake Log
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <button class="btn btn-sm btn-outline" onclick="ExamGenerator.resetLevelA('${q.id}')">
+            <i data-lucide="rotate-ccw"></i> Retry Question
           </button>
-        ` : ''}
+          ${!isCorrect ? `
+            <button class="btn btn-sm btn-outline" onclick="ExamGenerator.logToMistakes('${q.id}', '${(q.options[selectedIdx] || '').replace(/'/g, "\\'")}', '${(q.options[correctIdx] || '').replace(/'/g, "\\'")}', '${(q.explanation || '').replace(/'/g, "\\'")}')">
+              <i data-lucide="bookmark-plus"></i> Log to Mistake Ledger
+            </button>
+          ` : ''}
+        </div>
       </div>
     `;
 
+    // Automatically log mistake to MasteryTracker if wrong
+    if (!isCorrect && window.MasteryTracker && typeof window.MasteryTracker.logMistake === 'function') {
+      window.MasteryTracker.logMistake({
+        id: `err_exam_${q.id}_${Date.now()}`,
+        topic: q.topic || 'Concept Recognition',
+        exam: q.course || 'PRS',
+        question: q.question,
+        myAnswer: q.options[selectedIdx],
+        correctAnswer: q.options[correctIdx],
+        errorType: 'Exam Concept Trap',
+        explanation: q.explanation
+      });
+    }
+
     if (window.lucide) window.lucide.createIcons();
+  },
+
+  resetLevelA: function(qId) {
+    const q = this.questions.find(item => item.id === qId);
+    if (!q) return;
+
+    q.options.forEach((_, idx) => {
+      const btn = document.getElementById(`btn-${qId}-${idx}`);
+      if (btn) {
+        btn.disabled = false;
+        btn.style.borderColor = '';
+        btn.style.background = '';
+      }
+    });
+
+    const feedbackEl = document.getElementById(`feedback-${qId}`);
+    if (feedbackEl) {
+      feedbackEl.style.display = 'none';
+      feedbackEl.innerHTML = '';
+    }
   },
 
   renderLevelBCard: function(q, idx) {
@@ -430,18 +470,49 @@ window.ExamGenerator = {
       <div style="padding: 12px; border-radius: 8px; background: ${isCorrect ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; border-left: 4px solid ${isCorrect ? '#10b981' : '#ef4444'}; font-size: 0.9rem;">
         <strong>${isCorrect ? '✓ Exact Mathematical Match!' : '✗ Numerical Discrepancy'}</strong>
         <p style="margin: 4px 0 0 0;">Your answer: <code>${userVal}</code> | Expected: <code>${q.expectedAnswer} ${q.unit}</code> (Tolerance: ±${q.tolerance})</p>
-        ${!isCorrect ? `
-          <button class="btn btn-sm btn-outline mt-2" onclick="ExamGenerator.logToMistakes('${q.id}', '${userVal}', '${q.expectedAnswer} ${q.unit}', '${q.commonTrap.replace(/'/g, "\'")}')">
-            <i data-lucide="bookmark-plus"></i> Log Calculation Error to Mistake Ledger
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <button class="btn btn-sm btn-outline" onclick="ExamGenerator.resetLevelB('${q.id}')">
+            <i data-lucide="rotate-ccw"></i> Retry Calculation
           </button>
-        ` : ''}
+          ${!isCorrect ? `
+            <button class="btn btn-sm btn-outline" onclick="ExamGenerator.logToMistakes('${q.id}', '${userVal}', '${q.expectedAnswer} ${q.unit}', '${(q.commonTrap || '').replace(/'/g, "\\'")}')">
+              <i data-lucide="bookmark-plus"></i> Log Calculation Error to Mistake Ledger
+            </button>
+          ` : ''}
+        </div>
       </div>
     `;
+
+    // Automatically log to MasteryTracker if incorrect
+    if (!isCorrect && window.MasteryTracker && typeof window.MasteryTracker.logMistake === 'function') {
+      window.MasteryTracker.logMistake({
+        id: `err_exam_b_${q.id}_${Date.now()}`,
+        topic: q.topic || 'Mathematical Calculation',
+        exam: q.course || 'PRS',
+        question: q.question,
+        myAnswer: `${userVal} ${q.unit}`,
+        correctAnswer: `${q.expectedAnswer} ${q.unit}`,
+        errorType: 'Calculation / Precision Error',
+        explanation: q.commonTrap || 'Verify intermediate steps and boundary formulas.'
+      });
+    }
 
     // Also reveal full solution
     document.getElementById(`solution-${qId}`).style.display = 'block';
     if (window.renderLatex) window.renderLatex(document.getElementById(`solution-${qId}`));
     if (window.lucide) window.lucide.createIcons();
+  },
+
+  resetLevelB: function(qId) {
+    const inputEl = document.getElementById(`input-${qId}`);
+    if (inputEl) inputEl.value = '';
+    const feedbackEl = document.getElementById(`feedback-${qId}`);
+    if (feedbackEl) {
+      feedbackEl.style.display = 'none';
+      feedbackEl.innerHTML = '';
+    }
+    const sol = document.getElementById(`solution-${qId}`);
+    if (sol) sol.style.display = 'none';
   },
 
   toggleSolution: function(qId) {

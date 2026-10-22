@@ -811,6 +811,11 @@ class LearningApp {
         // Typeset LaTeX math with KaTeX
         window.renderLatex(contentArea);
 
+        // Initialize Assessment Engine (Leak-Free Diagnostics & Interactive Practices)
+        if (window.AssessmentEngine && typeof window.AssessmentEngine.initModule === 'function') {
+          window.AssessmentEngine.initModule(levelId, dayId);
+        }
+
         // Initialize level visualizers
         this.initVisualizersForLevel(levelId);
       }
