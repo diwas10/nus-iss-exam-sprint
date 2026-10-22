@@ -76,25 +76,42 @@ class LearningApp {
       const hashStr = (window.location.hash || '').replace(/^#/, '');
       const hashParams = new URLSearchParams(hashStr);
 
+      const targetCourse = searchParams.get('course') || hashParams.get('course') || 
+        (window.location.pathname.includes('three-day-sprint') ? 'three-day-sprint' : null);
+      if (targetCourse === 'three-day-sprint' || targetCourse === '3day') {
+        this.currentCourseId = 'three-day-sprint';
+        this.currentDayId = 'day-1-classical-ml';
+      }
+
       const targetDay = searchParams.get('day') || hashParams.get('day');
       const targetLevel = searchParams.get('level') || hashParams.get('level');
 
       if (targetDay) {
-        const sprintDayMap = {
-          '1': 'day-1-foundations',
-          '2': 'day-2-signals-rules',
-          '3': 'day-3-transforms-bayes',
-          '4': 'day-4-geometry-dim',
-          '5': 'day-5-clusters-recommenders',
-          '6': 'day-6-neural-foundations',
-          '7': 'day-7-sequences-time',
-          '8': 'day-8-transformers-graphs',
-          '9': 'day-9-optimization-agents',
-          '10': 'day-10-ensembles-crucible'
-        };
-        this.currentDayId = sprintDayMap[targetDay] || targetDay;
+        if (this.currentCourseId === 'three-day-sprint') {
+          const threeDayMap = {
+            '1': 'day-1-classical-ml',
+            '2': 'day-2-signals-deeplearning',
+            '3': 'day-3-reasoning-integration'
+          };
+          this.currentDayId = threeDayMap[targetDay] || targetDay;
+        } else {
+          const sprintDayMap = {
+            '1': 'day-1-foundations',
+            '2': 'day-2-signals-rules',
+            '3': 'day-3-transforms-bayes',
+            '4': 'day-4-geometry-dim',
+            '5': 'day-5-clusters-recommenders',
+            '6': 'day-6-neural-foundations',
+            '7': 'day-7-sequences-time',
+            '8': 'day-8-transformers-graphs',
+            '9': 'day-9-optimization-agents',
+            '10': 'day-10-ensembles-crucible'
+          };
+          this.currentDayId = sprintDayMap[targetDay] || targetDay;
+        }
       }
 
+      this.renderDaysSelector();
       this.selectDay(this.currentDayId);
 
       if (targetLevel) {
@@ -102,6 +119,11 @@ class LearningApp {
       }
     } catch (e) {
       this.selectDay(this.currentDayId);
+    }
+
+    // Initialize global Study Q&A Assistant
+    if (window.QAAssistant && typeof window.QAAssistant.init === 'function') {
+      window.QAAssistant.init();
     }
 
     // 7. Setup global event listeners
@@ -197,6 +219,13 @@ class LearningApp {
   }
 
   getCurrentCourse() {
+    if (this.currentCourseId === 'three-day-sprint') {
+      return {
+        id: 'three-day-sprint',
+        title: '⚡ 3-Day Fast-Track Sprint (PRS + IRS)',
+        modules: window.THREE_DAY_CURRICULUM ? window.THREE_DAY_CURRICULUM.days : []
+      };
+    }
     return {
       id: 'ten-day-sprint',
       title: '🏆 NUS ISS 10-Day A+ Exam Sprint (PRS & IRS)',
@@ -225,7 +254,14 @@ class LearningApp {
     modules.forEach((mod, idx) => {
       const isDayActive = mod.id === this.currentDayId;
       const dayNum = mod.day || mod.dayNumber || (idx + 1);
-      const isLive = ['day-1-signals', 'day-2-transformation', 'day-3-ml', 'day-4-multimodal', 'day-1-foundations', 'day-2-signals-rules', 'day-3-transforms-bayes', 'day-4-geometry-dim', 'day-5-clusters-recommenders', 'day-6-neural-foundations', 'day-7-sequences-time', 'day-8-transformers-graphs', 'day-9-optimization-agents', 'day-10-ensembles-crucible'].includes(mod.id);
+      const isLive = [
+        'day-1-classical-ml', 'day-2-signals-deeplearning', 'day-3-reasoning-integration',
+        'day-1-signals', 'day-2-transformation', 'day-3-ml', 'day-4-multimodal', 
+        'day-1-foundations', 'day-2-signals-rules', 'day-3-transforms-bayes', 
+        'day-4-geometry-dim', 'day-5-clusters-recommenders', 'day-6-neural-foundations', 
+        'day-7-sequences-time', 'day-8-transformers-graphs', 'day-9-optimization-agents', 
+        'day-10-ensembles-crucible'
+      ].includes(mod.id);
       const badgeText = isLive ? 'Live Interactive' : (mod.badge || 'Syllabus & Notes');
       const badgeClass = isLive ? 'live' : 'preview';
 
@@ -257,13 +293,18 @@ class LearningApp {
     // 2. Find day metadata
     const course = this.getCurrentCourse();
     const mod = (course.modules || []).find(m => m.id === dayId) || 
+      (window.THREE_DAY_CURRICULUM ? window.THREE_DAY_CURRICULUM.days.find(d => d.id === dayId) : null) ||
       (window.ISSM_CURRICULUM ? window.ISSM_CURRICULUM.days.find(d => d.id === dayId) : null) ||
       (window.SPRINT_CURRICULUM ? window.SPRINT_CURRICULUM.days.find(d => d.id === dayId) : null);
 
     // 3. Update topbar breadcrumbs
     const topbarDay = document.getElementById('topbar-active-day');
     const breadcrumbRoot = document.querySelector('#topbar-breadcrumbs span:first-child');
-    if (breadcrumbRoot) breadcrumbRoot.textContent = '10-Day A+ Exam Sprint (PRS & IRS)';
+    if (breadcrumbRoot) {
+      breadcrumbRoot.textContent = this.currentCourseId === 'three-day-sprint'
+        ? '3-Day Fast-Track Sprint (PRS & IRS)'
+        : '10-Day A+ Exam Sprint (PRS & IRS)';
+    }
     if (topbarDay && mod) {
       topbarDay.textContent = mod.title || `Day ${mod.day || mod.dayNumber}`;
     }
@@ -273,6 +314,9 @@ class LearningApp {
     const headingEl = document.getElementById('active-day-heading');
     const badgeDayEl = document.getElementById('active-day-badge');
     const sprintDayMap = {
+      'day-1-classical-ml': 1,
+      'day-2-signals-deeplearning': 2,
+      'day-3-reasoning-integration': 3,
       'day-1-foundations': 1,
       'day-2-signals-rules': 2,
       'day-3-transforms-bayes': 3,
@@ -285,7 +329,14 @@ class LearningApp {
       'day-10-ensembles-crucible': 10
     };
     const dayNum = mod?.day || mod?.dayNumber || sprintDayMap[dayId] || 1;
-    const liveDays = ['day-1-signals', 'day-2-transformation', 'day-3-ml', 'day-4-multimodal', 'day-1-foundations', 'day-2-signals-rules', 'day-3-transforms-bayes', 'day-4-geometry-dim', 'day-5-clusters-recommenders', 'day-6-neural-foundations', 'day-7-sequences-time', 'day-8-transformers-graphs', 'day-9-optimization-agents', 'day-10-ensembles-crucible'];
+    const liveDays = [
+      'day-1-classical-ml', 'day-2-signals-deeplearning', 'day-3-reasoning-integration',
+      'day-1-signals', 'day-2-transformation', 'day-3-ml', 'day-4-multimodal', 
+      'day-1-foundations', 'day-2-signals-rules', 'day-3-transforms-bayes', 
+      'day-4-geometry-dim', 'day-5-clusters-recommenders', 'day-6-neural-foundations', 
+      'day-7-sequences-time', 'day-8-transformers-graphs', 'day-9-optimization-agents', 
+      'day-10-ensembles-crucible'
+    ];
 
 
     if (liveDays.includes(dayId)) {
@@ -323,7 +374,43 @@ class LearningApp {
 
     let levels = [];
 
-    if (this.currentDayId === 'day-1-foundations') {
+    if (this.currentDayId === 'day-1-classical-ml') {
+      levels = [
+        { id: 'level-0', icon: 'zap', title: '0. Unified Mental Model', subtitle: 'Classical ML & Search Continuum' },
+        { id: 'level-1', icon: 'compass', title: '1. Search Engine & CSP', subtitle: 'A* Optimality Proofs & MRV/LCV' },
+        { id: 'level-2', icon: 'layers', title: '2. Supervised Classifiers', subtitle: 'k-NN, Naive Bayes Laplace & Lift' },
+        { id: 'level-3', icon: 'git-branch', title: '3. Bayesian Networks', subtitle: 'd-Separation & Collider Trap' },
+        { id: 'level-4', icon: 'target', title: '4. Geometry & Dimensionality', subtitle: 'SVM Margins & PCA Target Leakage' },
+        { id: 'level-5', icon: 'share-2', title: '5. Clustering & Recommenders', subtitle: 'K-Means, DBSCAN & Apriori Lift' },
+        { id: 'level-6', icon: 'code', title: '6. Workshop Code Labs', subtitle: 'Python Code Labs & Formulas' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
+        { id: 'quizzes', icon: 'award', title: 'Quizzes & Exam Questions', subtitle: '10 MCQs + 5 Exam Qs + Q&A Assistant' }
+      ];
+    } else if (this.currentDayId === 'day-2-signals-deeplearning') {
+      levels = [
+        { id: 'level-0', icon: 'activity', title: '0. Unified Mental Model', subtitle: 'Sensory Physics to Deep Features' },
+        { id: 'level-1', icon: 'disc', title: '1. Sampling & Preprocessing', subtitle: 'Nyquist Aliasing, arPLS & DTW' },
+        { id: 'level-2', icon: 'sliders', title: '2. Time-Frequency Transforms', subtitle: 'Fourier Paradox, STFT & 2D Wavelets' },
+        { id: 'level-3', icon: 'calculator', title: '3. Backpropagation Calculus', subtitle: 'Chain Rule & Vanishing Gradient Solvers' },
+        { id: 'level-4', icon: 'layers', title: '4. 2D CNN Architecture Design', subtitle: 'Sizing Formulas & PRS Q2a GAP Redesign' },
+        { id: 'level-5', icon: 'git-commit', title: '5. Sequential Memory & LSTMs', subtitle: 'LSTM Error Carousel & Anomaly Autoencoder' },
+        { id: 'level-6', icon: 'code', title: '6. Workshop Code Labs', subtitle: 'PyTorch CNN & Hand Calculations' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
+        { id: 'quizzes', icon: 'award', title: 'Quizzes & Exam Questions', subtitle: '10 MCQs + 5 Exam Qs + Q&A Assistant' }
+      ];
+    } else if (this.currentDayId === 'day-3-reasoning-integration') {
+      levels = [
+        { id: 'level-0', icon: 'award', title: '0. Unified Mental Model', subtitle: 'Symbolic Deduction to Grand Crucible' },
+        { id: 'level-1', icon: 'shield-check', title: '1. Rule Engines & Daemons', subtitle: 'Forward/Backward Chaining & Posture Daemons' },
+        { id: 'level-2', icon: 'brain', title: '2. Cognitive Architectures', subtitle: '11-Entity Model & Marr\'s 3 Levels' },
+        { id: 'level-3', icon: 'share-2', title: '3. Transformers & GraphRAG', subtitle: 'Scaled Attention & TransE Embeddings' },
+        { id: 'level-4', icon: 'dna', title: '4. Genetic Algorithms & Fusion', subtitle: 'Order Crossover (OX) & Multimodal RVM' },
+        { id: 'level-5', icon: 'file-check', title: '5. Ensembles & Sample Papers', subtitle: 'AdaBoost Calculus & Nov 2026 Paper Masterclasses' },
+        { id: 'level-6', icon: 'compass', title: '6. Comprehensive Crucible', subtitle: 'Self-Assessment & Grand Synthesis' },
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
+        { id: 'quizzes', icon: 'award', title: 'Grand Mock Exam & Questions', subtitle: '20 MCQs + 5 Exam Qs + Q&A Assistant' }
+      ];
+    } else if (this.currentDayId === 'day-1-foundations') {
       levels = [
         { id: 'level-0', icon: 'zap', title: '0. The Mental Model', subtitle: 'System 1 vs System 2 & 5-Stage PR Pipeline' },
         { id: 'level-1', icon: 'compass', title: '1. Search Engine & CSP', subtitle: 'A* Path Trace & N-Queens CSP Backtracking' },
@@ -600,36 +687,58 @@ class LearningApp {
     let quizData = window.DAY1_QUIZZES;
     let researchData = window.DAY1_RESEARCH;
 
-    if (dayId === 'day-1-foundations') {
+    if (dayId === 'day-1-classical-ml') {
+      contentData = window.DAY1_CLASSICAL_ML_CONTENT;
+      quizData = window.DAY1_CLASSICAL_ML_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY1_EXAM_QUESTIONS;
+    } else if (dayId === 'day-2-signals-deeplearning') {
+      contentData = window.DAY2_SIGNALS_DEEPLEARNING_CONTENT;
+      quizData = window.DAY2_SIGNALS_DEEPLEARNING_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY2_EXAM_QUESTIONS;
+    } else if (dayId === 'day-3-reasoning-integration') {
+      contentData = window.DAY3_REASONING_INTEGRATION_CONTENT;
+      quizData = window.DAY3_REASONING_INTEGRATION_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY3_EXAM_QUESTIONS;
+    } else if (dayId === 'day-1-foundations') {
       contentData = window.DAY1_FOUNDATIONS_CONTENT;
       quizData = window.DAY1_FOUNDATIONS_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY1_EXAM_QUESTIONS;
     } else if (dayId === 'day-2-signals-rules') {
       contentData = window.DAY2_SIGNALS_RULES_CONTENT;
       quizData = window.DAY2_SIGNALS_RULES_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY2_EXAM_QUESTIONS;
     } else if (dayId === 'day-3-transforms-bayes') {
       contentData = window.DAY3_TRANSFORMS_BAYES_CONTENT;
       quizData = window.DAY3_TRANSFORMS_BAYES_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY1_EXAM_QUESTIONS;
     } else if (dayId === 'day-4-geometry-dim') {
       contentData = window.DAY4_GEOMETRY_DIM_CONTENT;
       quizData = window.DAY4_GEOMETRY_DIM_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY1_EXAM_QUESTIONS;
     } else if (dayId === 'day-5-clusters-recommenders') {
       contentData = window.DAY5_CLUSTERS_RECOMMENDERS_CONTENT;
       quizData = window.DAY5_CLUSTERS_RECOMMENDERS_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY1_EXAM_QUESTIONS;
     } else if (dayId === 'day-6-neural-foundations') {
       contentData = window.DAY6_NEURAL_FOUNDATIONS_CONTENT;
       quizData = window.DAY6_NEURAL_FOUNDATIONS_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY2_EXAM_QUESTIONS;
     } else if (dayId === 'day-7-sequences-time') {
       contentData = window.DAY7_SEQUENCES_TIME_CONTENT;
       quizData = window.DAY7_SEQUENCES_TIME_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY2_EXAM_QUESTIONS;
     } else if (dayId === 'day-8-transformers-graphs') {
       contentData = window.DAY8_TRANSFORMERS_GRAPHS_CONTENT;
       quizData = window.DAY8_TRANSFORMERS_GRAPHS_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY3_EXAM_QUESTIONS;
     } else if (dayId === 'day-9-optimization-agents') {
       contentData = window.DAY9_OPTIMIZATION_AGENTS_CONTENT;
       quizData = window.DAY9_OPTIMIZATION_AGENTS_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY3_EXAM_QUESTIONS;
     } else if (dayId === 'day-10-ensembles-crucible') {
       contentData = window.DAY10_ENSEMBLES_CRUCIBLE_CONTENT;
       quizData = window.DAY10_ENSEMBLES_CRUCIBLE_QUIZZES;
+      window.CURRENT_EXAM_QUESTIONS = window.DAY3_EXAM_QUESTIONS;
     } else if (dayId === 'day-4-multimodal') {
       contentData = window.DAY4_CONTENT;
       quizData = window.DAY4_QUIZZES;
@@ -649,8 +758,6 @@ class LearningApp {
       window.QuizEngine.render('quiz-mount-point', quizData);
     } else if (levelId === 'daily-revision') {
       this.renderDailyRevision(contentArea);
-      contentArea.innerHTML = `<div id="quiz-mount-point"></div>`;
-      window.QuizEngine.render('quiz-mount-point', quizData);
     } else if (levelId === 'research') {
       contentArea.innerHTML = `<div id="research-mount-point"></div>`;
       window.ResearchHub.render('research-mount-point', researchData);
@@ -778,7 +885,7 @@ class LearningApp {
   renderFooterButtons(currentId) {
     const dayId = this.currentDayId;
     let order = [];
-    if (dayId === 'day-10-ensembles-crucible') {
+    if (['day-1-classical-ml', 'day-2-signals-deeplearning', 'day-3-reasoning-integration', 'day-10-ensembles-crucible'].includes(dayId)) {
       order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'daily-revision', 'quizzes'];
     } else if ([
       'day-1-foundations',
@@ -823,7 +930,50 @@ class LearningApp {
   initVisualizersForLevel(levelId) {
     setTimeout(() => {
       const dayId = this.currentDayId;
-      if (dayId === 'day-1-foundations') {
+      if (dayId === 'day-1-classical-ml') {
+        if (levelId === 'level-1') {
+          if (window.SprintDay1Visualizers?.initAStarPlayground) window.SprintDay1Visualizers.initAStarPlayground();
+          if (window.SprintDay1Visualizers?.initCSPNQueensStudio) window.SprintDay1Visualizers.initCSPNQueensStudio();
+        } else if (levelId === 'level-2') {
+          if (window.SprintDay1Visualizers?.initKNNBoundaryPlayground) window.SprintDay1Visualizers.initKNNBoundaryPlayground();
+          if (window.SprintDay1Visualizers?.initNaiveBayesLaplaceStudio) window.SprintDay1Visualizers.initNaiveBayesLaplaceStudio();
+        } else if (levelId === 'level-3') {
+          if (window.SprintDay3Visualizers?.initBBNStudio) window.SprintDay3Visualizers.initBBNStudio();
+        } else if (levelId === 'level-4') {
+          if (window.SprintDay4Visualizers?.initSVMMarginPlayground) window.SprintDay4Visualizers.initSVMMarginPlayground();
+          if (window.SprintDay4Visualizers?.initPCAProjectionStudio) window.SprintDay4Visualizers.initPCAProjectionStudio();
+        } else if (levelId === 'level-5') {
+          if (window.SprintDay5Visualizers?.initKMeansPlayground) window.SprintDay5Visualizers.initKMeansPlayground();
+        }
+      } else if (dayId === 'day-2-signals-deeplearning') {
+        if (levelId === 'level-1') {
+          if (window.SprintDay2Visualizers?.initNyquistAliasingStudio) window.SprintDay2Visualizers.initNyquistAliasingStudio();
+          if (window.SprintDay2Visualizers?.initARPLSBaselineStudio) window.SprintDay2Visualizers.initARPLSBaselineStudio();
+          if (window.SprintDay2Visualizers?.initDTWMatixStudio) window.SprintDay2Visualizers.initDTWMatixStudio();
+        } else if (levelId === 'level-2') {
+          if (window.SprintDay3Visualizers?.initSTFTStudio) window.SprintDay3Visualizers.initSTFTStudio();
+          if (window.SprintDay3Visualizers?.init1DHaarStudio) window.SprintDay3Visualizers.init1DHaarStudio();
+          if (window.SprintDay3Visualizers?.init2DWaveletStudio) window.SprintDay3Visualizers.init2DWaveletStudio();
+        } else if (levelId === 'level-3') {
+          if (window.SprintDay6Visualizers?.initBackpropCalculator) window.SprintDay6Visualizers.initBackpropCalculator();
+        } else if (levelId === 'level-4') {
+          if (window.SprintDay6Visualizers?.initCNNParameterStudio) window.SprintDay6Visualizers.initCNNParameterStudio();
+        } else if (levelId === 'level-5') {
+          if (window.SprintDay7Visualizers?.initLSTMGateValveStudio) window.SprintDay7Visualizers.initLSTMGateValveStudio();
+          if (window.SprintDay7Visualizers?.initAnomalyStudio) window.SprintDay7Visualizers.initAnomalyStudio();
+        }
+      } else if (dayId === 'day-3-reasoning-integration') {
+        if (levelId === 'level-1') {
+          if (window.SprintDay2Visualizers?.initHospitalTriageStudio) window.SprintDay2Visualizers.initHospitalTriageStudio();
+        } else if (levelId === 'level-3') {
+          if (window.SprintDay8Visualizers?.initTransEStudio) window.SprintDay8Visualizers.initTransEStudio();
+          if (window.SprintDay8Visualizers?.initSelfAttentionStudio) window.SprintDay8Visualizers.initSelfAttentionStudio();
+        } else if (levelId === 'level-4') {
+          if (window.SprintDay9Visualizers?.initGeneticAlgorithmArena) window.SprintDay9Visualizers.initGeneticAlgorithmArena();
+        } else if (levelId === 'level-5') {
+          if (window.SprintDay10Visualizers?.initEnsembleStudio) window.SprintDay10Visualizers.initEnsembleStudio();
+        }
+      } else if (dayId === 'day-1-foundations') {
         if (levelId === 'level-1') {
           if (window.SprintDay1Visualizers?.initAStarPlayground) window.SprintDay1Visualizers.initAStarPlayground();
           if (window.SprintDay1Visualizers?.initCSPNQueensStudio) window.SprintDay1Visualizers.initCSPNQueensStudio();
@@ -1011,7 +1161,8 @@ class LearningApp {
 
   renderDailyRevision(contentArea) {
     const dayId = this.currentDayId;
-    const rev = window.DAILY_REVISIONS && window.DAILY_REVISIONS[dayId] ? window.DAILY_REVISIONS[dayId] : {
+    const rev = (window.THREE_DAY_DAILY_REVISIONS && window.THREE_DAY_DAILY_REVISIONS[dayId]) ||
+                (window.DAILY_REVISIONS && window.DAILY_REVISIONS[dayId]) || {
       title: "Daily Revision & Active Recall",
       subtitle: "15-minute quick revision of core formulas, flashcards, and exam traps",
       summary: "Review these fundamental definitions and step-by-step algorithms to lock in full marks for your exam.",

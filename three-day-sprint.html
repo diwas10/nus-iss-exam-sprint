@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUS ISS 3-Day Fast-Track Sprint — Pattern Recognition & Reasoning Systems</title>
+
+  <!-- Google Fonts & KaTeX CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- KaTeX CSS (Local with CDN fallback) -->
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+
+  <!-- Core App Stylesheet -->
+  <link rel="stylesheet" href="core/styles.css">
+
+  <!-- KaTeX & Lucide (Local bundles, synchronous) -->
+  <script src="vendor/katex/katex.min.js"></script>
+  <script src="vendor/katex/auto-render.min.js"></script>
+  <script src="vendor/lucide/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <!-- Fixed Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon" style="background: linear-gradient(135deg, #38bdf8, #6366f1); color: white;">3D</div>
+        <div class="brand-text">
+          <h1>NUS ISS Hub</h1>
+          <span>3-Day Fast-Track Sprint</span>
+        </div>
+      </div>
+
+      <!-- Course Mode Switcher Pills -->
+      <div class="course-mode-pills" style="padding: 10px 14px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color); display: flex; gap: 8px;">
+        <a href="three-day-sprint.html" class="badge-tech" style="flex: 1; text-align: center; text-decoration: none; padding: 7px 4px; font-size: 0.75rem; background: #0284c7; color: white; border-radius: 6px; font-weight: 700;">
+          ⚡ 3-Day Fast-Track
+        </a>
+        <a href="index.html" class="badge-outline" style="flex: 1; text-align: center; text-decoration: none; padding: 7px 4px; font-size: 0.75rem; border-color: rgba(255,255,255,0.2); color: var(--text-secondary); border-radius: 6px;">
+          🏆 10-Day Sprint
+        </a>
+      </div>
+
+      <!-- Course Schedule & Days Selector -->
+      <div class="days-selector-box" id="sidebar-days-container">
+        <div class="sidebar-section-title">
+          <span>Fast-Track Schedule</span>
+          <span class="badge-count" id="days-count-badge">3 Days</span>
+        </div>
+        <div class="days-list" id="sidebar-days-list">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+
+      <!-- Active Day Level Navigation Header -->
+      <div class="levels-header-box" id="sidebar-levels-header">
+        <div class="sidebar-section-title" style="margin-bottom: 0; width: 100%;">
+          <span id="active-day-heading">DAY 1 MODULE SECTIONS</span>
+          <span class="badge-active-day" id="active-day-badge">Live</span>
+        </div>
+      </div>
+
+      <!-- Serial Module Level Navigation -->
+      <nav class="sidebar-nav" id="sidebar-level-nav">
+        <!-- Populated dynamically by app.js -->
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <button class="btn btn-sm btn-outline" id="theme-toggle-btn" title="Toggle Dark/Light Mode">
+          <i data-lucide="sun"></i>
+        </button>
+        <span class="text-muted" style="font-size: 0.72rem;">NUS-ISS &copy; 2026</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="breadcrumbs" id="topbar-breadcrumbs">
+          <span>3-Day Fast-Track Sprint (PRS & IRS)</span>
+          <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
+          <span id="topbar-active-day">Day 1: Classical ML + Probability + Search</span>
+        </div>
+        <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px;">
+          <a href="index.html" class="btn btn-sm btn-outline" style="border-color: rgba(255,255,255,0.2); color: var(--text-secondary); text-decoration: none; font-size: 0.78rem;">
+            <i data-lucide="calendar"></i> View 10-Day Plan
+          </a>
+          <button class="btn btn-sm btn-primary" onclick="if(window.QAAssistant) window.QAAssistant.toggleModal();" style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; background: linear-gradient(135deg, #0284c7, #4f46e5);">
+            <i data-lucide="help-circle"></i> Ask Doubt / AI
+          </button>
+          <span class="badge-tech" id="topbar-status-badge"><i data-lucide="cpu" style="width: 12px; height: 12px; vertical-align: middle;"></i> Live Interactive</span>
+        </div>
+      </header>
+
+      <main class="content-container" id="main-content-area">
+        <!-- Dynamically rendered level content goes here -->
+      </main>
+    </div>
+  </div>
+
+  <!-- Shared Visualizer Engines from 10-Day Sprint -->
+  <script src="courses/ten-day-sprint/day-1-foundations/data.js"></script>
+  <script src="courses/ten-day-sprint/day-1-foundations/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-2-signals-rules/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-3-transforms-bayes/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-4-geometry-dim/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-5-clusters-recommenders/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-6-neural-foundations/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-7-sequences-time/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-8-transformers-graphs/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-9-optimization-agents/visualizers.js"></script>
+  <script src="courses/ten-day-sprint/day-10-ensembles-crucible/visualizers.js"></script>
+
+  <!-- ⚡ 3-Day Fast-Track Sprint Curriculum & Modules -->
+  <script src="courses/three-day-sprint/course-curriculum.js"></script>
+  <script src="courses/three-day-sprint/daily-revisions.js"></script>
+
+  <!-- Day 1: Classical ML + Probability + Search -->
+  <script src="courses/three-day-sprint/day-1-classical-ml/data.js"></script>
+  <script src="courses/three-day-sprint/day-1-classical-ml/visualizers.js"></script>
+  <script src="courses/three-day-sprint/day-1-classical-ml/quizzes.js"></script>
+  <script src="courses/three-day-sprint/day-1-classical-ml/content.js"></script>
+
+  <!-- Day 2: Signal Processing + Deep Learning -->
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/data.js"></script>
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/visualizers.js"></script>
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/quizzes.js"></script>
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/content.js"></script>
+
+  <!-- Day 3: Reasoning Systems + Integration + Exams -->
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/data.js"></script>
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/visualizers.js"></script>
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/quizzes.js"></script>
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/content.js"></script>
+
+  <!-- Core Platform Engines -->
+  <script src="core/audio.js"></script>
+  <script src="core/dtw-engine.js"></script>
+  <script src="core/visualizers.js"></script>
+  <script src="core/exam-questions-engine.js"></script>
+  <script src="core/qa-assistant.js"></script>
+  <script src="core/quiz-engine.js"></script>
+  <script src="core/research-hub.js"></script>
+  <script src="core/slides-viewer.js"></script>
+  <script src="core/app.js"></script>
+
+  <script>
+    // Force three-day-sprint mode on direct page load
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.app) {
+        window.app.currentCourseId = 'three-day-sprint';
+        window.app.currentDayId = 'day-1-classical-ml';
+      }
+    });
+  </script>
+</body>
+</html>

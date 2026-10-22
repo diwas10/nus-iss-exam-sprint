@@ -1,5 +1,42 @@
 [
   {
+    "id": "three-day-sprint",
+    "title": "⚡ 3-Day Fast-Track Sprint (Dependency Grouped)",
+    "code": "SPRINT-3D",
+    "icon": "zap",
+    "description": "Accelerated 3-day dependency-grouped curriculum synthesizing Classical ML, Probabilistic Reasoning, Signal Transformations, Deep Learning, Symbolic Rules, and Comprehensive A+ Exam Simulations with post-quiz structured exam questions and AI doubt solver.",
+    "department": "NUS Institute of Systems Science (ISS)",
+    "modules": [
+      {
+        "id": "day-1-classical-ml",
+        "day": 1,
+        "title": "Day 1: Classical ML + Probability + Search",
+        "shortTitle": "Day 1: Classical ML & Search",
+        "subtitle": "k-NN, Naive Bayes (Laplace), Hard/Soft-Margin SVM, PCA vs LDA, K-Means/DBSCAN, A* Optimality & Bayesian Networks",
+        "badge": "Live Interactive",
+        "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + Exam Questions)"
+      },
+      {
+        "id": "day-2-signals-deeplearning",
+        "day": 2,
+        "title": "Day 2: Signal Processing + Deep Learning",
+        "shortTitle": "Day 2: Signals & Deep Learning",
+        "subtitle": "Nyquist Sampling & Aliasing, arPLS Drift, DTW, STFT/Wavelets MRA, MLPs & Backprop, CNNs & LSTM Gating",
+        "badge": "Live Interactive",
+        "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + Exam Questions)"
+      },
+      {
+        "id": "day-3-reasoning-integration",
+        "day": 3,
+        "title": "Day 3: Reasoning Systems + Integration + Exams",
+        "shortTitle": "Day 3: Reasoning, Agents & Exams",
+        "subtitle": "Rule Engines & Daemons, Cognitive Models (11 Entities / ACT-R), Scaled Attention & GraphRAG, Genetic Algorithms, Multimodal RVM & Nov 2026 Crucible",
+        "badge": "Live Interactive",
+        "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + 20 Grand Quizzes + Official Exam Solutions)"
+      }
+    ]
+  },
+  {
     "id": "ten-day-sprint",
     "title": "🏆 10-Day A+ Exam Sprint (PRS + IRS)",
     "code": "SPRINT",

@@ -96,6 +96,26 @@ window.QuizEngine = {
 
     this.recalculateScore();
 
+    // Automatically append Post-Quiz Exam-Style Questions & Q&A Doubt Assistant!
+    let examQuestions = window.CURRENT_EXAM_QUESTIONS;
+    if (!examQuestions || examQuestions.length === 0) {
+      if (window.app?.currentDayId === 'day-1-classical-ml') {
+        examQuestions = window.DAY1_EXAM_QUESTIONS;
+      } else if (window.app?.currentDayId === 'day-2-signals-deeplearning') {
+        examQuestions = window.DAY2_EXAM_QUESTIONS;
+      } else if (window.app?.currentDayId === 'day-3-reasoning-integration') {
+        examQuestions = window.DAY3_EXAM_QUESTIONS;
+      }
+    }
+
+    if (window.ExamQuestionsEngine && examQuestions && examQuestions.length > 0) {
+      window.ExamQuestionsEngine.render(containerId, examQuestions);
+    }
+
+    if (window.QAAssistant && typeof window.QAAssistant.renderInline === 'function') {
+      window.QAAssistant.renderInline(containerId);
+    }
+
     if (typeof window.renderLatex === 'function') {
       window.renderLatex(container);
     }

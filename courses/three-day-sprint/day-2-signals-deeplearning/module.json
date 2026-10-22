@@ -1,0 +1,20 @@
+{
+  "id": "day-2-signals-deeplearning",
+  "day": 2,
+  "title": "Day 2: Signal Processing + Deep Learning",
+  "shortTitle": "Day 2: Signals & Deep Learning",
+  "subtitle": "Nyquist Sampling & Aliasing, arPLS Drift, DTW, STFT/Wavelets MRA, MLPs & Backprop, CNNs & LSTM Gating",
+  "badge": "Live Interactive",
+  "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + Exam Questions)",
+  "sections": [
+    { "id": "level-0", "title": "0. The Unified Mental Model", "subtitle": "Sensory Reality to Deep Representations", "icon": "activity" },
+    { "id": "level-1", "title": "1. Sampling & Preprocessing", "subtitle": "Nyquist Aliasing, arPLS & DTW", "icon": "disc" },
+    { "id": "level-2", "title": "2. Time-Frequency Transforms", "subtitle": "Fourier Paradox, STFT & 2D Haar Wavelets", "icon": "sliders" },
+    { "id": "level-3", "title": "3. Backpropagation Calculus", "subtitle": "Chain Rule & Vanishing Gradient Solutions", "icon": "calculator" },
+    { "id": "level-4", "title": "4. 2D CNN Architecture Design", "subtitle": "Sizing Formulas & PRS Q2a GAP Redesign", "icon": "layers" },
+    { "id": "level-5", "title": "5. Sequential Memory & LSTMs", "subtitle": "LSTM Error Carousel & Anomaly Autoencoders", "icon": "git-commit" },
+    { "id": "level-6", "title": "6. Workshop Code Labs", "subtitle": "Verified PyTorch CNN & Hand Calculations", "icon": "code" },
+    { "id": "daily-revision", "title": "Daily Revision & Flashcards", "subtitle": "Active Recall & Formula Sheet", "icon": "repeat" },
+    { "id": "quizzes", "title": "Slide Quizzes & Exam Questions", "subtitle": "10 MCQs + 5 Exam Questions + Q&A Assistant", "icon": "award" }
+  ]
+}

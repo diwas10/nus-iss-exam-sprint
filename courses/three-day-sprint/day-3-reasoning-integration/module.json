@@ -1,0 +1,20 @@
+{
+  "id": "day-3-reasoning-integration",
+  "day": 3,
+  "title": "Day 3: Reasoning Systems + Integration + Exams",
+  "shortTitle": "Day 3: Reasoning, Agents & Exams",
+  "subtitle": "Rule Engines & Daemons, Cognitive Models (11 Entities / ACT-R), Scaled Attention & GraphRAG, Genetic Algorithms, Multimodal RVM & Nov 2026 Crucible",
+  "badge": "Live Interactive",
+  "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + 20 Grand Quizzes + Official Exam Solutions)",
+  "sections": [
+    { "id": "level-0", "title": "0. The Unified Mental Model", "subtitle": "Symbolic Deduction to Grand Crucible", "icon": "award" },
+    { "id": "level-1", "title": "1. Rule Engines & Daemons", "subtitle": "Forward/Backward Chaining & Pinhole Daemons", "icon": "shield-check" },
+    { "id": "level-2", "title": "2. Cognitive Architectures", "subtitle": "11-Entity Model & Marr's 3 Levels", "icon": "brain" },
+    { "id": "level-3", "title": "3. Transformers & GraphRAG", "subtitle": "Scaled Attention & TransE Embeddings", "icon": "share-2" },
+    { "id": "level-4", "title": "4. Genetic Algorithms & Fusion", "subtitle": "Order Crossover (OX) & Multimodal RVM", "icon": "dna" },
+    { "id": "level-5", "title": "5. Ensembles & Sample Papers", "subtitle": "AdaBoost Calculus & Nov 2026 Paper Masterclasses", "icon": "file-check" },
+    { "id": "level-6", "title": "6. Comprehensive Crucible", "subtitle": "Self-Assessment & Grand Synthesis", "icon": "compass" },
+    { "id": "daily-revision", "title": "Daily Revision & Flashcards", "subtitle": "Active Recall & Formula Sheet", "icon": "repeat" },
+    { "id": "quizzes", "title": "Grand Mock Exam & Exam Questions", "subtitle": "20 Grand MCQs + 5 Exam Questions + Q&A Assistant", "icon": "award" }
+  ]
+}

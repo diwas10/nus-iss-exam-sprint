@@ -34,6 +34,15 @@
         </div>
       </div>
 
+      <!-- Course Mode Switcher Pills -->
+      <div class="course-mode-pills" style="padding: 10px 14px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color); display: flex; gap: 8px;">
+        <a href="index.html" class="badge-tech" style="flex: 1; text-align: center; text-decoration: none; padding: 7px 4px; font-size: 0.75rem; background: var(--accent-primary); color: white; border-radius: 6px; font-weight: 700;">
+          🏆 10-Day Sprint
+        </a>
+        <a href="three-day-sprint.html" class="badge-outline" style="flex: 1; text-align: center; text-decoration: none; padding: 7px 4px; font-size: 0.75rem; border-color: #38bdf8; color: #38bdf8; border-radius: 6px; font-weight: 600;">
+          ⚡ 3-Day Fast-Track
+        </a>
+      </div>
       <!-- Course Schedule & Days Selector (Directly below Active Course) -->
       <div class="days-selector-box" id="sidebar-days-container">
         <div class="sidebar-section-title">
@@ -78,7 +87,13 @@
           <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
           <span id="topbar-active-day">Day 1: Foundations of Sensor Signal Processing</span>
         </div>
-        <div class="topbar-actions">
+        <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px;">
+          <a href="three-day-sprint.html" class="btn btn-sm btn-outline" style="border-color: #38bdf8; color: #38bdf8; text-decoration: none; font-size: 0.78rem; display: flex; align-items: center; gap: 6px; font-weight: 600;">
+            <i data-lucide="zap" style="width: 14px; height: 14px;"></i> Switch to 3-Day Sprint
+          </a>
+          <button class="btn btn-sm btn-primary" onclick="if(window.QAAssistant) window.QAAssistant.toggleModal();" style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; background: linear-gradient(135deg, #0284c7, #4f46e5);">
+            <i data-lucide="help-circle"></i> Ask Doubt / AI
+          </button>
           <span class="badge-tech" id="topbar-status-badge"><i data-lucide="cpu" style="width: 12px; height: 12px; vertical-align: middle;"></i> Live Interactive</span>
         </div>
       </header>
@@ -178,10 +193,31 @@
   <script src="courses/intelligent-sensing-systems/day-4-multimodal/research.js"></script>
   <script src="courses/intelligent-sensing-systems/day-4-multimodal/content.js"></script>
 
+  <!-- ⚡ 3-Day Fast-Track Sprint Curriculum & Modules -->
+  <script src="courses/three-day-sprint/course-curriculum.js"></script>
+  <script src="courses/three-day-sprint/daily-revisions.js"></script>
+  <!-- Day 1: Classical ML + Probability + Search -->
+  <script src="courses/three-day-sprint/day-1-classical-ml/data.js"></script>
+  <script src="courses/three-day-sprint/day-1-classical-ml/visualizers.js"></script>
+  <script src="courses/three-day-sprint/day-1-classical-ml/quizzes.js"></script>
+  <script src="courses/three-day-sprint/day-1-classical-ml/content.js"></script>
+  <!-- Day 2: Signal Processing + Deep Learning -->
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/data.js"></script>
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/visualizers.js"></script>
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/quizzes.js"></script>
+  <script src="courses/three-day-sprint/day-2-signals-deeplearning/content.js"></script>
+  <!-- Day 3: Reasoning Systems + Integration + Exams -->
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/data.js"></script>
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/visualizers.js"></script>
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/quizzes.js"></script>
+  <script src="courses/three-day-sprint/day-3-reasoning-integration/content.js"></script>
+
   <!-- Core Engines -->
   <script src="core/audio.js"></script>
   <script src="core/dtw-engine.js"></script>
   <script src="core/visualizers.js"></script>
+  <script src="core/exam-questions-engine.js"></script>
+  <script src="core/qa-assistant.js"></script>
   <script src="core/quiz-engine.js"></script>
   <script src="core/research-hub.js"></script>
   <script src="core/slides-viewer.js"></script>

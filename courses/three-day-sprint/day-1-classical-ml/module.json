@@ -1,0 +1,21 @@
+// Day 1 Metadata for 3-Day Sprint
+{
+  "id": "day-1-classical-ml",
+  "day": 1,
+  "title": "Day 1: Classical ML + Probability + Search",
+  "shortTitle": "Day 1: Classical ML & Search",
+  "subtitle": "k-NN, Naive Bayes (Laplace), Hard/Soft-Margin SVM, PCA vs LDA, K-Means/DBSCAN, A* Optimality & Bayesian Networks",
+  "badge": "Live Interactive",
+  "duration": "5–6 Hours (7 Levels + 6 Interactive Studios + Quizzes + Exam Questions)",
+  "sections": [
+    { "id": "level-0", "title": "0. The Unified Mental Model", "subtitle": "Classical ML & Search Continuum", "icon": "zap" },
+    { "id": "level-1", "title": "1. Search Engine & CSP", "subtitle": "A* Optimality Proofs & MRV/LCV", "icon": "compass" },
+    { "id": "level-2", "title": "2. Supervised Classifiers", "subtitle": "k-NN & Naive Bayes Laplace", "icon": "layers" },
+    { "id": "level-3", "title": "3. Bayesian Networks", "subtitle": "d-Separation & Collider Trap", "icon": "git-branch" },
+    { "id": "level-4", "title": "4. Geometry & Dimensionality", "subtitle": "SVM Margins & PCA Target Leakage", "icon": "target" },
+    { "id": "level-5", "title": "5. Clustering & Recommenders", "subtitle": "K-Means, DBSCAN & Apriori Lift", "icon": "share-2" },
+    { "id": "level-6", "title": "6. Workshop Code Labs", "subtitle": "Python Implementations & Formulas", "icon": "code" },
+    { "id": "daily-revision", "title": "Daily Revision & Flashcards", "subtitle": "Active Recall & Formula Sheet", "icon": "repeat" },
+    { "id": "quizzes", "title": "Slide Quizzes & Exam Questions", "subtitle": "10 MCQs + 5 Exam Questions + Q&A Assistant", "icon": "award" }
+  ]
+}
