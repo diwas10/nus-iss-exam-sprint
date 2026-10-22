@@ -1,5 +1,5 @@
 // Day 3 Content: Reasoning Systems + Integration + Exams
-// Synthesizes remaining parts of Days 3, 8, 9, 10 + Nov 2026 Sample Papers (IRS 50m + PRS 40m)
+// Deepened & Expanded Edition: Rigorous Ensembles (Condorcet Proof, Bagging Variance, AdaBoost Exponential Loss, Stacking OOF), ISSM Multimodal Fusion (RVM Digital Twin), Rules & Cognitive Models, & Official Nov 2026 Papers
 
 window.DAY3_REASONING_INTEGRATION_CONTENT = {
   id: "day-3-reasoning-integration",
@@ -17,10 +17,10 @@ window.DAY3_REASONING_INTEGRATION_CONTENT = {
           <div class="card-body">
             <h3>Day 3 Synthesis: Reasoning Systems + Integration + Exams</h3>
             <p class="lead-text">
-              Welcome to the <strong>Grand Finale of your 3-Day Fast-Track Sprint</strong>. Today unites deliberative System 2 symbolic reasoning, knowledge graphs, evolutionary search, multimodal fusion, and the full official examination rubrics:
+              Welcome to the <strong>Grand Finale of your 3-Day Fast-Track Sprint</strong>. Today unites deliberative System 2 symbolic reasoning, knowledge graphs, evolutionary search, multimodal sensor fusion, and the full official examination rubrics:
             </p>
             <div class="quote-box">
-              <em>"Production rules enforce audited deterministic safety; Knowledge Graph embeddings provide structured relational memory; Genetic Algorithms discover optimal non-convex permutations; Multimodal fusion unifies disparate sensors; and Ensembles conquer variance and bias to lock in an A+ in both PRS and IRS."</em>
+              <em>"Production rules enforce audited deterministic safety; Knowledge Graph embeddings provide structured relational memory; Genetic Algorithms discover optimal non-convex permutations; Multimodal fusion unifies disparate physical sensors; and Ensembles conquer variance and bias to lock in an A+ in both PRS and IRS."</em>
               <div class="quote-author">— NUS ISS A+ Exam Board</div>
             </div>
           </div>
@@ -40,9 +40,9 @@ window.DAY3_REASONING_INTEGRATION_CONTENT = {
             </p>
           </div>
           <div class="lesson-card">
-            <h4><i data-lucide="award"></i> 3. Ensembles & Sample Papers</h4>
+            <h4><i data-lucide="award"></i> 3. Ensembles & Multimodal Fusion</h4>
             <p style="font-size:0.88rem; line-height:1.55;">
-              Condorcet's Jury Theorem, Random Forest feature bagging, AdaBoost sample reweighting calculus, and complete model answers for the Nov 2026 Sample Papers (IRS 50m + PRS 40m).
+              Condorcet's Jury Theorem, Random Forest feature bagging variance reduction $\\rho \\sigma^2 + \\frac{1-\\rho}{M}\\sigma^2$, AdaBoost exponential loss & $\\alpha_t$ calculus, Stacking OOF, and RVM multi-sensor fusion.
             </p>
           </div>
         </div>
@@ -167,8 +167,8 @@ window.DAY3_REASONING_INTEGRATION_CONTENT = {
     },
     {
       id: "level-4",
-      title: "Level 4: Evolutionary Optimization & Multimodal Fusion",
-      subtitle: "Genetic Algorithm Order Crossover (OX) & Reverse Vending Machine (RVM) Twin",
+      title: "Level 4: Evolutionary Optimization & Multimodal Sensor Systems (ISSM)",
+      subtitle: "Genetic Algorithm Order Crossover (OX) & Reverse Vending Machine (RVM) Multi-Sensor Fusion",
       badge: "Optimization & Hardware Fusion",
       content: `
         <div class="lesson-card mb-4">
@@ -188,30 +188,110 @@ window.DAY3_REASONING_INTEGRATION_CONTENT = {
         </div>
 
         <div class="lesson-card mb-4">
-          <h3>Multimodal Sensor Fusion: Early vs Late vs Hybrid</h3>
+          <h3>Intelligent Sensing Systems: Multimodal Sensor Fusion (ISSM)</h3>
+          <p>
+            In complex industrial inspection and robotics, no single sensor modality is sufficient. Intelligent systems fuse heterogeneous sensory streams:
+          </p>
           <table class="styled-table" style="font-size:0.85rem; width:100%;">
-            <thead><tr><th>Fusion Strategy</th><th>Mechanism</th><th>Advantage</th><th>Disadvantage</th></tr></thead>
+            <thead><tr><th>Fusion Level</th><th>Mechanism</th><th>Advantage</th><th>Disadvantage & Failure Mode</th></tr></thead>
             <tbody>
-              <tr><td><strong>Early Fusion</strong></td><td>Concatenate raw sensor features into a single high-dimensional vector</td><td>Captures cross-modal low-level correlations</td><td>Dimensionality mismatch, temporal alignment fragility, single-sensor failure crashes entire pipeline</td></tr>
-              <tr><td><strong>Late Fusion</strong></td><td>Train separate models per modality; fuse high-level class probabilities via voting or soft averaging</td><td>Robust to sensor dropouts; modalities can have distinct architectures</td><td>Cannot learn low-level cross-modal sensor synergies</td></tr>
-              <tr><td><strong>Hybrid Fusion (RVM)</strong></td><td>Fuse optical camera + barcode + inductive metal sensor at intermediate latent layers</td><td>Combines cross-modal representation learning with modular safety guardrails</td><td>Requires multi-branch network tuning</td></tr>
+              <tr><td><strong>Early Fusion (Data-Level)</strong></td><td>Concatenate raw sensor features/vectors into a single joint vector before model input.</td><td>Captures fine-grained cross-modal correlations and physical synergies.</td><td>High dimensional explosion; sensor rate mismatch; total system crashes if 1 sensor drops or has noise.</td></tr>
+              <tr><td><strong>Late Fusion (Decision-Level)</strong></td><td>Train separate models per modality; aggregate predictions via weighted voting, soft averaging, or Dempster-Shafer theory.</td><td>Highly robust; handles asynchronous sensor rates; modular updates.</td><td>Cannot learn low-level cross-sensor physical interactions (e.g. sound correlating with vibration).</td></tr>
+              <tr><td><strong>Hybrid / Mid-Level Fusion</strong></td><td>Process modalities in parallel feature extractors; fuse intermediate latent representations with rule-based safety overrides.</td><td>Combines cross-modal representation learning with modular safety guardrails.</td><td>Requires multi-branch network training and synchronized temporal buffering.</td></tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="lesson-card mb-4" style="border-left:4px solid #10b981;">
+          <h3 style="color:#10b981; margin-top:0;"><i data-lucide="cpu"></i> Reverse Vending Machine (RVM) Multi-Sensor Digital Twin Case Study</h3>
+          <p style="font-size:0.88rem; line-height:1.55;">
+            An autonomous Reverse Vending Machine accepts used beverage containers, validates deposits, and classifies material into Aluminum, PET Plastic, or Glass.
+          </p>
+          <div class="grid-2-col mt-2">
+            <div style="background:var(--bg-secondary); padding:12px; border-radius:8px;">
+              <strong>Heterogeneous Sensor Modalities:</strong>
+              <ul style="font-size:0.82rem; margin:4px 0 0 0; padding-left:16px;">
+                <li><strong>Inductive Proximity Sensor:</strong> Measures eddy currents. High voltage change indicates metallic aluminum; zero indicates plastic/glass.</li>
+                <li><strong>Optical Barcode Scanner:</strong> Reads EAN-13 code to query database for valid container registration.</li>
+                <li><strong>Load Cell (Strain Gauge):</strong> Measures weight ($m \\in [12, 28]\\text{g}$). Flags leftover liquids if weight exceeds threshold.</li>
+                <li><strong>RGB Vision Camera:</strong> Classifies container geometry and deformation state.</li>
+              </ul>
+            </div>
+            <div style="background:var(--bg-secondary); padding:12px; border-radius:8px;">
+              <strong>Hybrid Decision Logic:</strong>
+              <ul style="font-size:0.82rem; margin:4px 0 0 0; padding-left:16px;">
+                <li>If Inductive Sensor triggers $\\to$ <strong>Aluminum Can</strong> (Rule Override).</li>
+                <li>If Inductive Sensor silent and Camera predicts bottle $\\to$ <strong>PET Bottle</strong>.</li>
+                <li>If Weight $> 35\\text{g}$ $\\to$ <strong>Reject Container (Liquid Contamination)</strong>.</li>
+                <li>If Barcode matches deposit whitelist $\\to$ <strong>Issue 10¢ Refund Voucher</strong>.</li>
+              </ul>
+            </div>
+          </div>
         </div>
       `
     },
     {
       id: "level-5",
-      title: "Level 5: Ensemble Methods & Official Sample Paper Crucible",
-      subtitle: "AdaBoost Calculus, Stacking Meta-Learners & Full Nov 2026 Model Answers",
-      badge: "Official Exam Simulation",
+      title: "Level 5: Rigorous Ensemble Theory & Official Sample Paper Crucible",
+      subtitle: "Condorcet's Jury Proof, Bagging Variance Reduction, AdaBoost Exponential Loss & Official Nov 2026 Answers",
+      badge: "Deep Ensemble Mastery",
       content: `
         <div class="lesson-card mb-4">
-          <h3>AdaBoost Weak Learner Weight Calculus & Sample Reweighting</h3>
-          $$\\mathbf{\\alpha_t = \\frac{1}{2} \\ln\\left( \\frac{1 - \\epsilon_t}{\\epsilon_t} \\right)}, \\quad \\mathbf{w_i^{(t+1)} = \\frac{w_i^{(t)} \\exp(-\\alpha_t y_i h_t(\\mathbf{x}_i))}{Z_t}}$$
-          <p style="font-size:0.88rem; line-height:1.55;">
-            Misclassified samples receive weight multiplied by $\\exp(+\\alpha_t)$, while correct samples are multiplied by $\\exp(-\\alpha_t)$. The relative update multiplier ratio is $\\exp(2\\alpha_t) = \\frac{1 - \\epsilon_t}{\\epsilon_t}$.
+          <h3>Condorcet's Jury Theorem: Mathematical Proof of Ensemble Superiority</h3>
+          <p>
+            Consider an ensemble of $M$ independent classifiers (where $M$ is odd), each having probability $p > 0.5$ of being correct. The ensemble makes a majority decision. The probability of the majority vote being correct is:
           </p>
+          $$P_{\\text{ensemble}} = \\sum_{k=\\frac{M+1}{2}}^M \\binom{M}{k} p^k (1 - p)^{M - k}$$
+          <p style="font-size:0.88rem; line-height:1.55;">
+            By the Law of Large Numbers, as $M \\to \\infty$, $\\mathbf{P_{\\text{ensemble}} \\to 1.0}$! For example, with $M = 5$ independent learners each with $p = 0.70$, majority voting achieves $P = 0.8369$ (an 83.7% accuracy, dramatically surpassing any individual base learner).
+          </p>
+        </div>
+
+        <div class="lesson-card mb-4">
+          <h3>Bagging & Random Forest: The Variance Reduction Formula</h3>
+          <p>
+            Consider an average of $M$ identically distributed base learners, each with individual variance $\\sigma^2$ and positive pairwise correlation $\\rho$:
+          </p>
+          $$\\mathbf{\\text{Var}\\left( \\frac{1}{M}\\sum_{i=1}^M X_i \\right) = \\rho \\sigma^2 + \\frac{1 - \\rho}{M} \\sigma^2}$$
+          <div class="grid-2-col mt-3">
+            <div style="background:var(--bg-secondary); padding:12px; border-radius:8px;">
+              <strong>1. Limit as Trees $M \\to \\infty$:</strong>
+              $$\\lim_{M \\to \\infty} \\text{Var} = \\mathbf{\\rho \\sigma^2}$$
+              Standard bagging on identical decision trees has high tree correlation $\\rho \\approx 0.8$, so adding more trees hits a hard variance floor!
+            </div>
+            <div style="background:var(--bg-secondary); padding:12px; border-radius:8px; border-left:3px solid #10b981;">
+              <strong style="color:#10b981;">2. Random Forest Feature Subsampling:</strong>
+              By considering only a random subset of $\\sqrt{p}$ features at each split, Random Forest <strong>de-correlates the trees</strong> (driving $\\rho \\to 0.2$). This crushes the variance asymptote $\\rho \\sigma^2$, producing far superior generalization!
+            </div>
+          </div>
+        </div>
+
+        <div class="lesson-card mb-4">
+          <h3>AdaBoost Weak Learner Weight Calculus & Exponential Loss Minimization</h3>
+          <p>
+            AdaBoost sequentially fits weak learners $h_t(\\mathbf{x}) \\in \\{-1, +1\\}$ to minimize the exponential loss function:
+          </p>
+          $$\\mathcal{L} = \\sum_{i=1}^N \\exp\\left( -y_i H(\\mathbf{x}_i) \\right) = \\sum_{i=1}^N \\exp\\left( -y_i [H_{t-1}(\\mathbf{x}_i) + \\alpha_t h_t(\\mathbf{x}_i)] \\right)$$
+          <p>Splitting samples into correct ($y_i h_t = +1$) and misclassified ($y_i h_t = -1$):</p>
+          $$\\mathcal{L} = e^{-\\alpha_t} \\sum_{y_i = h_t} w_i^{(t)} + e^{+\\alpha_t} \\sum_{y_i \\ne h_t} w_i^{(t)} = (1 - \\epsilon_t) e^{-\\alpha_t} + \\epsilon_t e^{+\\alpha_t}$$
+          <p>Differentiating with respect to $\\alpha_t$ and setting to zero:</p>
+          $$\\frac{d\\mathcal{L}}{d\\alpha_t} = -(1 - \\epsilon_t)e^{-\\alpha_t} + \\epsilon_t e^{+\\alpha_t} = 0 \\implies e^{2\\alpha_t} = \\frac{1 - \\epsilon_t}{\\epsilon_t} \\implies \\mathbf{\\alpha_t = \\frac{1}{2} \\ln\\left( \\frac{1 - \\epsilon_t}{\\epsilon_t} \\right)}$$
+          <p style="font-size:0.85rem; line-height:1.55; margin-top:8px;">
+            The sample weight update rule is:
+            $$w_i^{(t+1)} = \\frac{w_i^{(t)} \\exp(-\\alpha_t y_i h_t(\\mathbf{x}_i))}{Z_t}$$
+            Misclassified samples are multiplied by $\\exp(+\\alpha_t)$, while correct samples are multiplied by $\\exp(-\\alpha_t)$. The relative update ratio is $\\mathbf{\\exp(2\\alpha_t) = \\frac{1 - \\epsilon_t}{\\epsilon_t}}$.
+          </p>
+        </div>
+
+        <div class="lesson-card mb-4">
+          <h3>Stacking (Stacked Generalization) & Out-of-Fold (OOF) CV</h3>
+          <p>
+            Unlike Bagging (homogeneous trees in parallel) or Boosting (homogeneous trees in sequence), <strong>Stacking</strong> combines heterogeneous base models (e.g. LightGBM + SVM + MLP) using a meta-learner (e.g. Ridge Regression).
+          </p>
+          <div style="background:rgba(239,68,68,0.1); border-left:3px solid #ef4444; padding:12px; border-radius:6px; margin-top:10px; font-size:0.85rem;">
+            <strong style="color:#ef4444;"><i data-lucide="shield-alert"></i> Mandatory Out-of-Fold (OOF) Rule:</strong>
+            If base models predict on their own training data, their predictions will be overfitted and unnaturally accurate. Training the meta-learner on these in-sample predictions causes extreme target leakage. Base model predictions for the meta-learner MUST be generated strictly using <strong>K-fold Out-of-Fold (OOF) cross-validation</strong>!
+          </div>
         </div>
 
         <div class="lesson-card mb-4" style="border-left:4px solid #3b82f6;">
@@ -240,7 +320,7 @@ window.DAY3_REASONING_INTEGRATION_CONTENT = {
         <div class="lesson-card mb-4" style="border-left:4px solid #10b981;">
           <h3 style="color:#10b981; margin-top:0;"><i data-lucide="award"></i> Grand Finale: Proceed to the Day 3 Comprehensive Crucible!</h3>
           <p style="font-size:0.9rem; margin-bottom:14px;">
-            Complete your preparation with the 20-Question Grand Mock Exam, review the 5 post-quiz structured exam questions covering the official Nov 2026 rubrics, and use the Doubt Resolver to lock in your A+ grade.
+            Complete your preparation with the 20-Question Grand Mock Exam, review the 6 post-quiz structured exam questions covering the official Nov 2026 rubrics, and use the Doubt Resolver to lock in your A+ grade.
           </p>
           <button class="btn btn-primary" onclick="app.loadLevel('quizzes')">
             <i data-lucide="play"></i> Proceed to Day 3 Grand Mock Exam & Quizzes

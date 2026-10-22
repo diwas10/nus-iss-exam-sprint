@@ -466,5 +466,75 @@ window.DAY2_EXAM_QUESTIONS = [
       "[+3 Marks] Rigorous explanation of supervised failure: 99.93% trivial majority baseline and failure on novel anomaly modes."
     ],
     examinerTrap: "Using classification accuracy to evaluate the model on imbalanced anomaly data. 99.93% accuracy is worthless when 100% of failures are missed."
+  },
+  {
+    id: "d2-exam-q6",
+    title: "Question 6: 2D Haar Wavelet Energy Conservation & VAE Reparameterization Calculus",
+    topic: "ISSM Day 2 & PRMLS Day 4b (Transforms & Generative Models)",
+    totalMarks: 10,
+    scenario: `
+      An optical sorting sensor captures a $2 \\times 2$ pixel patch from a conveyor belt camera:
+      $$X = \\begin{bmatrix} 8 & 4 \\\\ 6 & 2 \\end{bmatrix}$$
+      The orthogonal 1D Haar analysis filter pair is:
+      $$h = \\left[ \\frac{1}{\\sqrt{2}}, \\, \\frac{1}{\\sqrt{2}} \\right] \\quad (\\text{Low-pass}), \\quad g = \\left[ \\frac{1}{\\sqrt{2}}, \\, -\\frac{1}{\\sqrt{2}} \\right] \\quad (\\text{High-pass})$$
+      Separately, a generative quality-inspection Variational Autoencoder (VAE) maps sensory inputs to a continuous latent space $\\mathbb{R}^d$.
+      For a given image, the encoder predicts latent distribution parameters for dimension $j$:
+      $$\\mu_j = 0.50, \\quad \\sigma_j^2 = 0.64 \\quad (\\sigma_j = 0.80)$$
+      The Gaussian KL-divergence regularization term is:
+      $$D_{\\text{KL}}\\left( \\mathcal{N}(\\mu, \\sigma^2) \\parallel \\mathcal{N}(0, 1) \\right) = -\\frac{1}{2} \\left( 1 + \\ln(\\sigma^2) - \\mu^2 - \\sigma^2 \\right)$$
+    `,
+    subparts: [
+      { prompt: "Compute the 2D Haar subband decomposition values ($LL, LH, HL, HH$) for patch $X$, and verify Parseval's energy conservation.", marks: 4 },
+      { prompt: "Calculate the exact KL-divergence loss for latent dimension $j$ with $\\mu_j = 0.50$ and $\\sigma_j^2 = 0.64$ (using $\\ln(0.64) \\approx -0.4463$).", marks: 3 },
+      { prompt: "Formulate the VAE Reparameterization Trick and explain mathematically why gradient backpropagation fails if latent vector $\\mathbf{z}$ is sampled directly from $\\mathcal{N}(\\boldsymbol{\\mu}, \\boldsymbol{\\Sigma})$.", marks: 3 }
+    ],
+    solution: `
+      <p><strong>Part (a) 2D Haar Wavelet Decomposition & Parseval Conservation [4 Marks]:</strong></p>
+      <p>1. <strong>Row-wise Transform:</strong></p>
+      $$\\begin{aligned}
+      \\text{Row 1: } & A_{\\text{row1}} = \\frac{8 + 4}{\\sqrt{2}} = \\frac{12}{\\sqrt{2}} = 6\\sqrt{2}, \\quad D_{\\text{row1}} = \\frac{8 - 4}{\\sqrt{2}} = \\frac{4}{\\sqrt{2}} = 2\\sqrt{2} \\\\
+      \\text{Row 2: } & A_{\\text{row2}} = \\frac{6 + 2}{\\sqrt{2}} = \\frac{8}{\\sqrt{2}} = 4\\sqrt{2}, \\quad D_{\\text{row2}} = \\frac{6 - 2}{\\sqrt{2}} = \\frac{4}{\\sqrt{2}} = 2\\sqrt{2}
+      \\end{aligned}$$
+      <p>Intermediate matrix after row filtering: $\\tilde{X} = \\begin{bmatrix} 6\\sqrt{2} & 2\\sqrt{2} \\\\ 4\\sqrt{2} & 2\\sqrt{2} \\end{bmatrix}$.</p>
+
+      <p>2. <strong>Column-wise Transform on $\\tilde{X}$:</strong></p>
+      $$\\begin{aligned}
+      LL &= \\frac{6\\sqrt{2} + 4\\sqrt{2}}{\\sqrt{2}} = 6 + 4 = \\mathbf{10} \\\\
+      HL &= \\frac{6\\sqrt{2} - 4\\sqrt{2}}{\\sqrt{2}} = 6 - 4 = \\mathbf{2} \\\\
+      LH &= \\frac{2\\sqrt{2} + 2\\sqrt{2}}{\\sqrt{2}} = 2 + 2 = \\mathbf{4} \\\\
+      HH &= \\frac{2\\sqrt{2} - 2\\sqrt{2}}{\\sqrt{2}} = 2 - 2 = \\mathbf{0}
+      \\end{aligned}$$
+      <p>Subband Matrix: $\\begin{bmatrix} LL & LH \\\\ HL & HH \\end{bmatrix} = \\begin{bmatrix} 10 & 4 \\\\ 2 & 0 \\end{bmatrix}$.</p>
+
+      <p>3. <strong>Parseval Energy Verification:</strong></p>
+      $$\\begin{aligned}
+      E_{\\text{spatial}} &= 8^2 + 4^2 + 6^2 + 2^2 = 64 + 16 + 36 + 4 = \\mathbf{120} \\\\
+      E_{\\text{wavelet}} &= LL^2 + LH^2 + HL^2 + HH^2 = 10^2 + 4^2 + 2^2 + 0^2 = 100 + 16 + 4 + 0 = \\mathbf{120}
+      \\end{aligned}$$
+      <p>$E_{\\text{spatial}} = E_{\\text{wavelet}} = 120$. Energy is strictly conserved! Notice that the $LL$ subband captures $100 / 120 = \\mathbf{83.3\\%}$ of the entire signal energy.</p>
+
+      <p><strong>Part (b) Latent KL Divergence Calculation [3 Marks]:</strong></p>
+      $$\\begin{aligned}
+      D_{\\text{KL}} &= -\\frac{1}{2} \\left( 1 + \\ln(0.64) - (0.50)^2 - 0.64 \\right) \\\\
+      &= -\\frac{1}{2} \\left( 1 - 0.4463 - 0.25 - 0.64 \\right) \\\\
+      &= -\\frac{1}{2} \\left( 1 - 1.3363 \\right) \\\\
+      &= -\\frac{1}{2} \\left( -0.3363 \\right) = \\mathbf{0.16815} \\approx \\mathbf{0.168}
+      \\end{aligned}$$
+
+      <p><strong>Part (c) Reparameterization Trick & Gradient Flow [3 Marks]:</strong></p>
+      <ul>
+        <li><strong>Why Direct Sampling Fails:</strong> If $\\mathbf{z} \\sim \\mathcal{N}(\\boldsymbol{\\mu}, \\boldsymbol{\\sigma}^2)$, the sampling operation is a stochastic black box. The gradient $\\frac{\\partial \\mathbf{z}}{\\partial \\boldsymbol{\\mu}}$ and $\\frac{\\partial \\mathbf{z}}{\\partial \\boldsymbol{\\sigma}}$ does not exist because standard backpropagation requires deterministic, continuous functional relationships.</li>
+        <li><strong>The Trick:</strong> Introduce an independent standard normal noise vector $\\boldsymbol{\\epsilon} \\sim \\mathcal{N}(\\mathbf{0}, \\mathbf{I})$ and compute:
+        $$\\mathbf{z} = \\boldsymbol{\\mu}(\\mathbf{x}) + \\boldsymbol{\\sigma}(\\mathbf{x}) \\odot \\boldsymbol{\\epsilon}$$
+        Now $\\mathbf{z}$ is a deterministic linear transformation of $\\boldsymbol{\\mu}$ and $\\boldsymbol{\\sigma}$. The stochasticity is pushed into external leaf node $\\boldsymbol{\\epsilon}$ (which requires no gradients), allowing $\\frac{\\partial \\mathcal{L}}{\\partial \\boldsymbol{\\mu}} = \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{z}}$ and $\\frac{\\partial \\mathcal{L}}{\\partial \\boldsymbol{\\sigma}} = \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{z}} \\odot \\boldsymbol{\\epsilon}$ to flow end-to-end to the encoder!</li>
+      </ul>
+    `,
+    rubric: [
+      "[+2 Marks] Accurate row and column Haar calculations yielding LL=10, LH=4, HL=2, HH=0.",
+      "[+2 Marks] Parseval energy conservation proof: $64+16+36+4 = 100+16+4+0 = 120$.",
+      "[+3 Marks] Step-by-step Gaussian KL-divergence calculation: $-\\frac{1}{2}(1 - 0.4463 - 0.25 - 0.64) \\approx 0.168$.",
+      "[+3 Marks] Explaining the reparameterization formula $\\mathbf{z} = \\boldsymbol{\\mu} + \\boldsymbol{\\sigma} \\odot \\boldsymbol{\\epsilon}$ and why direct sampling blocks backpropagation."
+    ],
+    examinerTrap: "Dividing by 2 instead of sqrt(2) in the Haar filter, which violates orthogonality and causes energy to shrink by half at each stage. Always use 1/sqrt(2) for orthonormal wavelets."
   }
 ];

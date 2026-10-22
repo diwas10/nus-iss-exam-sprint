@@ -429,5 +429,76 @@ window.DAY1_EXAM_QUESTIONS = [
       "[+2 Marks] Identifying extreme sparsity (99.67% empty) and recommending CBR/Rule engines."
     ],
     examinerTrap: "Recommending Collaborative Filtering for medical diagnosis. The exam paper specifically tests whether you recognize that e-commerce algorithms fail on safety-critical physiological workflows."
+  },
+  {
+    id: "d1-exam-q6",
+    title: "Question 6: Gaussian Mixture Model (GMM) EM Hand Calculation & Ward's Linkage",
+    topic: "PSUPR Day 4 & Day 5 (Clustering & Unsupervised Learning)",
+    totalMarks: 10,
+    scenario: `
+      A 1-dimensional dataset is modeled using a 2-component Gaussian Mixture Model:
+      $$p(x) = \\pi_1 \\mathcal{N}(x \\mid \\mu_1, \\sigma_1^2) + \\pi_2 \\mathcal{N}(x \\mid \\mu_2, \\sigma_2^2)$$
+      At current iteration $t$, the parameters are:
+      $$\\pi_1 = 0.60, \\quad \\mu_1 = 2.0, \\quad \\sigma_1^2 = 1.0 \\quad (\\sigma_1 = 1.0)$$
+      $$\\pi_2 = 0.40, \\quad \\mu_2 = 6.0, \\quad \\sigma_2^2 = 1.0 \\quad (\\sigma_2 = 1.0)$$
+      Consider observation point $x^* = 4.0$. Note that for a 1D Gaussian:
+      $$\\mathcal{N}(x \\mid \\mu, \\sigma^2) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} \\exp\\left( -\\frac{(x - \\mu)^2}{2\\sigma^2} \\right)$$
+      With $\\frac{1}{\\sqrt{2\\pi}} \\approx 0.3989$.
+      Separately, in Agglomerative Hierarchical Clustering, Cluster $A$ contains $n_A = 4$ points with centroid $\\boldsymbol{\\mu}_A = [2, 3]^T$, and Cluster $B$ contains $n_B = 6$ points with centroid $\\boldsymbol{\\mu}_B = [5, 7]^T$.
+    `,
+    subparts: [
+      { prompt: "Calculate Gaussian densities $\\mathcal{N}(4 \\mid 2, 1)$ and $\\mathcal{N}(4 \\mid 6, 1)$, and determine the posterior responsibilities $\\gamma_1(x^*)$ and $\\gamma_2(x^*)$ during the E-step.", marks: 4 },
+      { prompt: "Explain how the M-step updates mean $\\mu_1$ and explain why GMM provides a soft-probabilistic generalization of hard K-Means.", marks: 3 },
+      { prompt: "Calculate the Ward's minimum variance linkage merge cost $\\Delta \\text{ESS}(A, B)$ for merging clusters $A$ and $B$.", marks: 3 }
+    ],
+    solution: `
+      <p><strong>Part (a) E-Step Density & Responsibility Calculation [4 Marks]:</strong></p>
+      <p>Evaluate density for Component 1 ($\\\\mu_1 = 2, \\\\sigma_1^2 = 1$):</p>
+      $$\\begin{aligned}
+      \\mathcal{N}(4 \\mid 2, 1) &= 0.3989 \\times \\exp\\left( -\\frac{(4 - 2)^2}{2(1)} \\right) \\\\
+      &= 0.3989 \\times \\exp(-2) \\\\
+      &= 0.3989 \\times 0.135335 \\approx \\mathbf{0.0540}
+      \\end{aligned}$$
+
+      <p>Evaluate density for Component 2 ($\\\\mu_2 = 6, \\\\sigma_2^2 = 1$):</p>
+      $$\\begin{aligned}
+      \\mathcal{N}(4 \\mid 6, 1) &= 0.3989 \\times \\exp\\left( -\\frac{(4 - 6)^2}{2(1)} \\right) \\\\
+      &= 0.3989 \\times \\exp(-2) \\\\
+      &= 0.3989 \\times 0.135335 \\approx \\mathbf{0.0540}
+      \\end{aligned}$$
+
+      <p>Notice that because $x^* = 4$ is equidistant from $\\mu_1 = 2$ and $\\mu_2 = 6$, both densities are identical ($0.0540$). However, the mixing priors $\\pi_1 = 0.60$ and $\\pi_2 = 0.40$ break the tie:</p>
+      $$\\begin{aligned}
+      \\text{Numerator}_1 &= \\pi_1 \\mathcal{N}(4 \\mid 2, 1) = 0.60 \\times 0.0540 = 0.0324 \\\\
+      \\text{Numerator}_2 &= \\pi_2 \\mathcal{N}(4 \\mid 6, 1) = 0.40 \\times 0.0540 = 0.0216 \\\\
+      \\text{Total Evidence} &= 0.0324 + 0.0216 = 0.0540
+      \\end{aligned}$$
+      $$\\mathbf{\\gamma_1(x^*) = \\frac{0.0324}{0.0540} = 0.600 \\quad (60.0\\%)}, \\quad \\mathbf{\\gamma_2(x^*) = \\frac{0.0216}{0.0540} = 0.400 \\quad (40.0\\%)}$$
+
+      <p><strong>Part (b) M-Step Update & GMM vs K-Means [3 Marks]:</strong></p>
+      $$\\mu_1^{(t+1)} = \\frac{\\sum_{i=1}^N \\gamma_{i1} x_i}{\\sum_{i=1}^N \\gamma_{i1}} = \\frac{\\sum_{i=1}^N \\gamma_{i1} x_i}{N_1}$$
+      <ul>
+        <li>In K-Means, cluster assignment is hard (indicator $\\gamma_{ik} \\in \\{0, 1\\}$), meaning point $x^*$ would be forced entirely into one cluster or arbitrarily split on ties.</li>
+        <li>In GMM, $\\gamma_{ik} \\in [0, 1]$ represents continuous fractional ownership. Point $x^*$ contributes 60% of its value to updating $\\mu_1$ and 40% to updating $\\mu_2$.</li>
+        <li>Furthermore, GMM parameters include full covariance matrices $\\boldsymbol{\\Sigma}_k$, allowing elliptical clusters with arbitrary orientation, whereas K-Means assumes isotropic spherical clusters.</li>
+      </ul>
+
+      <p><strong>Part (c) Ward's Minimum Variance Merge Cost [3 Marks]:</strong></p>
+      $$\\Delta \\text{ESS}(A, B) = \\frac{n_A n_B}{n_A + n_B} \\|\\boldsymbol{\\mu}_A - \\boldsymbol{\\mu}_B\\|^2$$
+      <p>Given $n_A = 4, n_B = 6, \\boldsymbol{\\mu}_A = [2, 3]^T, \\boldsymbol{\\mu}_B = [5, 7]^T$:</p>
+      $$\\begin{aligned}
+      \\|\\boldsymbol{\\mu}_A - \\boldsymbol{\\mu}_B\\|^2 &= (2 - 5)^2 + (3 - 7)^2 = (-3)^2 + (-4)^2 = 9 + 16 = \\mathbf{25} \\\\
+      \\frac{n_A n_B}{n_A + n_B} &= \\frac{4 \\times 6}{4 + 6} = \\frac{24}{10} = \\mathbf{2.4} \\\\
+      \\Delta \\text{ESS}(A, B) &= 2.4 \\times 25 = \\mathbf{60.0}
+      \\end{aligned}$$
+      <p>Ward's algorithm will compare this merge increase ($60.0$) against all other candidate pairs and merge the pair that causes the minimal $\\Delta \\text{ESS}$.</p>
+    `,
+    rubric: [
+      "[+2 Marks] Calculating densities $\\mathcal{N}(4|2,1) = \\mathcal{N}(4|6,1) \\approx 0.0540$.",
+      "[+2 Marks] Accurate posteriors: $\\gamma_1 = 0.60$ and $\\gamma_2 = 0.40$ incorporating priors.",
+      "[+3 Marks] Stating M-step formula and contrasting soft probabilistic ownership with hard K-Means Voronoi partitions.",
+      "[+3 Marks] Step-by-step Ward's merge cost calculation: $\\frac{24}{10} \\times 25 = 60.0$."
+    ],
+    examinerTrap: "Ignoring the mixing priors pi_1=0.6 and pi_2=0.4 in the E-step. Because the point is equidistant from both means, students often incorrectly write gamma_1 = gamma_2 = 0.5 without weighting by priors."
   }
 ];

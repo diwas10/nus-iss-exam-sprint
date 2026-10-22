@@ -444,5 +444,83 @@ window.DAY3_EXAM_QUESTIONS = [
       "[+3 Marks] Clear explanation of sample reweighting forcing subsequent weak learners to exploit non-PageValues behavioral signals."
     ],
     examinerTrap: "Calculating natural log of 0.8/0.2 as 0.4. ln(4) = 1.3863. Forgetting the 1/2 factor in front of the logarithm."
+  },
+  {
+    id: "d3-exam-q6",
+    title: "Question 6: Ensemble Variance Reduction Math & Multimodal Sensor Fusion Architecture",
+    topic: "Ensemble Theory & Intelligent Sensing (ISSM & PSUPR Day 5)",
+    totalMarks: 10,
+    scenario: `
+      An autonomous recycling facility operates an array of diagnostic classifiers and smart Reverse Vending Machines (RVMs).
+      In the predictive maintenance subsystem, an engineer evaluates an ensemble of $M = 100$ decision trees.
+      Each tree has individual prediction variance $\\sigma^2 = 1.0$.
+      The ensemble variance is governed by:
+      $$\\text{Var}(\\bar{X}) = \\rho \\sigma^2 + \\frac{1 - \\rho}{M} \\sigma^2$$
+      For standard Bagging, the pairwise tree correlation is $\\rho_{\\text{bag}} = 0.75$.
+      For Random Forest (with feature subsampling $m = \\sqrt{p}$), the tree correlation drops to $\\rho_{\\text{rf}} = 0.20$.
+      Separately, the RVM must classify incoming beverage containers using four heterogeneous sensors:
+      1. RGB Vision Camera ($112 \\times 112 \\times 3$)
+      2. 1D Laser Barcode Scanner (EAN-13 digit string)
+      3. Inductive Proximity Sensor (continuous eddy current voltage)
+      4. Digital Load Cell (container mass in grams)
+    `,
+    subparts: [
+      { prompt: "Calculate the exact ensemble variance for Standard Bagging vs Random Forest with $M = 100$ trees, and calculate the theoretical variance limit as $M \\to \\infty$ for both.", marks: 4 },
+      { prompt: "Explain mathematically why Random Forest's feature subsampling mechanism drives $\\rho$ downwards.", marks: 2 },
+      { prompt: "Design a Hybrid Sensor Fusion architecture for the RVM: specify how the 4 sensor streams are combined, explain where rule-based deterministic overrides occur, and contrast this with naive Early Fusion.", marks: 4 }
+    ],
+    solution: `
+      <p><strong>Part (a) Ensemble Variance Calculations [4 Marks]:</strong></p>
+      <p>1. <strong>Standard Bagging ($\\rho = 0.75, M = 100, \\sigma^2 = 1.0$):</strong></p>
+      $$\\begin{aligned}
+      \\text{Var}_{\\text{bag}} &= 0.75(1.0) + \\frac{1 - 0.75}{100}(1.0) \\\\
+      &= 0.75 + \\frac{0.25}{100} = 0.75 + 0.0025 = \\mathbf{0.7525} \\\\
+      \\lim_{M \\to \\infty} \\text{Var}_{\\text{bag}} &= \\rho_{\\text{bag}} \\sigma^2 = \\mathbf{0.7500}
+      \\end{aligned}$$
+
+      <p>2. <strong>Random Forest ($\\rho = 0.20, M = 100, \\sigma^2 = 1.0$):</strong></p>
+      $$\\begin{aligned}
+      \\text{Var}_{\\text{rf}} &= 0.20(1.0) + \\frac{1 - 0.20}{100}(1.0) \\\\
+      &= 0.20 + \\frac{0.80}{100} = 0.20 + 0.0080 = \\mathbf{0.2080} \\\\
+      \\lim_{M \\to \\infty} \\text{Var}_{\\text{rf}} &= \\rho_{\\text{rf}} \\sigma^2 = \\mathbf{0.2000}
+      \\end{aligned}$$
+      <p><strong>Conclusion:</strong> Random Forest slashes prediction variance from $0.7525$ down to $0.2080$ — a massive <strong>72.4% variance reduction</strong>!</p>
+
+      <p><strong>Part (b) Why Feature Subsampling Lowers Correlation $\\rho$ [2 Marks]:</strong></p>
+      <ul>
+        <li>In standard bagging, if one feature is overwhelmingly dominant (e.g. <code>PageValues</code> or highest vibration peak), virtually all 100 trees pick that same feature at the root. Consequently, the trees look almost identical and make correlated errors (high $\\rho$).</li>
+        <li>By restricting split candidates to a random subset of size $\\sqrt{p}$, the dominant feature will be excluded from the candidate pool in approximately $(1 - \\frac{1}{\\sqrt{p}})$ of the splits. This forces different trees to discover diverse alternative predictive pathways, de-correlating the trees and driving $\\rho$ down towards 0.</li>
+      </ul>
+
+      <p><strong>Part (c) RVM Hybrid Sensor Fusion Architecture [4 Marks]:</strong></p>
+      <ol>
+        <li><strong>Deterministic Rule Pre-Filter (Low-Latency Safety Gate):</strong>
+          <ul>
+            <li><strong>Inductive Proximity Sensor:</strong> Voltage spike indicates metallic eddy currents. Rule engine immediately asserts <code>Material = Aluminum</code>. Bypasses computer vision.</li>
+            <li><strong>Load Cell:</strong> If mass $> 35\\text{g}$, rule engine rejects container immediately with error <code>LIQUID_CONTAMINATION_DETECTED</code>.</li>
+          </ul>
+        </li>
+        <li><strong>Mid-Level Feature Fusion (Visual & Temporal Classification):</strong>
+          <ul>
+            <li>If Inductive sensor is negative (non-metallic), RGB Camera feature embeddings (from CNN with GlobalAveragePooling) classify container brand, geometry, and deformation state.</li>
+            <li>Barcode Scanner asynchronously queries the national deposit database using EAN-13 string.</li>
+          </ul>
+        </li>
+        <li><strong>Decision Arbiter (Late Fusion):</strong>
+          <ul>
+            <li>If Barcode matches database and vision confirms container geometry intact $\\to$ <strong>Accept container & issue 10¢ voucher</strong>.</li>
+            <li>If Barcode unreadable but vision confirms valid bottle $\\to$ <strong>Route to manual deposit bin</strong>.</li>
+          </ul>
+        </li>
+        <li><strong>Contrast with Naive Early Fusion:</strong> Concatenating raw pixel matrices with continuous load cell voltages and discrete barcode strings into a single vector fails because: (1) Image pixels overwhelm the 1D sensors, (2) Barcode scanner latency causes pipeline stalls, and (3) Optical occlusion or camera failure crashes the entire recycling machine.</li>
+      </ol>
+    `,
+    rubric: [
+      "[+2 Marks] Accurate variance calculations: Bagging = 0.7525 (limit 0.75), RF = 0.2080 (limit 0.20).",
+      "[+2 Marks] Mathematical explanation of Random Forest decorrelation via $\\sqrt{p}$ feature subsampling.",
+      "[+3 Marks] Multi-tier hybrid fusion pipeline (inductive rule gate, weight safety threshold, CNN vision, barcode database).",
+      "[+3 Marks] Rigorous critique of Early Fusion: dimensionality imbalance, latency mismatch, single-point failure."
+    ],
+    examinerTrap: "Believing adding more trees reduces variance to zero in Bagging. As M approaches infinity, variance hits the hard asymptote of rho * sigma^2. The only way to lower the limit is to decrease rho via tree decorrelation."
   }
 ];
