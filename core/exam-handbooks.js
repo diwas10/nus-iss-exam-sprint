@@ -49,48 +49,48 @@ window.ExamHandbooks = {
               <tbody>
                 <tr>
                   <td><strong>Nyquist Theorem</strong></td>
-                  <td>$$f_s > 2 f_{\max}, \quad f_N = \frac{f_s}{2}$$</td>
-                  <td>$f_s$ = sampling rate, $f_N$ = folding Nyquist frequency. If $f > f_N$, aliasing folds as $f_{\text{alias}} = |f - k f_s|$.</td>
+                  <td>$$f_s > 2 f_{\\max}, \\quad f_N = \\frac{f_s}{2}$$</td>
+                  <td>$f_s$ = sampling rate, $f_N$ = folding Nyquist frequency. If $f > f_N$, aliasing folds as $f_{\\text{alias}} = |f - k f_s|$.</td>
                 </tr>
                 <tr>
                   <td><strong>Laplace Smoothing</strong></td>
-                  <td>$$P(x_j \mid C_k) = \frac{\text{count}(x_j, C_k) + 1}{\text{count}(C_k) + |V_j|}$$</td>
+                  <td>$$P(x_j \\mid C_k) = \\frac{\\text{count}(x_j, C_k) + 1}{\\text{count}(C_k) + |V_j|}$$</td>
                   <td>$|V_j|$ = total distinct values for feature $j$. Denominator MUST add $|V_j|$, NOT $+1$!</td>
                 </tr>
                 <tr>
                   <td><strong>SVM Margin Width</strong></td>
-                  <td>$$\gamma = \frac{2}{\|\mathbf{w}\|} = \frac{2}{\sqrt{\sum w_i^2}}$$</td>
+                  <td>$$\\gamma = \\frac{2}{\|\\mathbf{w}\|} = \\frac{2}{\\sqrt{\\sum w_i^2}}$$</td>
                   <td>Distance between $w^T x + b = +1$ and $w^T x + b = -1$. Larger margin $\implies$ higher generalization.</td>
                 </tr>
                 <tr>
                   <td><strong>CNN Output Sizing</strong></td>
-                  <td>$$O = \left\lfloor \frac{I - k + 2p}{s} \right\rfloor + 1$$</td>
+                  <td>$$O = \\left\\lfloor \\frac{I - k + 2p}{s} \\right\\rfloor + 1$$</td>
                   <td>$I$ = input dimension, $k$ = kernel size, $p$ = padding, $s$ = stride.</td>
                 </tr>
                 <tr>
                   <td><strong>CNN Parameter Count</strong></td>
-                  <td>$$\text{Weights} = (k_h \times k_w \times C_{\text{in}}) \times C_{\text{out}} + C_{\text{out}}$$</td>
+                  <td>$$\\text{Weights} = (k_h \\times k_w \\times C_{\\text{in}}) \\times C_{\\text{out}} + C_{\\text{out}}$$</td>
                   <td>Convolutional layer parameters depend ONLY on filter size and channels, independent of image resolution!</td>
                 </tr>
                 <tr>
                   <td><strong>Evaluation Metrics</strong></td>
-                  <td>$$\text{Precision} = \frac{TP}{TP+FP}, \quad \text{Recall} = \frac{TP}{TP+FN}$$</td>
-                  <td>$$\text{F1} = \frac{2PR}{P+R}, \quad \text{Lift} = \frac{\% \text{ responders in decile}}{\% \text{ overall}}$$</td>
+                  <td>$$\\text{Precision} = \\frac{TP}{TP+FP}, \\quad \\text{Recall} = \\frac{TP}{TP+FN}$$</td>
+                  <td>$$\\text{F1} = \\frac{2PR}{P+R}, \\quad \\text{Lift} = \\frac{\% \\text{ responders in decile}}{\% \\text{ overall}}$$</td>
                 </tr>
                 <tr>
                   <td><strong>PCA Covariance & Variance</strong></td>
-                  <td>$$\mathbf{\Sigma} = \frac{1}{N-1}\mathbf{X}^T\mathbf{X}, \quad \text{EVR}_k = \frac{\lambda_k}{\sum \lambda_i}$$</td>
+                  <td>$$\\mathbf{\Sigma} = \\frac{1}{N-1}\\mathbf{X}^T\\mathbf{X}, \\quad \\text{EVR}_k = \\frac{\\lambda_k}{\\sum \\lambda_i}$$</td>
                   <td>Data MUST be zero-centered first. Fit strictly on train split to prevent target leakage!</td>
                 </tr>
                 <tr>
                   <td><strong>3-Sigma Anomaly Threshold</strong></td>
-                  <td>$$\tau = \mu_{\text{error}} + 3 \sigma_{\text{error}}$$</td>
-                  <td>Calibrated on normal training reconstruction error $e_i = \|x_i - \hat{x}_i\|^2$. If test error $> \tau \implies$ anomaly!</td>
+                  <td>$$\\tau = \\mu_{\\text{error}} + 3 \\sigma_{\\text{error}}$$</td>
+                  <td>Calibrated on normal training reconstruction error $e_i = \|x_i - \hat{x}_i\|^2$. If test error $> \\tau \implies$ anomaly!</td>
                 </tr>
                 <tr>
                   <td><strong>AdaBoost Alpha & Weight</strong></td>
-                  <td>$$\alpha_t = \frac{1}{2}\ln\left(\frac{1-\epsilon_t}{\epsilon_t}\right), \quad w_i^{(t+1)} = w_i^{(t)} e^{-\alpha_t y_i h_t(x_i)}$$</td>
-                  <td>$\epsilon_t$ = weighted error rate. Misclassified samples get multiplied by $e^{\alpha_t} > 1$.</td>
+                  <td>$$\\alpha_t = \\frac{1}{2}\\ln\\left(\\frac{1-\\epsilon_t}{\\epsilon_t}\\right), \\quad w_i^{(t+1)} = w_i^{(t)} e^{-\\alpha_t y_i h_t(x_i)}$$</td>
+                  <td>$\\epsilon_t$ = weighted error rate. Misclassified samples get multiplied by $e^{\\alpha_t} > 1$.</td>
                 </tr>
               </tbody>
             </table>
@@ -106,20 +106,20 @@ window.ExamHandbooks = {
           <div class="mt-3">
             <h4 style="color: var(--accent-cyan); font-size: 1rem;">Procedure 1: Global Average Pooling vs Flatten Layer Redesign (PRS Q2a)</h4>
             <p style="font-size: 0.88rem; line-height: 1.6;">
-              <strong>Step 1: Compute Feature Map Size before classification head.</strong> Suppose final conv output is $7 \times 7 \times 512$.<br>
-              <strong>Step 2: Calculate Flatten layer parameters.</strong> Flatten yields a vector of length $7 \times 7 \times 512 = 25,088$. If connecting to a dense layer with 4,096 units, parameters = $25,088 \times 4,096 + 4,096 = 102,764,544$ (~102.8M parameters!).<br>
-              <strong>Step 3: Redesign with Global Average Pooling (GAP).</strong> GAP averages each $7 \times 7$ slice to a single scalar, reducing $7 \times 7 \times 512$ directly to a 512-dim vector with <strong>0 learnable parameters</strong>. Directly connecting 512 to 2 classes yields only $512 \times 2 + 2 = 1,026$ parameters! This eliminates 99.99% of parameters and prevents overfitting.
+              <strong>Step 1: Compute Feature Map Size before classification head.</strong> Suppose final conv output is $7 \\times 7 \\times 512$.<br>
+              <strong>Step 2: Calculate Flatten layer parameters.</strong> Flatten yields a vector of length $7 \\times 7 \\times 512 = 25,088$. If connecting to a dense layer with 4,096 units, parameters = $25,088 \\times 4,096 + 4,096 = 102,764,544$ (~102.8M parameters!).<br>
+              <strong>Step 3: Redesign with Global Average Pooling (GAP).</strong> GAP averages each $7 \\times 7$ slice to a single scalar, reducing $7 \\times 7 \\times 512$ directly to a 512-dim vector with <strong>0 learnable parameters</strong>. Directly connecting 512 to 2 classes yields only $512 \\times 2 + 2 = 1,026$ parameters! This eliminates 99.99% of parameters and prevents overfitting.
             </p>
 
             <h4 style="color: var(--accent-cyan); font-size: 1rem; margin-top: 14px;">Procedure 2: Conveyor Belt Failure Bayesian Diagnosis (PRS Q2d)</h4>
             <p style="font-size: 0.88rem; line-height: 1.6;">
               Given 9 historical maintenance records: 5 Carryback ($C$), 4 Mistracking ($M$). Observation: Vibration = Fair, Acoustic = Low.<br>
-              $$P(C) = 5/9, \quad P(M) = 4/9$$
-              $$P(\text{Fair} \mid C) = 1/5, \quad P(\text{Low} \mid C) = 2/5 \implies P(\text{Obs} \mid C) = \frac{1}{5} \times \frac{2}{5} = \frac{2}{25} = 0.08$$
-              $$P(\text{Fair} \mid M) = 2/4 = 1/2, \quad P(\text{Low} \mid M) = 2/4 = 1/2 \implies P(\text{Obs} \mid M) = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4} = 0.25$$
-              $$\text{Unnormalized Posterior: } P(C) \cdot P(\text{Obs} \mid C) = \frac{5}{9} \times 0.08 = \frac{0.4}{9} \approx 0.0444$$
-              $$P(M) \cdot P(\text{Obs} \mid M) = \frac{4}{9} \times 0.25 = \frac{1.0}{9} \approx 0.1111$$
-              $$\mathbf{\text{Decision: } P(M \mid \text{Obs}) > P(C \mid \text{Obs}) \implies \text{Diagnose Mistracking!}}$$
+              $$P(C) = 5/9, \\quad P(M) = 4/9$$
+              $$P(\\text{Fair} \\mid C) = 1/5, \\quad P(\\text{Low} \\mid C) = 2/5 \implies P(\\text{Obs} \\mid C) = \\frac{1}{5} \\times \\frac{2}{5} = \\frac{2}{25} = 0.08$$
+              $$P(\\text{Fair} \\mid M) = 2/4 = 1/2, \\quad P(\\text{Low} \\mid M) = 2/4 = 1/2 \implies P(\\text{Obs} \\mid M) = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4} = 0.25$$
+              $$\\text{Unnormalized Posterior: } P(C) \\cdot P(\\text{Obs} \\mid C) = \\frac{5}{9} \\times 0.08 = \\frac{0.4}{9} \\approx 0.0444$$
+              $$P(M) \\cdot P(\\text{Obs} \\mid M) = \\frac{4}{9} \\times 0.25 = \\frac{1.0}{9} \\approx 0.1111$$
+              $$\\mathbf{\\text{Decision: } P(M \\mid \\text{Obs}) > P(C \\mid \\text{Obs}) \implies \\text{Diagnose Mistracking!}}$$
             </p>
           </div>
         </div>
@@ -174,7 +174,7 @@ window.ExamHandbooks = {
             <li><strong>Trap 5 (CNN Output Sizing):</strong> Forgetting the $+1$ term in $(I - k + 2p)/s + 1$.</li>
             <li><strong>Trap 6 (Supervised Anomaly Fallacy):</strong> Agreeing with a proposal to train a 2-class classifier on 3000:2 data. Always propose unsupervised reconstruction!</li>
             <li><strong>Trap 7 (Anti-Aliasing Filter Location):</strong> Placing digital filtering *after* ADC sampling. Anti-aliasing MUST be an analog hardware low-pass filter *before* ADC!</li>
-            <li><strong>Trap 8 (SVM Slack Variable Meaning):</strong> Claiming $\\xi_i > 0$ means misclassified. Only $\\xi_i > 1$ is misclassified; $0 < \\xi_i \le 1$ is correctly classified within the margin!</li>
+            <li><strong>Trap 8 (SVM Slack Variable Meaning):</strong> Claiming $\\xi_i > 0$ means misclassified. Only $\\xi_i > 1$ is misclassified; $0 < \\xi_i \\le 1$ is correctly classified within the margin!</li>
             <li><strong>Trap 9 (DTW Constraint):</strong> Forgetting that DTW is $O(NM)$ without Sakoe-Chiba window constraints.</li>
             <li><strong>Trap 10 (Stacking Target Leakage):</strong> Training the meta-learner on the base models' training predictions. Stacking REQUIRES Out-Of-Fold (OOF) cross-validation!</li>
           </ul>
@@ -262,7 +262,7 @@ window.ExamHandbooks = {
               <li><strong>Facets:</strong> Metadata defining slot constraints (e.g. <code>value-type</code>, <code>default-value</code>, <code>range</code>).</li>
               <li><strong>Active Daemons (Procedural Attachments):</strong>
                 <ul>
-                  <li><code>if-needed</code>: Fires lazily when a slot value is requested but empty. <em>Example:</em> <code>calc_distance()</code> calculates distance from camera face bounding-box radius $D = rac{f \cdot W}{P}$.</li>
+                  <li><code>if-needed</code>: Fires lazily when a slot value is requested but empty. <em>Example:</em> <code>calc_distance()</code> calculates distance from camera face bounding-box radius $D = \\frac{f \\cdot W}{P}$.</li>
                   <li><code>if-added</code>: Fires when a slot value is written or updated. <em>Example:</em> <code>check_break_schedule()</code> checks if <code>work_time >= 20 min</code> and triggers the 20-20-20 alert.</li>
                 </ul>
               </li>
@@ -283,31 +283,31 @@ window.ExamHandbooks = {
               <tr>
                 <td><strong>A* Search</strong></td>
                 <td>$$f(n) = g(n) + h(n)$$</td>
-                <td>$g(n)$ = exact path cost from start, $h(n)$ = heuristic estimate to goal. Admissible: $h(n) \le h^*(n)$. Consistent: $h(n) \le c(n,a,n') + h(n')$.</td>
+                <td>$g(n)$ = exact path cost from start, $h(n)$ = heuristic estimate to goal. Admissible: $h(n) \\le h^*(n)$. Consistent: $h(n) \\le c(n,a,n') + h(n')$.</td>
               </tr>
               <tr>
                 <td><strong>MYCIN CF Combination</strong></td>
-                <td>$$CF_{\text{combine}} = CF_1 + CF_2 - CF_1 \cdot CF_2 \quad (CF_1, CF_2 \ge 0)$$</td>
-                <td>If both $<0 \implies CF_1 + CF_2 + CF_1 CF_2$. If opposite signs $\implies \frac{CF_1 + CF_2}{1 - \min(|CF_1|, |CF_2|)}$.</td>
+                <td>$$CF_{\\text{combine}} = CF_1 + CF_2 - CF_1 \\cdot CF_2 \\quad (CF_1, CF_2 \\ge 0)$$</td>
+                <td>If both $<0 \implies CF_1 + CF_2 + CF_1 CF_2$. If opposite signs $\implies \\frac{CF_1 + CF_2}{1 - \\min(|CF_1|, |CF_2|)}$.</td>
               </tr>
               <tr>
                 <td><strong>Fuzzy Centroid Defuzzification</strong></td>
-                <td>$$z^* = \frac{\sum z_i \cdot \mu(z_i)}{\sum \mu(z_i)}$$</td>
+                <td>$$z^* = \\frac{\\sum z_i \\cdot \\mu(z_i)}{\\sum \\mu(z_i)}$$</td>
                 <td>Center of gravity of the clipped/aggregated fuzzy membership area.</td>
               </tr>
               <tr>
                 <td><strong>Association Support & Lift</strong></td>
-                <td>$$\text{Supp} = \frac{\text{count}(X \cup Y)}{N}, \quad \text{Lift} = \frac{\text{Conf}(X \implies Y)}{\text{Supp}(Y)}$$</td>
+                <td>$$\\text{Supp} = \\frac{\\text{count}(X \\cup Y)}{N}, \\quad \\text{Lift} = \\frac{\\text{Conf}(X \implies Y)}{\\text{Supp}(Y)}$$</td>
                 <td>Lift $> 1$ indicates positive association; Lift $= 1$ independence; Lift $< 1$ negative substitution.</td>
               </tr>
               <tr>
                 <td><strong>TransE KG Loss</strong></td>
-                <td>$$\mathcal{L} = \max(0, \gamma + \|\mathbf{h} + \mathbf{r} - \mathbf{t}\| - \|\mathbf{h'} + \mathbf{r} - \mathbf{t'}\|)$$</td>
-                <td>Enforces head + relation $\approx$ tail for true triples while penalizing corrupted negative triples by margin $\gamma$.</td>
+                <td>$$\\mathcal{L} = \\max(0, \\gamma + \|\\mathbf{h} + \\mathbf{r} - \\mathbf{t}\| - \|\\mathbf{h'} + \\mathbf{r} - \\mathbf{t'}\|)$$</td>
+                <td>Enforces head + relation $\\approx$ tail for true triples while penalizing corrupted negative triples by margin $\\gamma$.</td>
               </tr>
               <tr>
                 <td><strong>Genetic Order Crossover (OX)</strong></td>
-                <td>$$\text{Child Swath} = \text{Parent 1 Swath}, \quad \text{Remainder} = \text{Parent 2 in order}$$</td>
+                <td>$$\\text{Child Swath} = \\text{Parent 1 Swath}, \\quad \\text{Remainder} = \\text{Parent 2 in order}$$</td>
                 <td>Critical for permutation problems (TSP) to guarantee every city is visited exactly once with no duplicates!</td>
               </tr>
             </tbody>
@@ -319,7 +319,7 @@ window.ExamHandbooks = {
           <h3 style="color: #ef4444; margin-top: 0;"><i data-lucide="alert-octagon"></i> 10 Fatal Examiner Traps in IRS Examinations</h3>
           <ul style="font-size: 0.88rem; line-height: 1.6; color: var(--text-primary); margin-left: 20px;">
             <li><strong>Trap 1 (Graph Search Admissibility):</strong> Claiming admissibility alone guarantees optimality in Graph Search. Graph Search REQUIRES Consistency (Monotonicity)!</li>
-            <li><strong>Trap 2 (Collider d-Separation):</strong> Believing an unobserved collider blocks the path. In colliders ($X \to Y \leftarrow Z$), the path is BLOCKED when $Y$ is unobserved, but becomes ACTIVE when $Y$ is observed (explaining away)!</li>
+            <li><strong>Trap 2 (Collider d-Separation):</strong> Believing an unobserved collider blocks the path. In colliders ($X \\to Y \\leftarrow Z$), the path is BLOCKED when $Y$ is unobserved, but becomes ACTIVE when $Y$ is observed (explaining away)!</li>
             <li><strong>Trap 3 (Rule Engine vs CBR):</strong> Recommending CBR when exact legal or medical guidelines must be strictly enforced. Guidelines require Rule Engines; CBR is for experiential problem solving where rules cannot be formalized!</li>
             <li><strong>Trap 4 (Single Decision Tree for Medical Diagnosis):</strong> Selecting a single decision tree over k-NN or Random Forest for 40 symptoms + 10 signs (IRS Q3a). Single trees suffer extreme high variance and greedy bias.</li>
             <li><strong>Trap 5 (TransE 1-to-N Limitation):</strong> Using TransE for 1-to-N relations (e.g. <code>is_director_of</code>). TransE forces all tail entities to map to the exact same point! Must use TransH or TransR.</li>

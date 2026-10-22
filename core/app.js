@@ -1254,8 +1254,9 @@ class LearningApp {
 
     // Concept Comparison Tables
     let comparisonTablesHtml = '';
-    if (rev.comparisonTables && rev.comparisonTables.length > 0) {
-      comparisonTablesHtml = rev.comparisonTables.map(tbl => `
+    const tables = rev.comparisonTables || rev.comparisons || [];
+    if (tables.length > 0) {
+      comparisonTablesHtml = tables.map(tbl => `
         <div class="lesson-card mb-4">
           <div style="margin-bottom: 12px;">
             <h4 style="margin: 0; color: var(--accent-cyan); font-size: 0.95rem;"><i data-lucide="columns" style="width: 14px; height: 14px; vertical-align: middle;"></i> ${tbl.title}</h4>
@@ -1282,11 +1283,12 @@ class LearningApp {
     }
 
     // Flashcards (Active Spaced Recall)
-    let flashcardsHtml = (rev.flashcards || []).map((card, i) => {
+    const cards = rev.flashcards || rev.quickRecall || [];
+    let flashcardsHtml = cards.map((card, i) => {
       return `
         <div class="flashcard-box" id="flashcard-${i}" style="background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:10px; padding:16px; transition:all 0.25s ease;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-            <span class="badge-tech" style="font-size:0.75rem;">Card ${i+1} of ${(rev.flashcards || []).length}</span>
+            <span class="badge-tech" style="font-size:0.75rem;">Card ${i+1} of ${cards.length}</span>
             <span style="font-size:0.75rem; color:var(--text-muted); cursor:pointer;" onclick="const ans = document.getElementById('flash-ans-${i}'); ans.style.display = (ans.style.display==='none'?'block':'none'); if(window.renderLatex) window.renderLatex(ans);"><i data-lucide="flip-horizontal"></i> Toggle Answer</span>
           </div>
           <div style="font-weight:600; font-size:0.9rem; margin-bottom:12px; color:var(--text-primary); line-height:1.5;">${card.q}</div>
@@ -1303,7 +1305,8 @@ class LearningApp {
 
     // 5 Mathematical & Technical Application Questions
     let mathQuestionsHtml = '';
-    if (rev.mathQuestions && rev.mathQuestions.length > 0) {
+    const mathQs = rev.mathQuestions || [];
+    if (mathQs.length > 0) {
       mathQuestionsHtml = `
         <div class="lesson-card mb-4" style="border-left: 4px solid #38bdf8;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
@@ -1314,20 +1317,32 @@ class LearningApp {
             Solve these 5 calculation drills manually with a calculator. Enter your numerical answer to verify against the official exam tolerance range, and click to reveal complete step-by-step mathematical working.
           </p>
           <div style="display:flex; flex-direction:column; gap:16px;">
-            ${rev.mathQuestions.map(q => `
+            ${mathQs.map((q, idx) => {
+              const qNum = q.num !== undefined ? q.num : (idx + 1);
+              const qCleanTitle = (q.title || `Drill ${qNum}`).replace(/^[0-9]+\.\s*/, '');
+              const marks = q.marks !== undefined ? q.marks : 5;
+              const correctVal = q.correctValue !== undefined ? q.correctValue : (q.expected !== undefined ? q.expected : 0);
+              const tol = q.tolerance !== undefined ? q.tolerance : 0.05;
+              const units = q.units || q.unit || '';
+              const solution = q.stepByStepSolution || q.steps || '';
+              const contextText = q.scenario || q.context || '';
+              const escapedTitle = qCleanTitle.replace(/'/g, "\\'");
+
+              return `
               <div class="math-drill-card" style="background:rgba(0,0,0,0.2); border:1px solid var(--border-color); border-radius:8px; padding:16px;">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
-                  <span style="font-weight:700; color:#38bdf8; font-size:0.92rem;">Q${q.num}. ${q.title}</span>
-                  <span class="badge-tech" style="font-size:0.75rem;">[${q.marks} Marks]</span>
+                  <span style="font-weight:700; color:#38bdf8; font-size:0.92rem;">Q${qNum}. ${qCleanTitle}</span>
+                  <span class="badge-tech" style="font-size:0.75rem;">[${marks} Marks]</span>
                 </div>
+                ${contextText ? `<div style="background:rgba(255,255,255,0.02); border-left:2px solid #38bdf8; padding:8px 12px; border-radius:6px; margin-bottom:10px; font-size:0.84rem; line-height:1.5; color:var(--text-secondary);"><strong>Context:</strong> ${contextText}</div>` : ''}
                 <div style="font-size:0.88rem; line-height:1.55; color:var(--text-primary); margin-bottom:10px;">
-                  ${q.question}
+                  <strong>Problem:</strong> ${q.question}
                 </div>
                 ${q.formulaHint ? `<div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px; font-style:italic;"><i data-lucide="info" style="width:12px; height:12px; vertical-align:middle;"></i> Formula Hint: $${q.formulaHint}$</div>` : ''}
                 
                 <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
-                  <input type="number" step="any" id="math-input-${q.id}" placeholder="Enter calculated value (${q.units || ''})" style="background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color); padding:6px 12px; border-radius:6px; font-size:0.85rem; width:220px;" />
-                  <button class="btn btn-sm btn-primary" onclick="window.checkMathAnswer('${q.id}', ${q.correctValue}, ${q.tolerance}, '${q.units || ''}', ${q.marks}, '${q.title}')">
+                  <input type="number" step="any" id="math-input-${q.id}" placeholder="Enter calculated value${units ? ` (${units})` : ''}" style="background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color); padding:6px 12px; border-radius:6px; font-size:0.85rem; width:220px;" />
+                  <button class="btn btn-sm btn-primary" onclick="window.checkMathAnswer('${q.id}', ${correctVal}, ${tol}, '${units}', ${marks}, '${escapedTitle}')">
                     <i data-lucide="check"></i> Check Calculation
                   </button>
                   <button class="btn btn-sm btn-outline" onclick="const s=document.getElementById('math-solution-${q.id}'); s.style.display=(s.style.display==='none'?'block':'none'); if(window.renderLatex) window.renderLatex(s);">
@@ -1337,10 +1352,11 @@ class LearningApp {
                 <div id="math-feedback-${q.id}" style="margin-top:6px;"></div>
                 <div id="math-solution-${q.id}" style="display:none; margin-top:12px; background:rgba(0,0,0,0.3); border-left:3px solid #38bdf8; padding:14px; border-radius:6px; font-size:0.84rem; line-height:1.6; color:var(--text-secondary);">
                   <div style="font-weight:700; color:#38bdf8; margin-bottom:6px;">Step-by-Step Mathematical Solution:</div>
-                  ${q.stepByStepSolution}
+                  ${solution}
                 </div>
               </div>
-            `).join('')}
+            `;
+            }).join('')}
           </div>
         </div>
       `;
@@ -1348,7 +1364,8 @@ class LearningApp {
 
     // 2 Unfamiliar Scenario Questions
     let scenarioQuestionsHtml = '';
-    if (rev.scenarioQuestions && rev.scenarioQuestions.length > 0) {
+    const scenQs = rev.scenarioQuestions || [];
+    if (scenQs.length > 0) {
       scenarioQuestionsHtml = `
         <div class="lesson-card mb-4" style="border-left: 4px solid #10b981;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
@@ -1359,18 +1376,28 @@ class LearningApp {
             Examiners frequently present unfamiliar engineering setups to test conceptual transfer. Read the scenario, formulate your answer, and review the detailed marking rubric and model response.
           </p>
           <div style="display:flex; flex-direction:column; gap:20px;">
-            ${rev.scenarioQuestions.map(sc => `
+            ${scenQs.map((sc, idx) => {
+              const scNum = sc.num !== undefined ? sc.num : (idx + 1);
+              const scTitle = sc.title || `Scenario ${scNum}`;
+              const displayTitle = scTitle.startsWith('Scenario') ? scTitle : `Scenario ${scNum}: ${scTitle}`;
+              const contextText = sc.context || sc.scenario || '';
+              const rubricCriteria = sc.rubricCriteria || (sc.rubric ? sc.rubric.map(r => ({ criterion: r.item || r.criterion || r.criteria, marks: r.marks || 1 })) : []);
+              const marks = sc.marks !== undefined ? sc.marks : (rubricCriteria.length > 0 ? rubricCriteria.reduce((sum, r) => sum + (r.marks || 0), 0) : 10);
+              const escapedTitle = scTitle.replace(/'/g, "\\'");
+
+              return `
               <div class="scenario-drill-card" style="background:rgba(0,0,0,0.2); border:1px solid var(--border-color); border-radius:8px; padding:18px;">
                 <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-                  <h4 style="margin:0; color:#10b981; font-size:0.95rem;">Scenario ${sc.num}: ${sc.title}</h4>
+                  <h4 style="margin:0; color:#10b981; font-size:0.95rem;">${displayTitle}</h4>
                   <div style="display:flex; gap:6px; align-items:center;">
-                    <span class="badge-tech" style="font-size:0.75rem;">[${sc.marks} Marks]</span>
+                    <span class="badge-tech" style="font-size:0.75rem;">[${marks} Marks]</span>
                     <div id="scenario-score-badge-${sc.id}"></div>
                   </div>
                 </div>
+                ${contextText ? `
                 <div style="background:rgba(255,255,255,0.03); border-left:3px solid var(--accent-cyan); padding:12px; border-radius:6px; margin-bottom:12px; font-size:0.85rem; line-height:1.55; color:var(--text-secondary);">
-                  <strong>Scenario Context:</strong> ${sc.context}
-                </div>
+                  <strong>Scenario Context:</strong> ${contextText}
+                </div>` : ''}
                 <div style="font-size:0.88rem; line-height:1.55; color:var(--text-primary); margin-bottom:14px;">
                   <strong>Question Prompt:</strong> ${sc.question}
                 </div>
@@ -1382,7 +1409,7 @@ class LearningApp {
                 
                 <div id="sc-rubric-${sc.id}" style="display:none; margin-top:16px; border-top:1px dashed var(--border-color); padding-top:14px;">
                   <!-- Rubric Table -->
-                  ${sc.rubricCriteria && sc.rubricCriteria.length > 0 ? `
+                  ${rubricCriteria.length > 0 ? `
                     <div style="font-weight:700; color:var(--text-primary); font-size:0.84rem; margin-bottom:8px;">Examiner Marking Rubric:</div>
                     <table class="styled-table" style="width:100%; font-size:0.82rem; margin-bottom:14px; border-collapse:collapse;">
                       <thead>
@@ -1392,7 +1419,7 @@ class LearningApp {
                         </tr>
                       </thead>
                       <tbody>
-                        ${sc.rubricCriteria.map(rc => `
+                        ${rubricCriteria.map(rc => `
                           <tr style="border-bottom:1px solid var(--border-color);">
                             <td style="padding:6px 10px; color:var(--text-secondary);">${rc.criterion}</td>
                             <td style="padding:6px 10px; text-align:center; font-weight:700; color:#10b981;">+${rc.marks}m</td>
@@ -1403,10 +1430,19 @@ class LearningApp {
                   ` : ''}
 
                   <!-- Model Solution -->
-                  <div style="font-weight:700; color:#10b981; font-size:0.84rem; margin-bottom:8px;">Model Examination Answer:</div>
-                  <div style="background:rgba(0,0,0,0.3); border-radius:6px; padding:14px; font-size:0.84rem; line-height:1.6; color:var(--text-secondary); margin-bottom:14px;">
-                    ${Array.isArray(sc.modelSolution) ? sc.modelSolution.map(s => `<p style="margin-bottom:8px;">${s}</p>`).join('') : sc.modelSolution}
-                  </div>
+                  ${sc.modelSolution ? `
+                    <div style="font-weight:700; color:#10b981; font-size:0.84rem; margin-bottom:8px;">Model Examination Answer:</div>
+                    <div style="background:rgba(0,0,0,0.3); border-radius:6px; padding:14px; font-size:0.84rem; line-height:1.6; color:var(--text-secondary); margin-bottom:14px;">
+                      ${Array.isArray(sc.modelSolution) ? sc.modelSolution.map(s => `<p style="margin-bottom:8px;">${s}</p>`).join('') : `<p>${sc.modelSolution}</p>`}
+                    </div>
+                  ` : (rubricCriteria.length > 0 ? `
+                    <div style="font-weight:700; color:#10b981; font-size:0.84rem; margin-bottom:8px;">Model Solution & Marking Guide:</div>
+                    <div style="background:rgba(0,0,0,0.3); border-radius:6px; padding:14px; font-size:0.84rem; line-height:1.6; color:var(--text-secondary); margin-bottom:14px;">
+                      <ul style="margin:0; padding-left:18px;">
+                        ${rubricCriteria.map(rc => `<li style="margin-bottom:8px;"><strong>[${rc.marks} Marks]</strong> ${rc.criterion}</li>`).join('')}
+                      </ul>
+                    </div>
+                  ` : '')}
 
                   <!-- Examiner Traps -->
                   ${sc.commonExaminerTraps && sc.commonExaminerTraps.length > 0 ? `
@@ -1421,19 +1457,20 @@ class LearningApp {
                   <!-- Self Scoring -->
                   <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding-top:6px;">
                     <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted);">Self-Assessment:</span>
-                    <button class="btn btn-sm btn-primary" style="font-size:0.75rem; padding:4px 10px;" onclick="window.scoreScenario('${sc.id}', 'full', ${sc.marks}, '${sc.title}')">
-                      Award Full Marks (+${sc.marks}m)
+                    <button class="btn btn-sm btn-primary" style="font-size:0.75rem; padding:4px 10px;" onclick="window.scoreScenario('${sc.id}', 'full', ${marks}, '${escapedTitle}')">
+                      Award Full Marks (+${marks}m)
                     </button>
-                    <button class="btn btn-sm btn-outline" style="font-size:0.75rem; padding:4px 10px;" onclick="window.scoreScenario('${sc.id}', 'partial', ${sc.marks}, '${sc.title}')">
+                    <button class="btn btn-sm btn-outline" style="font-size:0.75rem; padding:4px 10px;" onclick="window.scoreScenario('${sc.id}', 'partial', ${marks}, '${escapedTitle}')">
                       Partial Credit
                     </button>
-                    <button class="btn btn-sm btn-outline" style="font-size:0.75rem; padding:4px 10px; border-color:#f43f5e; color:#f43f5e;" onclick="window.scoreScenario('${sc.id}', 'review', ${sc.marks}, '${sc.title}')">
+                    <button class="btn btn-sm btn-outline" style="font-size:0.75rem; padding:4px 10px; border-color:#f43f5e; color:#f43f5e;" onclick="window.scoreScenario('${sc.id}', 'review', ${marks}, '${escapedTitle}')">
                       Needs Review (Log Error)
                     </button>
                   </div>
                 </div>
               </div>
-            `).join('')}
+            `;
+            }).join('')}
           </div>
         </div>
       `;

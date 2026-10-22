@@ -90,7 +90,7 @@ window.DAY3_REASONING_INTEGRATION_QUIZZES = [
     ],
     correctIndex: 1,
     hint: "TransE: head vector + relation vector should equal tail vector.",
-    explanation: "TransE treats relations as translations: if triple $(h, r, t)$ holds, $\\mathbf{h} + \\mathbf{r} \\approx \\mathbf{t}$. The margin ranking loss minimizes $\|\mathbf{h} + \mathbf{r} - \mathbf{t}\|$ for true facts while maximizing it for corrupted facts."
+    explanation: "TransE treats relations as translations: if triple $(h, r, t)$ holds, $\\mathbf{h} + \\mathbf{r} \\approx \\mathbf{t}$. The margin ranking loss minimizes $\|\\mathbf{h} + \\mathbf{r} - \\mathbf{t}\|$ for true facts while maximizing it for corrupted facts."
   },
   {
     id: "d3-q7",
@@ -433,7 +433,7 @@ window.DAY3_EXAM_QUESTIONS = [
       <p><strong>Part (c) Feature Importance Shift (PRS Q1c Analysis) [3 Marks]:</strong></p>
       <ul>
         <li>A single greedy decision tree splits on <code>PageValues</code> at the root because it provides the highest single-feature Information Gain. Once easy buyers are isolated, the tree stops or prunes.</li>
-        <li>In AdaBoost, weak learner 1 classifies the obvious <code>PageValues</code> sessions. The weights of the easy sessions are halved ($\times 0.5$), while the weights of hard, ambiguous borderline sessions (where <code>PageValues = 0</code> but customers still purchased) are quadrupled ($\times 2.0$).</li>
+        <li>In AdaBoost, weak learner 1 classifies the obvious <code>PageValues</code> sessions. The weights of the easy sessions are halved ($\\times 0.5$), while the weights of hard, ambiguous borderline sessions (where <code>PageValues = 0</code> but customers still purchased) are quadrupled ($\\times 2.0$).</li>
         <li>Weak learners $2, 3, \\dots, T$ are forced to focus exclusively on these hard sessions, discovering that deep behavioral variables (<code>ProductRelated</code>, <code>ProductRelated_Duration</code>, <code>SpecialDay</code>) discriminate these borderline buyers, elevating <code>ProductRelated</code> to the <strong>#1 overall most important feature</strong> across the ensemble.</li>
       </ul>
     `,

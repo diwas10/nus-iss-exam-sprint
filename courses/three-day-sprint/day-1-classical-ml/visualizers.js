@@ -37,14 +37,14 @@ window.SprintDay1Visualizers.updateFeatureScaler = function() {
 
   let transformed = [];
   if (method === 'standard') {
-    if (formulaEl) formulaEl.innerHTML = '$$z = \frac{x - \mu}{\sigma} \quad (\mu=0, \; \sigma=1)$$';
+    if (formulaEl) formulaEl.innerHTML = '$$z = \\frac{x - \\mu}{\\sigma} \\quad (\\mu=0, \; \\sigma=1)$$';
     transformed = rawData.map(d => ({
       sample: d.sample,
       admin: ((d.administrativeDuration - meanAdmin) / stdAdmin).toFixed(3),
       pv: ((d.pageValue - meanPV) / stdPV).toFixed(3)
     }));
   } else {
-    if (formulaEl) formulaEl.innerHTML = '$$x_{\text{scaled}} = \frac{x - x_{\min}}{x_{\max} - x_{\min}} \quad (\text{Range: } [0, 1])$$';
+    if (formulaEl) formulaEl.innerHTML = '$$x_{\\text{scaled}} = \\frac{x - x_{\\min}}{x_{\\max} - x_{\\min}} \\quad (\\text{Range: } [0, 1])$$';
     transformed = rawData.map(d => ({
       sample: d.sample,
       admin: ((d.administrativeDuration - minAdmin) / (maxAdmin - minAdmin)).toFixed(3),
@@ -102,8 +102,8 @@ window.SprintDay1Visualizers.updateNaiveBayes = function() {
   if (mathEl) {
     mathEl.innerHTML = `
       <div style="font-size:0.95rem; line-height:1.7;">
-        <div><strong>Raw Frequency Probability:</strong> $P_{\text{raw}}(x \mid C) = \frac{${obs}}{${tot}} = ${rawProb}$ ${obs === 0 ? '<span style="color:#ef4444; font-weight:bold;">(ZERO MULTIPLICATION DISASTER!)</span>' : ''}</div>
-        <div style="margin-top:6px;"><strong>Laplace-Smoothed Probability:</strong> $$P_{\text{Laplace}}(x \mid C) = \frac{\text{count}(x, C) + 1}{\text{count}(C) + |V|} = \frac{${obs} + 1}{${tot} + ${v}} = \frac{${num}}{${den}} \approx ${prob}$$</div>
+        <div><strong>Raw Frequency Probability:</strong> $P_{\\text{raw}}(x \\mid C) = \\frac{${obs}}{${tot}} = ${rawProb}$ ${obs === 0 ? '<span style="color:#ef4444; font-weight:bold;">(ZERO MULTIPLICATION DISASTER!)</span>' : ''}</div>
+        <div style="margin-top:6px;"><strong>Laplace-Smoothed Probability:</strong> $$P_{\\text{Laplace}}(x \\mid C) = \\frac{\\text{count}(x, C) + 1}{\\text{count}(C) + |V|} = \\frac{${obs} + 1}{${tot} + ${v}} = \\frac{${num}}{${den}} \\approx ${prob}$$</div>
       </div>
     `;
     if (window.renderLatex) window.renderLatex(mathEl);
@@ -196,8 +196,8 @@ window.SprintDay4Visualizers.updateSVM = function() {
   const out = document.getElementById('svm-math-output');
   if (out) {
     out.innerHTML = `
-      $$\|\mathbf{w}\| = \sqrt{${w1.toFixed(1)}^2 + ${w2.toFixed(1)}^2} = \sqrt{${(normW * normW).toFixed(2)}} = ${normW.toFixed(3)}$$
-      $$\text{Geometric Margin Width } \gamma = \frac{2}{\|\mathbf{w}\|} = \frac{2}{${normW.toFixed(3)}} = ${marginWidth}$$
+      $$\|\\mathbf{w}\| = \\sqrt{${w1.toFixed(1)}^2 + ${w2.toFixed(1)}^2} = \\sqrt{${(normW * normW).toFixed(2)}} = ${normW.toFixed(3)}$$
+      $$\\text{Geometric Margin Width } \\gamma = \\frac{2}{\|\\mathbf{w}\|} = \\frac{2}{${normW.toFixed(3)}} = ${marginWidth}$$
       <div style="font-size:0.85rem; color:var(--text-secondary); margin-top:6px;">
         <strong>Penalty C = ${C.toFixed(1)}:</strong> ${C >= 5.0 ? 'Hard margin emphasis (strict boundary, low bias, risk of overfitting to noise).' : 'Soft margin emphasis (forgiving corridor, allows slack violations $\\xi_i > 0$, higher bias, noise tolerant).'}
       </div>

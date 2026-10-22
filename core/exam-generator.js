@@ -75,8 +75,8 @@ window.ExamGenerator = {
       unit: 'units',
       tolerance: 0.02,
       solutionSteps: `
-        $$\|\mathbf{w}\| = \sqrt{w_1^2 + w_2^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5$$
-        $$\text{Margin Width } \gamma = \frac{2}{\|\mathbf{w}\|} = \frac{2}{5} = 0.4$$
+        $$\|\\mathbf{w}\| = \\sqrt{w_1^2 + w_2^2} = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$$
+        $$\\text{Margin Width } \\gamma = \\frac{2}{\|\\mathbf{w}\|} = \\frac{2}{5} = 0.4$$
       `,
       commonTrap: 'Mistake: dividing ||w|| by 2 instead of 2 by ||w||, or forgetting to take the square root of the sum of squares.'
     },
@@ -92,9 +92,9 @@ window.ExamGenerator = {
       unit: '',
       tolerance: 0.001,
       solutionSteps: `
-        $$\text{Formula: } P(x_j \mid C_k) = \frac{\text{count}(x_j, C_k) + 1}{\text{count}(C_k) + |V_j|}$$
-        $$\text{Given: } \text{count}(\text{Firefox}, \text{Purchase}) = 0, \quad \text{count}(\text{Purchase}) = 40, \quad |V_j| = 5$$
-        $$P(\text{Firefox} \mid \text{Purchase}) = \frac{0 + 1}{40 + 5} = \frac{1}{45} \approx 0.0222$$
+        $$\\text{Formula: } P(x_j \\mid C_k) = \\frac{\\text{count}(x_j, C_k) + 1}{\\text{count}(C_k) + |V_j|}$$
+        $$\\text{Given: } \\text{count}(\\text{Firefox}, \\text{Purchase}) = 0, \\quad \\text{count}(\\text{Purchase}) = 40, \\quad |V_j| = 5$$
+        $$P(\\text{Firefox} \\mid \\text{Purchase}) = \\frac{0 + 1}{40 + 5} = \\frac{1}{45} \\approx 0.0222$$
       `,
       commonTrap: 'Exam Trap #1: Dividing by 40 + 1 = 41 instead of 40 + |V| = 45! The denominator MUST add |V_j| to ensure the sum of probabilities across all 5 browser categories equals 1.0.'
     },
@@ -110,10 +110,10 @@ window.ExamGenerator = {
       unit: 'Hz',
       tolerance: 0.5,
       solutionSteps: `
-        $$\text{Nyquist folding frequency: } f_N = \frac{f_s}{2} = \frac{100}{2} = 50\text{ Hz}$$
-        $$\text{Since } f = 180\text{ Hz} > f_N, \text{ aliasing occurs:}$$
-        $$k = \text{round}\left(\frac{f}{f_s}\right) = \text{round}\left(\frac{180}{100}\right) = 2$$
-        $$f_{\text{alias}} = |f - k f_s| = |180 - 2(100)| = |180 - 200| = 20\text{ Hz}$$
+        $$\\text{Nyquist folding frequency: } f_N = \\frac{f_s}{2} = \\frac{100}{2} = 50\\text{ Hz}$$
+        $$\\text{Since } f = 180\\text{ Hz} > f_N, \\text{ aliasing occurs:}$$
+        $$k = \\text{round}\\left(\\frac{f}{f_s}\\right) = \\text{round}\\left(\\frac{180}{100}\\right) = 2$$
+        $$f_{\\text{alias}} = |f - k f_s| = |180 - 2(100)| = |180 - 200| = 20\\text{ Hz}$$
       `,
       commonTrap: 'Assuming the frequency is lost completely. In reality, high frequency energy folds directly into baseband as a 20 Hz phantom wave that misleads maintenance staff!'
     },
@@ -129,9 +129,9 @@ window.ExamGenerator = {
       unit: '',
       tolerance: 0.01,
       solutionSteps: `
-        $$\text{For both } CF_1, CF_2 \ge 0:$$
-        $$CF_{\text{combine}} = CF_1 + CF_2 - CF_1 \cdot CF_2$$
-        $$CF_{\text{combine}} = 0.60 + 0.50 - (0.60 \times 0.50) = 1.10 - 0.30 = 0.80$$
+        $$\\text{For both } CF_1, CF_2 \\ge 0:$$
+        $$CF_{\\text{combine}} = CF_1 + CF_2 - CF_1 \\cdot CF_2$$
+        $$CF_{\\text{combine}} = 0.60 + 0.50 - (0.60 \\times 0.50) = 1.10 - 0.30 = 0.80$$
       `,
       commonTrap: 'Forgetting the cross-term product (- CF1 * CF2) and answering 1.10, which violates the strict [-1, +1] range of certainty factors!'
     },
@@ -147,10 +147,10 @@ window.ExamGenerator = {
       unit: '',
       tolerance: 0.05,
       solutionSteps: `
-        $$\text{Support}(X) = \frac{200}{1000} = 0.20, \quad \text{Support}(Y) = \frac{150}{1000} = 0.15$$
-        $$\text{Support}(X \cup Y) = \frac{60}{1000} = 0.06$$
-        $$\text{Confidence}(X \implies Y) = \frac{\text{Support}(X \cup Y)}{\text{Support}(X)} = \frac{0.06}{0.20} = 0.30$$
-        $$\text{Lift}(X \implies Y) = \frac{\text{Confidence}(X \implies Y)}{\text{Support}(Y)} = \frac{0.30}{0.15} = 2.00$$
+        $$\\text{Support}(X) = \\frac{200}{1000} = 0.20, \\quad \\text{Support}(Y) = \\frac{150}{1000} = 0.15$$
+        $$\\text{Support}(X \\cup Y) = \\frac{60}{1000} = 0.06$$
+        $$\\text{Confidence}(X \\implies Y) = \\frac{\\text{Support}(X \\cup Y)}{\\text{Support}(X)} = \\frac{0.06}{0.20} = 0.30$$
+        $$\\text{Lift}(X \\implies Y) = \\frac{\\text{Confidence}(X \\implies Y)}{\\text{Support}(Y)} = \\frac{0.30}{0.15} = 2.00$$
       `,
       commonTrap: 'Confusing Confidence (0.30) with Lift (2.00). Lift > 1 indicates symptom X increases the odds of Glaucoma by 2x over random chance.'
     },
