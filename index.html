@@ -87,14 +87,21 @@
           <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
           <span id="topbar-active-day">Day 1: Foundations of Sensor Signal Processing</span>
         </div>
-        <div class="topbar-actions" style="display: flex; align-items: center; gap: 10px;">
-          <a href="three-day-sprint.html" class="btn btn-sm btn-outline" style="border-color: #38bdf8; color: #38bdf8; text-decoration: none; font-size: 0.78rem; display: flex; align-items: center; gap: 6px; font-weight: 600;">
-            <i data-lucide="zap" style="width: 14px; height: 14px;"></i> Switch to 3-Day Sprint
+        <div class="topbar-actions">
+          <a href="three-day-sprint.html" class="btn btn-sm btn-outline topbar-btn-threeday" title="Switch to 3-Day Sprint">
+            <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
+            <span class="topbar-btn-label">Switch to 3-Day Sprint</span>
+            <span class="topbar-btn-label-short">3-Day Sprint</span>
           </a>
-          <button class="btn btn-sm btn-primary" onclick="if(window.QAAssistant) window.QAAssistant.toggleModal();" style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; background: linear-gradient(135deg, #0284c7, #4f46e5);">
-            <i data-lucide="help-circle"></i> Ask Doubt / AI
+          <button class="btn btn-sm btn-primary topbar-btn-qa" onclick="if(window.QAAssistant) window.QAAssistant.toggleModal();" title="Ask Doubt / AI Assistant">
+            <i data-lucide="help-circle" style="width: 14px; height: 14px;"></i>
+            <span class="topbar-btn-label">Ask Doubt / AI</span>
+            <span class="topbar-btn-label-short">Ask AI</span>
           </button>
-          <span class="badge-tech" id="topbar-status-badge"><i data-lucide="cpu" style="width: 12px; height: 12px; vertical-align: middle;"></i> Live Interactive</span>
+          <span class="badge-tech topbar-status-badge" id="topbar-status-badge">
+            <i data-lucide="cpu" style="width: 12px; height: 12px; vertical-align: middle;"></i>
+            <span class="status-badge-text">Live Interactive</span>
+          </span>
         </div>
       </header>
 
