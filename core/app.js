@@ -350,7 +350,8 @@ class LearningApp {
         badgeDayEl.textContent = 'Live';
       }
       this.renderSidebarNav();
-      this.loadLevel('level-0');
+      const defaultLevel = (this.currentCourseId === 'three-day-sprint' || ['day-1-classical-ml', 'day-2-signals-deeplearning', 'day-3-reasoning-integration'].includes(dayId)) ? 'mod-1' : 'level-0';
+      this.loadLevel(defaultLevel);
     } else {
       if (statusBadge) {
         statusBadge.className = 'badge-outline';
@@ -374,42 +375,35 @@ class LearningApp {
 
     let levels = [];
 
-    if (this.currentDayId === 'day-1-classical-ml') {
-      levels = [
-        { id: 'level-0', icon: 'zap', title: '0. Unified Mental Model', subtitle: 'Classical ML & Search Continuum' },
-        { id: 'level-1', icon: 'compass', title: '1. Search Engine & CSP', subtitle: 'A* Optimality Proofs & MRV/LCV' },
-        { id: 'level-2', icon: 'layers', title: '2. Supervised Classifiers', subtitle: 'k-NN, Naive Bayes Laplace & Lift' },
-        { id: 'level-3', icon: 'git-branch', title: '3. Bayesian Networks', subtitle: 'd-Separation & Collider Trap' },
-        { id: 'level-4', icon: 'target', title: '4. Geometry & Dimensionality', subtitle: 'SVM Margins & PCA Target Leakage' },
-        { id: 'level-5', icon: 'share-2', title: '5. Clustering & Recommenders', subtitle: 'K-Means, DBSCAN & Apriori Lift' },
-        { id: 'level-6', icon: 'code', title: '6. Workshop Code Labs', subtitle: 'Python Code Labs & Formulas' },
-        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
-        { id: 'quizzes', icon: 'award', title: 'Quizzes & Exam Questions', subtitle: '10 MCQs + 5 Exam Qs + Q&A Assistant' }
-      ];
-    } else if (this.currentDayId === 'day-2-signals-deeplearning') {
-      levels = [
-        { id: 'level-0', icon: 'activity', title: '0. Unified Mental Model', subtitle: 'Sensory Physics to Deep Features' },
-        { id: 'level-1', icon: 'disc', title: '1. Sampling & Preprocessing', subtitle: 'Nyquist Aliasing, arPLS & DTW' },
-        { id: 'level-2', icon: 'sliders', title: '2. Time-Frequency Transforms', subtitle: 'Fourier Paradox, STFT & 2D Wavelets' },
-        { id: 'level-3', icon: 'calculator', title: '3. Backpropagation Calculus', subtitle: 'Chain Rule & Vanishing Gradient Solvers' },
-        { id: 'level-4', icon: 'layers', title: '4. 2D CNN Architecture Design', subtitle: 'Sizing Formulas & PRS Q2a GAP Redesign' },
-        { id: 'level-5', icon: 'git-commit', title: '5. Sequential Memory & LSTMs', subtitle: 'LSTM Error Carousel & Anomaly Autoencoder' },
-        { id: 'level-6', icon: 'code', title: '6. Workshop Code Labs', subtitle: 'PyTorch CNN & Hand Calculations' },
-        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
-        { id: 'quizzes', icon: 'award', title: 'Quizzes & Exam Questions', subtitle: '10 MCQs + 5 Exam Qs + Q&A Assistant' }
-      ];
-    } else if (this.currentDayId === 'day-3-reasoning-integration') {
-      levels = [
-        { id: 'level-0', icon: 'award', title: '0. Unified Mental Model', subtitle: 'Symbolic Deduction to Grand Crucible' },
-        { id: 'level-1', icon: 'shield-check', title: '1. Rule Engines & Daemons', subtitle: 'Forward/Backward Chaining & Posture Daemons' },
-        { id: 'level-2', icon: 'brain', title: '2. Cognitive Architectures', subtitle: '11-Entity Model & Marr\'s 3 Levels' },
-        { id: 'level-3', icon: 'share-2', title: '3. Transformers & GraphRAG', subtitle: 'Scaled Attention & TransE Embeddings' },
-        { id: 'level-4', icon: 'dna', title: '4. Genetic Algorithms & Fusion', subtitle: 'Order Crossover (OX) & Multimodal RVM' },
-        { id: 'level-5', icon: 'file-check', title: '5. Ensembles & Sample Papers', subtitle: 'AdaBoost Calculus & Nov 2026 Paper Masterclasses' },
-        { id: 'level-6', icon: 'compass', title: '6. Comprehensive Crucible', subtitle: 'Self-Assessment & Grand Synthesis' },
-        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Flashcards', subtitle: '15-min active recall, formulas & traps' },
-        { id: 'quizzes', icon: 'award', title: 'Grand Mock Exam & Questions', subtitle: '20 MCQs + 5 Exam Qs + Q&A Assistant' }
-      ];
+    if (this.currentCourseId === 'three-day-sprint' || ['day-1-classical-ml', 'day-2-signals-deeplearning', 'day-3-reasoning-integration'].includes(this.currentDayId)) {
+      const dayMeta = (window.THREE_DAY_CURRICULUM?.days || []).find(d => d.id === this.currentDayId);
+      const iconMap = {
+        'mod-1': 'zap', 'mod-2': 'layers', 'mod-3': 'target', 'mod-4': 'shield-check',
+        'mod-5': 'sliders', 'mod-6': 'share-2', 'mod-7': 'cpu', 'mod-8': 'compass',
+        'mod-9': 'git-branch', 'mod-10': 'calculator', 'mod-11': 'brain', 'mod-12': 'sparkles',
+        'mod-13': 'award', 'mod-14': 'flag'
+      };
+      if (dayMeta && dayMeta.modules && dayMeta.modules.length > 0) {
+        levels = dayMeta.modules.map(m => ({
+          id: m.id,
+          icon: iconMap[m.id] || 'book-open',
+          title: `Mod ${m.num}. ${m.title}`,
+          subtitle: `${m.duration} • ${m.subj}`
+        }));
+      } else {
+        levels = [
+          { id: 'mod-1', icon: 'zap', title: 'Mod 1. Module Foundations', subtitle: '60 mins' }
+        ];
+      }
+      levels.push(
+        { id: 'daily-revision', icon: 'repeat', title: 'Daily Revision & Active Recall', subtitle: 'Formulas, tables, 10 recall, 5 math, 2 scenarios' },
+        { id: 'quizzes', icon: 'award', title: 'Slide Quizzes & Exam Crucible', subtitle: 'Slide Mastery MCQs + Structured Exam Qs' },
+        { id: 'exam-generator', icon: 'cpu', title: '⚡ 4-Tier Exam Generator', subtitle: 'Concept, math, scenario rubric & system design' },
+        { id: 'mastery-tracker', icon: 'bar-chart-2', title: '📊 Mastery & Mistake Log', subtitle: 'PRS vs IRS readiness & persistent error classification' },
+        { id: 'prs-handbook', icon: 'file-text', title: '📘 ISY5002 PRS Revision Handbook', subtitle: 'Printable 30-min strategy, formulas & traps' },
+        { id: 'irs-handbook', icon: 'book-open', title: '📗 ISY5001 IRS Revision Handbook', subtitle: 'Printable 30-min strategy, algorithms & traps' },
+        { id: 'traceability', icon: 'check-square', title: '🎯 Syllabus Traceability Matrix', subtitle: '100% mapping of 37 lecture PDFs to lessons' }
+      );
     } else if (this.currentDayId === 'day-1-foundations') {
       levels = [
         { id: 'level-0', icon: 'zap', title: '0. The Mental Model', subtitle: 'System 1 vs System 2 & 5-Stage PR Pipeline' },
@@ -584,6 +578,11 @@ class LearningApp {
 
     let html = '';
     levels.forEach(lvl => {
+      if (lvl.id === 'daily-revision') {
+        html += `<div class="sidebar-sub-heading" style="padding: 12px 14px 6px; font-size: 0.72rem; font-weight: 800; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.5px;"><i data-lucide="check-circle" style="width: 12px; height: 12px; vertical-align: middle;"></i> End-of-Day Assessment</div>`;
+      } else if (lvl.id === 'exam-generator') {
+        html += `<div class="sidebar-sub-heading" style="padding: 12px 14px 6px; font-size: 0.72rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px;"><i data-lucide="award" style="width: 12px; height: 12px; vertical-align: middle;"></i> Mastery & Revision Tools</div>`;
+      }
       const isActive = lvl.id === this.currentLevelId;
       html += `
         <button class="nav-item ${isActive ? 'active' : ''}" onclick="app.loadLevel('${lvl.id}')" id="nav-${lvl.id}">
@@ -758,6 +757,31 @@ class LearningApp {
       window.QuizEngine.render('quiz-mount-point', quizData);
     } else if (levelId === 'daily-revision') {
       this.renderDailyRevision(contentArea);
+    } else if (levelId === 'exam-generator') {
+      contentArea.innerHTML = `<div id="exam-generator-mount-point"></div>`;
+      if (window.ExamGenerator && typeof window.ExamGenerator.render === 'function') {
+        window.ExamGenerator.render('exam-generator-mount-point');
+      }
+    } else if (levelId === 'mastery-tracker') {
+      contentArea.innerHTML = `<div id="mastery-tracker-mount-point"></div>`;
+      if (window.MasteryTracker && typeof window.MasteryTracker.renderDashboard === 'function') {
+        window.MasteryTracker.renderDashboard('mastery-tracker-mount-point');
+      }
+    } else if (levelId === 'prs-handbook') {
+      contentArea.innerHTML = `<div id="prs-handbook-mount-point"></div>`;
+      if (window.ExamHandbooks && typeof window.ExamHandbooks.renderPRS === 'function') {
+        window.ExamHandbooks.renderPRS('prs-handbook-mount-point');
+      }
+    } else if (levelId === 'irs-handbook') {
+      contentArea.innerHTML = `<div id="irs-handbook-mount-point"></div>`;
+      if (window.ExamHandbooks && typeof window.ExamHandbooks.renderIRS === 'function') {
+        window.ExamHandbooks.renderIRS('irs-handbook-mount-point');
+      }
+    } else if (levelId === 'traceability') {
+      contentArea.innerHTML = `<div id="traceability-mount-point"></div>`;
+      if (window.TraceabilityMatrix && typeof window.TraceabilityMatrix.render === 'function') {
+        window.TraceabilityMatrix.render('traceability-mount-point');
+      }
     } else if (levelId === 'research') {
       contentArea.innerHTML = `<div id="research-mount-point"></div>`;
       window.ResearchHub.render('research-mount-point', researchData);
@@ -885,7 +909,25 @@ class LearningApp {
   renderFooterButtons(currentId) {
     const dayId = this.currentDayId;
     let order = [];
-    if (['day-1-classical-ml', 'day-2-signals-deeplearning', 'day-3-reasoning-integration', 'day-10-ensembles-crucible'].includes(dayId)) {
+    if (dayId === 'day-1-classical-ml') {
+      if (currentId.startsWith('level-')) {
+        order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'daily-revision', 'quizzes'];
+      } else {
+        order = ['mod-1', 'mod-2', 'mod-3', 'mod-4', 'mod-5', 'mod-6', 'mod-7', 'mod-8', 'mod-9', 'mod-10', 'daily-revision', 'quizzes'];
+      }
+    } else if (dayId === 'day-2-signals-deeplearning') {
+      if (currentId.startsWith('level-')) {
+        order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'daily-revision', 'quizzes'];
+      } else {
+        order = ['mod-1', 'mod-2', 'mod-3', 'mod-4', 'mod-5', 'mod-6', 'mod-7', 'mod-8', 'mod-9', 'mod-10', 'mod-11', 'mod-12', 'mod-13', 'daily-revision', 'quizzes'];
+      }
+    } else if (dayId === 'day-3-reasoning-integration') {
+      if (currentId.startsWith('level-')) {
+        order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'daily-revision', 'quizzes'];
+      } else {
+        order = ['mod-1', 'mod-2', 'mod-3', 'mod-4', 'mod-5', 'mod-6', 'mod-7', 'mod-8', 'mod-9', 'mod-10', 'mod-11', 'mod-12', 'mod-13', 'mod-14', 'daily-revision', 'quizzes'];
+      }
+    } else if (dayId === 'day-10-ensembles-crucible') {
       order = ['level-0', 'level-1', 'level-2', 'level-3', 'level-4', 'level-5', 'level-6', 'daily-revision', 'quizzes'];
     } else if ([
       'day-1-foundations',
@@ -931,49 +973,71 @@ class LearningApp {
     setTimeout(() => {
       const dayId = this.currentDayId;
       if (dayId === 'day-1-classical-ml') {
-        if (levelId === 'level-1') {
+        if (levelId === 'level-1' || levelId === 'mod-8') {
           if (window.SprintDay1Visualizers?.initAStarPlayground) window.SprintDay1Visualizers.initAStarPlayground();
           if (window.SprintDay1Visualizers?.initCSPNQueensStudio) window.SprintDay1Visualizers.initCSPNQueensStudio();
-        } else if (levelId === 'level-2') {
+        } else if (levelId === 'level-2' || levelId === 'mod-2') {
           if (window.SprintDay1Visualizers?.initKNNBoundaryPlayground) window.SprintDay1Visualizers.initKNNBoundaryPlayground();
           if (window.SprintDay1Visualizers?.initNaiveBayesLaplaceStudio) window.SprintDay1Visualizers.initNaiveBayesLaplaceStudio();
-        } else if (levelId === 'level-3') {
+        } else if (levelId === 'level-3' || levelId === 'mod-9') {
           if (window.SprintDay3Visualizers?.initBBNStudio) window.SprintDay3Visualizers.initBBNStudio();
-        } else if (levelId === 'level-4') {
+        } else if (levelId === 'level-4' || levelId === 'mod-4') {
           if (window.SprintDay4Visualizers?.initSVMMarginPlayground) window.SprintDay4Visualizers.initSVMMarginPlayground();
           if (window.SprintDay4Visualizers?.initPCAProjectionStudio) window.SprintDay4Visualizers.initPCAProjectionStudio();
-        } else if (levelId === 'level-5') {
+        } else if (levelId === 'level-5' || levelId === 'mod-6') {
           if (window.SprintDay5Visualizers?.initKMeansPlayground) window.SprintDay5Visualizers.initKMeansPlayground();
+        } else if (levelId === 'mod-1') {
+          if (window.SprintDay1Visualizers?.initFeatureScalerStudio) window.SprintDay1Visualizers.initFeatureScalerStudio();
+        } else if (levelId === 'mod-3') {
+          if (window.SprintDay1Visualizers?.initConfusionLiftStudio) window.SprintDay1Visualizers.initConfusionLiftStudio();
+          if (window.SprintDay1Visualizers?.initConfusionMatrixPlayground) window.SprintDay1Visualizers.initConfusionMatrixPlayground();
+        } else if (levelId === 'mod-5') {
+          if (window.SprintDay4Visualizers?.initPCAProjectionStudio) window.SprintDay4Visualizers.initPCAProjectionStudio();
+          if (window.SprintDay4Visualizers?.initPCavsLDAStudio) window.SprintDay4Visualizers.initPCavsLDAStudio();
         }
       } else if (dayId === 'day-2-signals-deeplearning') {
-        if (levelId === 'level-1') {
+        if (levelId === 'level-1' || levelId === 'mod-1') {
           if (window.SprintDay2Visualizers?.initNyquistAliasingStudio) window.SprintDay2Visualizers.initNyquistAliasingStudio();
+        } else if (levelId === 'mod-2') {
           if (window.SprintDay2Visualizers?.initARPLSBaselineStudio) window.SprintDay2Visualizers.initARPLSBaselineStudio();
           if (window.SprintDay2Visualizers?.initDTWMatixStudio) window.SprintDay2Visualizers.initDTWMatixStudio();
-        } else if (levelId === 'level-2') {
+        } else if (levelId === 'level-2' || levelId === 'mod-3') {
           if (window.SprintDay3Visualizers?.initSTFTStudio) window.SprintDay3Visualizers.initSTFTStudio();
           if (window.SprintDay3Visualizers?.init1DHaarStudio) window.SprintDay3Visualizers.init1DHaarStudio();
           if (window.SprintDay3Visualizers?.init2DWaveletStudio) window.SprintDay3Visualizers.init2DWaveletStudio();
-        } else if (levelId === 'level-3') {
+        } else if (levelId === 'level-3' || levelId === 'mod-4') {
           if (window.SprintDay6Visualizers?.initBackpropCalculator) window.SprintDay6Visualizers.initBackpropCalculator();
-        } else if (levelId === 'level-4') {
+          if (window.SprintDay6Visualizers?.initBackpropSpreadsheetLab) window.SprintDay6Visualizers.initBackpropSpreadsheetLab();
+        } else if (levelId === 'level-4' || levelId === 'mod-5') {
           if (window.SprintDay6Visualizers?.initCNNParameterStudio) window.SprintDay6Visualizers.initCNNParameterStudio();
-        } else if (levelId === 'level-5') {
+        } else if (levelId === 'level-5' || levelId === 'mod-6') {
           if (window.SprintDay7Visualizers?.initLSTMGateValveStudio) window.SprintDay7Visualizers.initLSTMGateValveStudio();
-          if (window.SprintDay7Visualizers?.initAnomalyStudio) window.SprintDay7Visualizers.initAnomalyStudio();
+        } else if (levelId === 'mod-9') {
+          if (window.SprintDay2Visualizers?.initAnomalyStudio) window.SprintDay2Visualizers.initAnomalyStudio();
+          if (window.SprintDay7Visualizers?.initAutoencoderAnomalyStudio) window.SprintDay7Visualizers.initAutoencoderAnomalyStudio();
+        } else if (levelId === 'mod-11') {
+          if (window.SprintDay10Visualizers?.initEnsembleStudio) window.SprintDay10Visualizers.initEnsembleStudio();
+        } else if (levelId === 'mod-12') {
+          if (window.SprintDay9Visualizers?.initMultimodalRVMFusionTwin) window.SprintDay9Visualizers.initMultimodalRVMFusionTwin();
         }
       } else if (dayId === 'day-3-reasoning-integration') {
-        if (levelId === 'level-1') {
+        if (levelId === 'level-1' || levelId === 'mod-1' || levelId === 'mod-2') {
           if (window.SprintDay2Visualizers?.initHospitalTriageStudio) window.SprintDay2Visualizers.initHospitalTriageStudio();
           if (window.ThreeDaySprintDay3Visualizers?.initLevel1Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel1Visualizers();
-        } else if (levelId === 'level-3') {
+        } else if (levelId === 'mod-4') {
+          if (window.ThreeDaySprintDay3Visualizers?.initMYCINCalculator) window.ThreeDaySprintDay3Visualizers.initMYCINCalculator();
+          if (window.ThreeDaySprintDay3Visualizers?.initMamdaniDefuzzifier) window.ThreeDaySprintDay3Visualizers.initMamdaniDefuzzifier();
+        } else if (levelId === 'level-3' || levelId === 'mod-7') {
           if (window.SprintDay8Visualizers?.initTransEStudio) window.SprintDay8Visualizers.initTransEStudio();
-          if (window.SprintDay8Visualizers?.initSelfAttentionStudio) window.SprintDay8Visualizers.initSelfAttentionStudio();
+          if (window.ThreeDaySprintDay3Visualizers?.initTransEStudio) window.ThreeDaySprintDay3Visualizers.initTransEStudio();
+        } else if (levelId === 'mod-8') {
+          if (window.SprintDay9Visualizers?.initGeneticAlgorithmTSPArena) window.SprintDay9Visualizers.initGeneticAlgorithmArena();
+          if (window.ThreeDaySprintDay3Visualizers?.initGeneticAlgorithmArena) window.ThreeDaySprintDay3Visualizers.initGeneticAlgorithmArena();
+        } else if (levelId === 'level-4' || levelId === 'mod-11') {
           if (window.ThreeDaySprintDay3Visualizers?.initLevel3Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel3Visualizers();
-        } else if (levelId === 'level-4') {
-          if (window.SprintDay9Visualizers?.initGeneticAlgorithmArena) window.SprintDay9Visualizers.initGeneticAlgorithmArena();
-          if (window.ThreeDaySprintDay3Visualizers?.initLevel4Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel4Visualizers();
-        } else if (levelId === 'level-5') {
+        } else if (levelId === 'mod-12') {
+          if (window.SprintDay9Visualizers?.initCognitiveReActAgentSimulator) window.SprintDay9Visualizers.initCognitiveReActAgentSimulator();
+        } else if (levelId === 'level-5' || levelId === 'mod-13' || levelId === 'mod-14') {
           if (window.SprintDay10Visualizers?.initEnsembleStudio) window.SprintDay10Visualizers.initEnsembleStudio();
           if (window.ThreeDaySprintDay3Visualizers?.initLevel5Visualizers) window.ThreeDaySprintDay3Visualizers.initLevel5Visualizers();
         }
@@ -1183,52 +1247,262 @@ class LearningApp {
              '</div>';
     }).join('');
 
+    // Concept Comparison Tables
+    let comparisonTablesHtml = '';
+    if (rev.comparisonTables && rev.comparisonTables.length > 0) {
+      comparisonTablesHtml = rev.comparisonTables.map(tbl => `
+        <div class="lesson-card mb-4">
+          <div style="margin-bottom: 12px;">
+            <h4 style="margin: 0; color: var(--accent-cyan); font-size: 0.95rem;"><i data-lucide="columns" style="width: 14px; height: 14px; vertical-align: middle;"></i> ${tbl.title}</h4>
+            <p class="text-secondary" style="margin: 4px 0 0; font-size: 0.82rem;">${tbl.subtitle || ''}</p>
+          </div>
+          <div class="table-responsive" style="overflow-x: auto;">
+            <table class="styled-table" style="width: 100%; font-size: 0.85rem; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border-color); background: rgba(0,0,0,0.25); text-align: left;">
+                  ${tbl.headers.map(h => `<th style="padding: 10px 12px; color: var(--text-primary); font-weight: 700;">${h}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                ${tbl.rows.map((row, ri) => `
+                  <tr style="border-bottom: 1px solid var(--border-color); background: ${ri % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.015)'};">
+                    ${row.map((cell, ci) => `<td style="padding: 10px 12px; ${ci === 0 ? 'font-weight: 700; color: var(--accent-cyan);' : 'color: var(--text-secondary); line-height: 1.45;'}">${cell}</td>`).join('')}
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Flashcards (Active Spaced Recall)
     let flashcardsHtml = (rev.flashcards || []).map((card, i) => {
-      return '<div class="flashcard-box" id="flashcard-' + i + '" onclick="const ans = this.querySelector(\'div:last-child\'); ans.style.display = (ans.style.display===\'none\'?\'block\':\'none\');" style="cursor:pointer; background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:10px; padding:16px; transition:all 0.25s ease;">' +
-             '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
-             '<span class="badge-tech" style="font-size:0.75rem;">Card ' + (i+1) + '</span>' +
-             '<span style="font-size:0.75rem; color:var(--text-muted);"><i data-lucide="flip-horizontal"></i> Click to Toggle Answer</span>' +
-             '</div>' +
-             '<div style="font-weight:600; font-size:0.9rem; margin-bottom:12px; color:var(--text-primary); line-height:1.5;">' + card.q + '</div>' +
-             '<div style="display:none; border-top:1px dashed var(--border-color); padding-top:10px; font-size:0.85rem; color:#10b981; line-height:1.55;"><strong>Exam Answer:</strong> ' + card.a + '</div>' +
-             '</div>';
+      return `
+        <div class="flashcard-box" id="flashcard-${i}" style="background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:10px; padding:16px; transition:all 0.25s ease;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span class="badge-tech" style="font-size:0.75rem;">Card ${i+1} of ${(rev.flashcards || []).length}</span>
+            <span style="font-size:0.75rem; color:var(--text-muted); cursor:pointer;" onclick="const ans = document.getElementById('flash-ans-${i}'); ans.style.display = (ans.style.display==='none'?'block':'none'); if(window.renderLatex) window.renderLatex(ans);"><i data-lucide="flip-horizontal"></i> Toggle Answer</span>
+          </div>
+          <div style="font-weight:600; font-size:0.9rem; margin-bottom:12px; color:var(--text-primary); line-height:1.5;">${card.q}</div>
+          <div id="flash-ans-${i}" style="display:none; border-top:1px dashed var(--border-color); padding-top:12px; font-size:0.85rem; color:#10b981; line-height:1.55;">
+            <strong>Exam Answer:</strong> ${card.a}
+            <div style="display:flex; gap:8px; margin-top:10px;">
+              <button class="btn btn-sm btn-outline" style="font-size:0.72rem; padding:3px 8px; border-color:#10b981; color:#10b981;" onclick="window.trackFlashcardRecall(${i}, true, '${dayId}')"><i data-lucide="check"></i> Mastered</button>
+              <button class="btn btn-sm btn-outline" style="font-size:0.72rem; padding:3px 8px; border-color:#f59e0b; color:#f59e0b;" onclick="window.trackFlashcardRecall(${i}, false, '${dayId}')"><i data-lucide="repeat"></i> Review Later</button>
+            </div>
+          </div>
+        </div>
+      `;
     }).join('');
+
+    // 5 Mathematical & Technical Application Questions
+    let mathQuestionsHtml = '';
+    if (rev.mathQuestions && rev.mathQuestions.length > 0) {
+      mathQuestionsHtml = `
+        <div class="lesson-card mb-4" style="border-left: 4px solid #38bdf8;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+            <h3 style="margin:0;"><i data-lucide="calculator"></i> 5 Mathematical & Technical Application Drills</h3>
+            <span class="badge-tech" style="background:#0284c7; color:white;">Calculated & Graded</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:18px;">
+            Solve these 5 calculation drills manually with a calculator. Enter your numerical answer to verify against the official exam tolerance range, and click to reveal complete step-by-step mathematical working.
+          </p>
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            ${rev.mathQuestions.map(q => `
+              <div class="math-drill-card" style="background:rgba(0,0,0,0.2); border:1px solid var(--border-color); border-radius:8px; padding:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+                  <span style="font-weight:700; color:#38bdf8; font-size:0.92rem;">Q${q.num}. ${q.title}</span>
+                  <span class="badge-tech" style="font-size:0.75rem;">[${q.marks} Marks]</span>
+                </div>
+                <div style="font-size:0.88rem; line-height:1.55; color:var(--text-primary); margin-bottom:10px;">
+                  ${q.question}
+                </div>
+                ${q.formulaHint ? `<div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:12px; font-style:italic;"><i data-lucide="info" style="width:12px; height:12px; vertical-align:middle;"></i> Formula Hint: $${q.formulaHint}$</div>` : ''}
+                
+                <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
+                  <input type="number" step="any" id="math-input-${q.id}" placeholder="Enter calculated value (${q.units || ''})" style="background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color); padding:6px 12px; border-radius:6px; font-size:0.85rem; width:220px;" />
+                  <button class="btn btn-sm btn-primary" onclick="window.checkMathAnswer('${q.id}', ${q.correctValue}, ${q.tolerance}, '${q.units || ''}', ${q.marks}, '${q.title}')">
+                    <i data-lucide="check"></i> Check Calculation
+                  </button>
+                  <button class="btn btn-sm btn-outline" onclick="const s=document.getElementById('math-solution-${q.id}'); s.style.display=(s.style.display==='none'?'block':'none'); if(window.renderLatex) window.renderLatex(s);">
+                    <i data-lucide="eye"></i> Toggle Full Working
+                  </button>
+                </div>
+                <div id="math-feedback-${q.id}" style="margin-top:6px;"></div>
+                <div id="math-solution-${q.id}" style="display:none; margin-top:12px; background:rgba(0,0,0,0.3); border-left:3px solid #38bdf8; padding:14px; border-radius:6px; font-size:0.84rem; line-height:1.6; color:var(--text-secondary);">
+                  <div style="font-weight:700; color:#38bdf8; margin-bottom:6px;">Step-by-Step Mathematical Solution:</div>
+                  ${q.stepByStepSolution}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // 2 Unfamiliar Scenario Questions
+    let scenarioQuestionsHtml = '';
+    if (rev.scenarioQuestions && rev.scenarioQuestions.length > 0) {
+      scenarioQuestionsHtml = `
+        <div class="lesson-card mb-4" style="border-left: 4px solid #10b981;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+            <h3 style="margin:0;"><i data-lucide="layers"></i> 2 Unfamiliar Scenario Crucible Drills</h3>
+            <span class="badge-tech" style="background:#059669; color:white;">NUS-ISS Format</span>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:18px;">
+            Examiners frequently present unfamiliar engineering setups to test conceptual transfer. Read the scenario, formulate your answer, and review the detailed marking rubric and model response.
+          </p>
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            ${rev.scenarioQuestions.map(sc => `
+              <div class="scenario-drill-card" style="background:rgba(0,0,0,0.2); border:1px solid var(--border-color); border-radius:8px; padding:18px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+                  <h4 style="margin:0; color:#10b981; font-size:0.95rem;">Scenario ${sc.num}: ${sc.title}</h4>
+                  <div style="display:flex; gap:6px; align-items:center;">
+                    <span class="badge-tech" style="font-size:0.75rem;">[${sc.marks} Marks]</span>
+                    <div id="scenario-score-badge-${sc.id}"></div>
+                  </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.03); border-left:3px solid var(--accent-cyan); padding:12px; border-radius:6px; margin-bottom:12px; font-size:0.85rem; line-height:1.55; color:var(--text-secondary);">
+                  <strong>Scenario Context:</strong> ${sc.context}
+                </div>
+                <div style="font-size:0.88rem; line-height:1.55; color:var(--text-primary); margin-bottom:14px;">
+                  <strong>Question Prompt:</strong> ${sc.question}
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-outline" style="border-color:#10b981; color:#10b981;" onclick="const r=document.getElementById('sc-rubric-${sc.id}'); r.style.display=(r.style.display==='none'?'block':'none'); if(window.renderLatex) window.renderLatex(r); if(window.lucide) window.lucide.createIcons();">
+                    <i data-lucide="file-text"></i> Reveal Model Solution & Examiner Rubric
+                  </button>
+                </div>
+                
+                <div id="sc-rubric-${sc.id}" style="display:none; margin-top:16px; border-top:1px dashed var(--border-color); padding-top:14px;">
+                  <!-- Rubric Table -->
+                  ${sc.rubricCriteria && sc.rubricCriteria.length > 0 ? `
+                    <div style="font-weight:700; color:var(--text-primary); font-size:0.84rem; margin-bottom:8px;">Examiner Marking Rubric:</div>
+                    <table class="styled-table" style="width:100%; font-size:0.82rem; margin-bottom:14px; border-collapse:collapse;">
+                      <thead>
+                        <tr style="border-bottom:1px solid var(--border-color); background:rgba(0,0,0,0.3); text-align:left;">
+                          <th style="padding:6px 10px; color:var(--text-primary);">Assessment Criterion</th>
+                          <th style="padding:6px 10px; width:70px; text-align:center; color:var(--text-primary);">Marks</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${sc.rubricCriteria.map(rc => `
+                          <tr style="border-bottom:1px solid var(--border-color);">
+                            <td style="padding:6px 10px; color:var(--text-secondary);">${rc.criterion}</td>
+                            <td style="padding:6px 10px; text-align:center; font-weight:700; color:#10b981;">+${rc.marks}m</td>
+                          </tr>
+                        `).join('')}
+                      </tbody>
+                    </table>
+                  ` : ''}
+
+                  <!-- Model Solution -->
+                  <div style="font-weight:700; color:#10b981; font-size:0.84rem; margin-bottom:8px;">Model Examination Answer:</div>
+                  <div style="background:rgba(0,0,0,0.3); border-radius:6px; padding:14px; font-size:0.84rem; line-height:1.6; color:var(--text-secondary); margin-bottom:14px;">
+                    ${Array.isArray(sc.modelSolution) ? sc.modelSolution.map(s => `<p style="margin-bottom:8px;">${s}</p>`).join('') : sc.modelSolution}
+                  </div>
+
+                  <!-- Examiner Traps -->
+                  ${sc.commonExaminerTraps && sc.commonExaminerTraps.length > 0 ? `
+                    <div style="background:rgba(244,63,94,0.1); border-left:3px solid #f43f5e; padding:10px 14px; border-radius:6px; margin-bottom:14px; font-size:0.82rem; line-height:1.5; color:#f43f5e;">
+                      <strong>Examiner Trap Alert:</strong>
+                      <ul style="margin:4px 0 0; padding-left:18px;">
+                        ${sc.commonExaminerTraps.map(tr => `<li>${tr}</li>`).join('')}
+                      </ul>
+                    </div>
+                  ` : ''}
+
+                  <!-- Self Scoring -->
+                  <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding-top:6px;">
+                    <span style="font-size:0.8rem; font-weight:600; color:var(--text-muted);">Self-Assessment:</span>
+                    <button class="btn btn-sm btn-primary" style="font-size:0.75rem; padding:4px 10px;" onclick="window.scoreScenario('${sc.id}', 'full', ${sc.marks}, '${sc.title}')">
+                      Award Full Marks (+${sc.marks}m)
+                    </button>
+                    <button class="btn btn-sm btn-outline" style="font-size:0.75rem; padding:4px 10px;" onclick="window.scoreScenario('${sc.id}', 'partial', ${sc.marks}, '${sc.title}')">
+                      Partial Credit
+                    </button>
+                    <button class="btn btn-sm btn-outline" style="font-size:0.75rem; padding:4px 10px; border-color:#f43f5e; color:#f43f5e;" onclick="window.scoreScenario('${sc.id}', 'review', ${sc.marks}, '${sc.title}')">
+                      Needs Review (Log Error)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
 
     let trapsHtml = (rev.examTraps || []).map(t => {
       return '<li style="margin-bottom:6px;">' + t + '</li>';
     }).join('');
 
-    contentArea.innerHTML = '<div class="level-header-banner mb-4" style="border-left: 4px solid var(--accent-primary);">' +
-      '<div class="level-badge-tag"><i data-lucide="repeat"></i> 15-Minute Daily Active Recall</div>' +
-      '<h2>' + rev.title + '</h2>' +
-      '<p class="text-secondary">' + rev.subtitle + '</p>' +
-      '</div>' +
-      '<div class="lesson-card mb-4" style="background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(16,185,129,0.08));">' +
-      '<h3 style="margin-top:0;"><i data-lucide="sparkles"></i> High-Yield Executive Summary</h3>' +
-      '<p style="font-size:0.92rem; line-height:1.6; margin-bottom:0; color:var(--text-primary);">' + rev.summary + '</p>' +
-      '</div>' +
-      '<div class="lesson-card mb-4">' +
-      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">' +
-      '<h3 style="margin:0;"><i data-lucide="calculator"></i> Essential Exam Formulas & Definitions</h3>' +
-      '<span class="badge-tech">' + (rev.keyFormulas ? rev.keyFormulas.length : 0) + ' Core Formulas</span>' +
-      '</div>' +
-      '<div class="grid-2-col" style="gap:14px;">' + formulasHtml + '</div>' +
-      '</div>' +
-      '<div class="lesson-card mb-4">' +
-      '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">' +
-      '<h3 style="margin:0;"><i data-lucide="help-circle"></i> Active Recall Flashcards (Click to Flip & Reveal)</h3>' +
-      '<span class="badge-tech">' + (rev.flashcards ? rev.flashcards.length : 0) + ' Question-Answer Cards</span>' +
-      '</div>' +
-      '<p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">Test yourself! Read the scenario question, mentally state your answer, then click the card to reveal the exact model answer.</p>' +
-      '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">' + flashcardsHtml + '</div>' +
-      '</div>' +
-      '<div class="lesson-card mb-4" style="border-left:4px solid #f43f5e;">' +
-      '<h3 style="color:#f43f5e; margin-top:0;"><i data-lucide="shield-alert"></i> Examiner Trap Alert (Where Students Lose Points)</h3>' +
-      '<ul style="margin:8px 0 0 0; padding-left:20px; font-size:0.88rem; line-height:1.6; color:var(--text-secondary);">' + trapsHtml + '</ul>' +
-      '</div>' +
-      '<div class="level-footer-nav mt-5">' +
-      this.renderFooterButtons('daily-revision') +
-      '</div>';
+    contentArea.innerHTML = `
+      <div class="level-header-banner mb-4" style="border-left: 4px solid var(--accent-primary); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
+        <div>
+          <div class="level-badge-tag"><i data-lucide="repeat"></i> ${rev.durationRecommended || '45-60 Min'} Active Recall & Drills</div>
+          <h2>${rev.title}</h2>
+          <p class="text-secondary">${rev.subtitle}</p>
+        </div>
+        <!-- Live Countdown Timer -->
+        <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:10px; padding:12px 18px; text-align:center; min-width:180px;">
+          <div style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:700;">Revision Timer</div>
+          <div id="daily-timer-display" style="font-size:1.6rem; font-weight:800; font-family:monospace; color:#38bdf8; margin:2px 0;">45:00</div>
+          <div style="display:flex; gap:6px; justify-content:center;">
+            <button class="btn btn-sm btn-outline" id="daily-timer-btn" onclick="window.toggleDailyStopwatch()" style="font-size:0.72rem; padding:2px 8px;">
+              <i data-lucide="play"></i> Start
+            </button>
+            <button class="btn btn-sm btn-outline" onclick="window.resetDailyStopwatch()" style="font-size:0.72rem; padding:2px 8px;" title="Reset 45 min">
+              <i data-lucide="rotate-ccw"></i> Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lesson-card mb-4" style="background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(16,185,129,0.08));">
+        <h3 style="margin-top:0;"><i data-lucide="sparkles"></i> High-Yield Executive Summary</h3>
+        <p style="font-size:0.92rem; line-height:1.6; margin-bottom:0; color:var(--text-primary);">${rev.summary}</p>
+      </div>
+
+      <!-- Key Formulas -->
+      <div class="lesson-card mb-4">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+          <h3 style="margin:0;"><i data-lucide="calculator"></i> Essential Exam Formulas & Definitions</h3>
+          <span class="badge-tech">${rev.keyFormulas ? rev.keyFormulas.length : 0} Core Formulas</span>
+        </div>
+        <div class="grid-2-col" style="gap:14px;">${formulasHtml}</div>
+      </div>
+
+      <!-- Concept Comparison Tables -->
+      ${comparisonTablesHtml}
+
+      <!-- 10 Quick-Recall Flashcards -->
+      <div class="lesson-card mb-4">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+          <h3 style="margin:0;"><i data-lucide="help-circle"></i> 10 Active Recall Flashcards (Click to Flip & Reveal)</h3>
+          <span class="badge-tech">${rev.flashcards ? rev.flashcards.length : 0} Flashcards</span>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">Test yourself! Read each scenario question, mentally state your answer, then click to reveal the exact model answer.</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">${flashcardsHtml}</div>
+      </div>
+
+      <!-- 5 Math Questions -->
+      ${mathQuestionsHtml}
+
+      <!-- 2 Unfamiliar Scenarios -->
+      ${scenarioQuestionsHtml}
+
+      <!-- Examiner Traps -->
+      <div class="lesson-card mb-4" style="border-left:4px solid #f43f5e;">
+        <h3 style="color:#f43f5e; margin-top:0;"><i data-lucide="shield-alert"></i> Examiner Trap Alert (Where Students Lose Points)</h3>
+        <ul style="margin:8px 0 0 0; padding-left:20px; font-size:0.88rem; line-height:1.6; color:var(--text-secondary);">${trapsHtml}</ul>
+      </div>
+
+      <div class="level-footer-nav mt-5">
+        ${this.renderFooterButtons('daily-revision')}
+      </div>
+    `;
 
     window.renderLatex(contentArea);
     if (window.lucide) window.lucide.createIcons();
@@ -1336,6 +1610,158 @@ class LearningApp {
     }
   }
 }
+
+// Interactive Daily Revision Handlers
+window.checkMathAnswer = function(qId, correctVal, tol, units, marks, topicName) {
+  const inputEl = document.getElementById(`math-input-${qId}`);
+  const feedbackEl = document.getElementById(`math-feedback-${qId}`);
+  const solutionEl = document.getElementById(`math-solution-${qId}`);
+  if (!inputEl || !feedbackEl) return;
+
+  const raw = inputEl.value.trim();
+  if (raw === '') {
+    feedbackEl.innerHTML = `<span style="color: #f43f5e; font-weight: 600;"><i data-lucide="alert-circle"></i> Please enter your numerical calculation result first.</span>`;
+    if (window.lucide) window.lucide.createIcons();
+    return;
+  }
+
+  const val = parseFloat(raw);
+  if (isNaN(val)) {
+    feedbackEl.innerHTML = `<span style="color: #f43f5e; font-weight: 600;"><i data-lucide="alert-circle"></i> Please enter a valid number.</span>`;
+    if (window.lucide) window.lucide.createIcons();
+    return;
+  }
+
+  const diff = Math.abs(val - correctVal);
+  const isCorrect = diff <= (tol || 0.05);
+
+  if (isCorrect) {
+    feedbackEl.innerHTML = `<div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; border-radius: 6px; padding: 10px; color: #10b981; font-weight: 700;">
+      <i data-lucide="check-circle" style="vertical-align: middle;"></i> Correct! +${marks} Marks (${correctVal} ${units || ''})
+    </div>`;
+  } else {
+    feedbackEl.innerHTML = `<div style="background: rgba(244, 63, 94, 0.15); border: 1px solid #f43f5e; border-radius: 6px; padding: 10px; color: #f43f5e; font-weight: 700;">
+      <i data-lucide="x-circle" style="vertical-align: middle;"></i> Incorrect. Your answer: ${val}, Target: ${correctVal} ± ${tol || 0.05} ${units || ''}
+    </div>`;
+    if (window.MasteryTracker) {
+      window.MasteryTracker.logMistake({
+        module: topicName || 'Daily Math Revision',
+        exam: (topicName && (topicName.includes('IRS') || topicName.includes('MR') || topicName.includes('RS') || topicName.includes('CS'))) ? 'IRS' : 'PRS',
+        question: `Math Calculation: ${topicName || qId}`,
+        userAnswer: `${val} ${units || ''}`,
+        correctAnswer: `${correctVal} ${units || ''}`,
+        errorType: 'Calculation Error',
+        keyTakeaway: `Review arithmetic steps and formulas for ${topicName || qId}.`
+      });
+    }
+  }
+
+  if (solutionEl) {
+    solutionEl.style.display = 'block';
+    if (window.renderLatex) window.renderLatex(solutionEl);
+  }
+  if (window.lucide) window.lucide.createIcons();
+};
+
+window.scoreScenario = function(scId, scoreType, marks, topicName) {
+  const badgeEl = document.getElementById(`scenario-score-badge-${scId}`);
+  if (badgeEl) {
+    if (scoreType === 'full') {
+      badgeEl.innerHTML = `<span class="badge-tech" style="background: #10b981; color: white;">Full Marks Awarded (+${marks}m)</span>`;
+    } else if (scoreType === 'partial') {
+      badgeEl.innerHTML = `<span class="badge-tech" style="background: #f59e0b; color: white;">Partial Credit Recorded</span>`;
+    } else {
+      badgeEl.innerHTML = `<span class="badge-tech" style="background: #f43f5e; color: white;">Logged to Mistake Tracker</span>`;
+      if (window.MasteryTracker) {
+        window.MasteryTracker.logMistake({
+          module: topicName || 'Scenario Crucible',
+          exam: (topicName && (topicName.includes('IRS') || topicName.includes('MR') || topicName.includes('RS') || topicName.includes('CS'))) ? 'IRS' : 'PRS',
+          question: `Scenario: ${topicName || scId}`,
+          userAnswer: 'Self-assessed needs review',
+          correctAnswer: 'Review model rubric solution',
+          errorType: 'Scenario Interpretation',
+          keyTakeaway: `Revisit examiner marking criteria and domain pitfalls for ${topicName || scId}.`
+        });
+      }
+    }
+  }
+};
+
+window.trackFlashcardRecall = function(idx, success, dayId) {
+  const box = document.getElementById(`flashcard-${idx}`);
+  if (box) {
+    if (success) {
+      box.style.borderColor = '#10b981';
+      box.style.background = 'rgba(16, 185, 129, 0.05)';
+    } else {
+      box.style.borderColor = '#f59e0b';
+      box.style.background = 'rgba(245, 158, 11, 0.05)';
+      if (window.MasteryTracker) {
+        const prompt = box.querySelector('div:nth-child(2)')?.textContent || `Flashcard #${idx + 1}`;
+        window.MasteryTracker.logMistake({
+          module: dayId || 'Flashcard Recall',
+          exam: dayId && dayId.includes('reasoning') ? 'IRS' : 'PRS',
+          question: prompt,
+          userAnswer: 'Active recall failed',
+          correctAnswer: 'See flashcard model answer',
+          errorType: 'Recall Gap',
+          keyTakeaway: `Review active recall card #${idx + 1}.`
+        });
+      }
+    }
+  }
+};
+
+window.toggleDailyStopwatch = function() {
+  const btn = document.getElementById('daily-timer-btn');
+  const display = document.getElementById('daily-timer-display');
+  if (!btn || !display) return;
+
+  if (window._dailyTimerInterval) {
+    clearInterval(window._dailyTimerInterval);
+    window._dailyTimerInterval = null;
+    btn.innerHTML = `<i data-lucide="play"></i> Resume`;
+    btn.className = 'btn btn-sm btn-outline';
+  } else {
+    if (typeof window._dailySecondsLeft === 'undefined' || window._dailySecondsLeft <= 0) {
+      window._dailySecondsLeft = 45 * 60;
+    }
+    btn.innerHTML = `<i data-lucide="pause"></i> Pause`;
+    btn.className = 'btn btn-sm btn-primary';
+
+    window._dailyTimerInterval = setInterval(() => {
+      window._dailySecondsLeft--;
+      if (window._dailySecondsLeft <= 0) {
+        clearInterval(window._dailyTimerInterval);
+        window._dailyTimerInterval = null;
+        display.textContent = '00:00';
+        btn.innerHTML = `<i data-lucide="rotate-ccw"></i> Reset`;
+        alert('45-Minute Timed Revision Completed! Review your mathematical workings.');
+        return;
+      }
+      const mins = Math.floor(window._dailySecondsLeft / 60);
+      const secs = window._dailySecondsLeft % 60;
+      display.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }, 1000);
+  }
+  if (window.lucide) window.lucide.createIcons();
+};
+
+window.resetDailyStopwatch = function() {
+  if (window._dailyTimerInterval) {
+    clearInterval(window._dailyTimerInterval);
+    window._dailyTimerInterval = null;
+  }
+  window._dailySecondsLeft = 45 * 60;
+  const display = document.getElementById('daily-timer-display');
+  const btn = document.getElementById('daily-timer-btn');
+  if (display) display.textContent = '45:00';
+  if (btn) {
+    btn.innerHTML = `<i data-lucide="play"></i> Start`;
+    btn.className = 'btn btn-sm btn-outline';
+  }
+  if (window.lucide) window.lucide.createIcons();
+};
 
 // Global helper for code copying
 window.copyCodeBlock = function(elementId) {
