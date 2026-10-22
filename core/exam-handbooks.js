@@ -59,8 +59,8 @@ window.ExamHandbooks = {
                 </tr>
                 <tr>
                   <td><strong>SVM Margin Width</strong></td>
-                  <td>$$\\gamma = \\frac{2}{\|\\mathbf{w}\|} = \\frac{2}{\\sqrt{\\sum w_i^2}}$$</td>
-                  <td>Distance between $w^T x + b = +1$ and $w^T x + b = -1$. Larger margin $\implies$ higher generalization.</td>
+                  <td>$$\\gamma = \\frac{2}{\\|\\mathbf{w}\\|} = \\frac{2}{\\sqrt{\\sum w_i^2}}$$</td>
+                  <td>Distance between $\\mathbf{w}^T \\mathbf{x} + b = +1$ and $\\mathbf{w}^T \\mathbf{x} + b = -1$. Larger margin $\\implies$ higher generalization.</td>
                 </tr>
                 <tr>
                   <td><strong>CNN Output Sizing</strong></td>
@@ -85,7 +85,7 @@ window.ExamHandbooks = {
                 <tr>
                   <td><strong>3-Sigma Anomaly Threshold</strong></td>
                   <td>$$\\tau = \\mu_{\\text{error}} + 3 \\sigma_{\\text{error}}$$</td>
-                  <td>Calibrated on normal training reconstruction error $e_i = \|x_i - \hat{x}_i\|^2$. If test error $> \\tau \implies$ anomaly!</td>
+                  <td>Calibrated on normal training reconstruction error $e_i = \\|x_i - \\hat{x}_i\\|^2$. If test error $> \\tau \\implies$ anomaly!</td>
                 </tr>
                 <tr>
                   <td><strong>AdaBoost Alpha & Weight</strong></td>
@@ -115,11 +115,11 @@ window.ExamHandbooks = {
             <p style="font-size: 0.88rem; line-height: 1.6;">
               Given 9 historical maintenance records: 5 Carryback ($C$), 4 Mistracking ($M$). Observation: Vibration = Fair, Acoustic = Low.<br>
               $$P(C) = 5/9, \\quad P(M) = 4/9$$
-              $$P(\\text{Fair} \\mid C) = 1/5, \\quad P(\\text{Low} \\mid C) = 2/5 \implies P(\\text{Obs} \\mid C) = \\frac{1}{5} \\times \\frac{2}{5} = \\frac{2}{25} = 0.08$$
-              $$P(\\text{Fair} \\mid M) = 2/4 = 1/2, \\quad P(\\text{Low} \\mid M) = 2/4 = 1/2 \implies P(\\text{Obs} \\mid M) = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4} = 0.25$$
+              $$P(\\text{Fair} \\mid C) = 1/5, \\quad P(\\text{Low} \\mid C) = 2/5 \\implies P(\\text{Obs} \\mid C) = \\frac{1}{5} \\times \\frac{2}{5} = \\frac{2}{25} = 0.08$$
+              $$P(\\text{Fair} \\mid M) = 2/4 = 1/2, \\quad P(\\text{Low} \\mid M) = 2/4 = 1/2 \\implies P(\\text{Obs} \\mid M) = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4} = 0.25$$
               $$\\text{Unnormalized Posterior: } P(C) \\cdot P(\\text{Obs} \\mid C) = \\frac{5}{9} \\times 0.08 = \\frac{0.4}{9} \\approx 0.0444$$
               $$P(M) \\cdot P(\\text{Obs} \\mid M) = \\frac{4}{9} \\times 0.25 = \\frac{1.0}{9} \\approx 0.1111$$
-              $$\\mathbf{\\text{Decision: } P(M \\mid \\text{Obs}) > P(C \\mid \\text{Obs}) \implies \\text{Diagnose Mistracking!}}$$
+              $$\\mathbf{\\text{Decision: } P(M \\mid \\text{Obs}) > P(C \\mid \\text{Obs}) \\implies \\text{Diagnose Mistracking!}}$$
             </p>
           </div>
         </div>
@@ -283,12 +283,12 @@ window.ExamHandbooks = {
               <tr>
                 <td><strong>A* Search</strong></td>
                 <td>$$f(n) = g(n) + h(n)$$</td>
-                <td>$g(n)$ = exact path cost from start, $h(n)$ = heuristic estimate to goal. Admissible: $h(n) \\le h^*(n)$. Consistent: $h(n) \\le c(n,a,n') + h(n')$.</td>
+                <td>$g(n)$ = exact path cost from start, $h(n)$ = heuristic estimate to goal.<br>Admissible: $h(n) \\le h^*(n)$.<br>Consistent: $h(n) \\le c(n, a, n') + h(n')$.</td>
               </tr>
               <tr>
                 <td><strong>MYCIN CF Combination</strong></td>
                 <td>$$CF_{\\text{combine}} = CF_1 + CF_2 - CF_1 \\cdot CF_2 \\quad (CF_1, CF_2 \\ge 0)$$</td>
-                <td>If both $<0 \implies CF_1 + CF_2 + CF_1 CF_2$. If opposite signs $\implies \\frac{CF_1 + CF_2}{1 - \\min(|CF_1|, |CF_2|)}$.</td>
+                <td>If both $CF_1, CF_2 < 0 \\implies CF_1 + CF_2 + CF_1 \\cdot CF_2$.<br>If opposite signs $\\implies \\frac{CF_1 + CF_2}{1 - \\min(|CF_1|, |CF_2|)}$.</td>
               </tr>
               <tr>
                 <td><strong>Fuzzy Centroid Defuzzification</strong></td>
@@ -297,17 +297,17 @@ window.ExamHandbooks = {
               </tr>
               <tr>
                 <td><strong>Association Support & Lift</strong></td>
-                <td>$$\\text{Supp} = \\frac{\\text{count}(X \\cup Y)}{N}, \\quad \\text{Lift} = \\frac{\\text{Conf}(X \implies Y)}{\\text{Supp}(Y)}$$</td>
+                <td>$$\\text{Supp} = \\frac{\\text{count}(X \\cup Y)}{N}, \\quad \\text{Lift} = \\frac{\\text{Conf}(X \\implies Y)}{\\text{Supp}(Y)}$$</td>
                 <td>Lift $> 1$ indicates positive association; Lift $= 1$ independence; Lift $< 1$ negative substitution.</td>
               </tr>
               <tr>
                 <td><strong>TransE KG Loss</strong></td>
-                <td>$$\\mathcal{L} = \\max(0, \\gamma + \|\\mathbf{h} + \\mathbf{r} - \\mathbf{t}\| - \|\\mathbf{h'} + \\mathbf{r} - \\mathbf{t'}\|)$$</td>
+                <td>$$\\mathcal{L} = \\max\\left(0, \\gamma + \\|\\mathbf{h} + \\mathbf{r} - \\mathbf{t}\\| - \\|\\mathbf{h}' + \\mathbf{r} - \\mathbf{t}'\\|\\right)$$</td>
                 <td>Enforces head + relation $\\approx$ tail for true triples while penalizing corrupted negative triples by margin $\\gamma$.</td>
               </tr>
               <tr>
                 <td><strong>Genetic Order Crossover (OX)</strong></td>
-                <td>$$\\text{Child Swath} = \\text{Parent 1 Swath}, \\quad \\text{Remainder} = \\text{Parent 2 in order}$$</td>
+                <td>$$\\text{Child Swath} = \\text{Parent 1 Swath}, \\quad \\text{Remainder} = \\text{Parent 2 in relative order}$$</td>
                 <td>Critical for permutation problems (TSP) to guarantee every city is visited exactly once with no duplicates!</td>
               </tr>
             </tbody>
