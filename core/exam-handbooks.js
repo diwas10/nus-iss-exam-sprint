@@ -75,7 +75,7 @@ window.ExamHandbooks = {
                 <tr>
                   <td><strong>Evaluation Metrics</strong></td>
                   <td>$$\\text{Precision} = \\frac{TP}{TP+FP}, \\quad \\text{Recall} = \\frac{TP}{TP+FN}$$</td>
-                  <td>$$\\text{F1} = \\frac{2PR}{P+R}, \\quad \\text{Lift} = \\frac{\\text{Decile 1 Responders (\\\\%)}}{\\text{Overall Responders (\\\\%)}}$$</td>
+                  <td>$$\\text{F1} = \\frac{2PR}{P+R}, \\quad \\text{Lift} = \\frac{\\text{Decile 1 Responders (\\%)}}{\\text{Overall Responders (\\%)}}$$</td>
                 </tr>
                 <tr>
                   <td><strong>PCA Covariance & Variance</strong></td>
